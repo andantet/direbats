@@ -1,0 +1,33 @@
+{
+    "schemaVersion": 1,
+    "license": "MIT",
+    "id": "direbats",
+    "version": "${version}",
+
+    "name": "Direbats",
+    "description": "Description",
+    "icon": "pack.png",
+
+    "authors": [
+        "Team Hollow"
+    ],
+    "contributors": [],
+    "contact": {
+        "homepage": "https://direbats.teamhollow.net",
+        "sources": "https://github.com/teamhollow/direbats"
+    },
+
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "net.teamhollow.direbats.Direbats"
+        ],
+        "client": [],
+        "server": []
+    },
+    "mixins": [],
+    "depends": {
+        "fabricloader": ">=0.9.0",
+        "fabric": "*"
+    }
+}
