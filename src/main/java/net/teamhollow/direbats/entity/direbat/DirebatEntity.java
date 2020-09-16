@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-import blue.endless.jankson.annotation.Nullable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
@@ -66,7 +65,7 @@ public class DirebatEntity extends PathAwareEntity {
     private static final TargetPredicate CLOSE_PLAYER_PREDICATE = new TargetPredicate().setBaseMaxDistance(4.0D).includeTeammates();
 
     private static final Predicate<ItemEntity> PICKABLE_DROP_FILTER = new Predicate<ItemEntity>() {
-        public boolean test(@Nullable ItemEntity itemEntity) {
+        public boolean test(ItemEntity itemEntity) {
             return itemEntity != null && !itemEntity.cannotPickup();
         }
     };
@@ -431,7 +430,6 @@ public class DirebatEntity extends PathAwareEntity {
 
         }
 
-        @Nullable
         private Vec3d getRandomLocation() {
             Vec3d vec3d1;
             if (DirebatEntity.this.hasPositionTarget() && !DirebatEntity.this.isWithinDistance(DirebatEntity.this.getPositionTarget(), 22)) {
