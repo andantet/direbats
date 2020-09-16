@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:arrow"
+    },
+    "X": {
+      "item": "direbats:batfang"
+    }
+  },
+  "result": {
+    "item": "direbats:fangarrow",
+    "count": 4
+  }
+}
