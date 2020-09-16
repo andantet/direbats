@@ -22,7 +22,9 @@
         "main": [
             "net.teamhollow.direbats.Direbats"
         ],
-        "client": [],
+        "client": [
+            "net.teamhollow.direbats.DirebatsClient"
+        ],
         "server": []
     },
     "mixins": [],
