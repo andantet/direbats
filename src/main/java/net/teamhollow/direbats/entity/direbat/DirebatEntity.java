@@ -109,21 +109,20 @@ public class DirebatEntity extends PathAwareEntity {
 
     @Override
     protected EntityNavigation createNavigation(World world) {
-        BirdNavigation flyingpathnavigator = new BirdNavigation(this, world) {
+        BirdNavigation nav = new BirdNavigation(this, world) {
             public boolean isValidPosition(BlockPos pos) {
                 return !this.world.getBlockState(pos.down()).isAir();
             }
         };
-        flyingpathnavigator.setCanPathThroughDoors(false);
-        flyingpathnavigator.setCanSwim(false);
-        flyingpathnavigator.setCanEnterOpenDoors(true);
-        return flyingpathnavigator;
+        nav.setCanPathThroughDoors(false);
+        nav.setCanSwim(false);
+        nav.setCanEnterOpenDoors(true);
+        return nav;
     }
 
     @Override
     public Vec3d method_26318(Vec3d vec3d, float f) {
         this.updateVelocity(this.getRelevantMoveFactor(f), vec3d);
-        // this.setMotion(this.handleOnClimbable(this.getVelocity()));
         this.move(MovementType.SELF, this.getVelocity());
         Vec3d motionVector = this.getVelocity();
         if ((this.horizontalCollision || this.jumping) && this.isHoldingOntoLadder()) {
@@ -178,8 +177,7 @@ public class DirebatEntity extends PathAwareEntity {
     }
 
     @Override
-    protected void pushAway(Entity entity) {
-    }
+    protected void pushAway(Entity entity) {}
 
     @Override
     protected void tickCramming() {}
@@ -196,9 +194,9 @@ public class DirebatEntity extends PathAwareEntity {
         return ((Byte) this.dataTracker.get(DIREBAT_FLAGS) & 1) != 0;
     }
 
-    public void setHanging(boolean roosting) {
+    public void setHanging(boolean hanging) {
         byte batFlag = (Byte) this.dataTracker.get(DIREBAT_FLAGS);
-        if (roosting) {
+        if (hanging) {
             this.dataTracker.set(DIREBAT_FLAGS, (byte) (batFlag | 1));
         } else {
             this.dataTracker.set(DIREBAT_FLAGS, (byte) (batFlag & -2));
@@ -355,8 +353,7 @@ public class DirebatEntity extends PathAwareEntity {
                 return false;
             }
 
-            return worldLight > random.nextInt(maximumLight)
-                    ? false : canMobSpawn(type, world, spawnReason, pos, random);
+            return worldLight > random.nextInt(maximumLight) ? false : canMobSpawn(type, world, spawnReason, pos, random);
         }
     }
 
@@ -386,14 +383,6 @@ public class DirebatEntity extends PathAwareEntity {
             super(entity, 1.0D, true);
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
-        public boolean canStart() {
-            return super.canStart();
-        }
-
         public boolean shouldContinue() {
             float attackerBrightness = this.mob.getBrightnessAtEyes();
             if (attackerBrightness <= 0.5F && this.mob.getRandom().nextInt(100) == 0) {
@@ -410,10 +399,6 @@ public class DirebatEntity extends PathAwareEntity {
             this.setControls(EnumSet.of(Goal.Control.MOVE));
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
         public boolean canStart() {
             return DirebatEntity.this.navigation.isIdle() && !DirebatEntity.this.isHanging() && DirebatEntity.this.random.nextInt(5) == 0;
         }
