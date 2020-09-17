@@ -7,6 +7,7 @@ import net.teamhollow.direbats.Direbats;
 import net.teamhollow.direbats.item.*;
 
 public class DBItems {
+    public static final Item DIREBAT_FANG = register("direbat_fang", new Item(new Item.Settings().group(Direbats.ITEM_GROUP)));
     public static final Item DIREBAT_FANG_ARROW = register(DirebatFangArrowItem.id, new DirebatFangArrowItem());
 
     public DBItems() {}
