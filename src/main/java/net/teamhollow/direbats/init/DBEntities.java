@@ -1,8 +1,5 @@
 package net.teamhollow.direbats.init;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ProjectileDispenserBehavior;
@@ -21,9 +18,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.teamhollow.direbats.Direbats;
 import net.teamhollow.direbats.entity.direbat.DirebatEntity;
-import net.teamhollow.direbats.entity.direbat.DirebatEntityRenderer;
 import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntity;
-import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntityRenderer;
 
 public class DBEntities {
     public static final EntityType<DirebatEntity> DIREBAT = register(
@@ -47,20 +42,6 @@ public class DBEntities {
                 return persistentProjectileEntity;
             }
         });
-    }
-
-    @Environment(EnvType.CLIENT)
-    public static void registerRenderers() {
-        EntityRendererRegistry INSTANCE = EntityRendererRegistry.INSTANCE;
-
-        INSTANCE.register(
-            DIREBAT,
-            (entityRenderDispatcher, context) -> new DirebatEntityRenderer(entityRenderDispatcher)
-        );
-        INSTANCE.register(
-            DIREBAT_FANG_ARROW,
-            (entityRenderDispatcher, context) -> new DirebatFangArrowEntityRenderer(entityRenderDispatcher)
-        );
     }
 
     private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> entityType,
