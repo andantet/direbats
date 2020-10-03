@@ -326,7 +326,7 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     public static boolean canSpawn(EntityType<DirebatEntity> type, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        if (pos.getY() >= world.getSeaLevel() && world.getCurrentMoonPhaseFactor() < 1.0F) {
+        if (pos.getY() >= world.getSeaLevel() && world.getMoonFactor() < 1.0F) {
             return false;
         } else {
             int worldLight = world.getLight(pos);
@@ -407,7 +407,7 @@ public class DirebatEntity extends CreatureEntity {
          * Returns whether an in-progress EntityAIBase should continue executing
          */
         public boolean shouldContinueExecuting() {
-            return DirebatEntity.this.navigator.func_226337_n_();
+            return DirebatEntity.this.navigator.hasPath();
         }
 
         /**
@@ -455,7 +455,7 @@ public class DirebatEntity extends CreatureEntity {
         }
 
         public boolean shouldContinueExecuting() {
-            return DirebatEntity.this.navigator.func_226337_n_();
+            return DirebatEntity.this.navigator.hasPath();
         }
 
         public void tick() {
