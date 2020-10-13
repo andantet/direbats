@@ -10,11 +10,11 @@
       "item": "minecraft:arrow"
     },
     "X": {
-      "item": "direbats:batfang"
+      "item": "direbats:bat_fang"
     }
   },
   "result": {
-    "item": "direbats:fangarrow",
+    "item": "direbats:fang_arrow",
     "count": 4
   }
 }

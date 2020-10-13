@@ -1,4 +1,4 @@
-package teamhollow.direbats.client.render.entity;
+package net.teamhollow.direbats.entity.direbat;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -6,19 +6,17 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
-import teamhollow.direbats.client.render.entity.layer.DirebatHeldItemLayer;
-import teamhollow.direbats.client.render.entity.model.DirebatModel;
-import teamhollow.direbats.entity.mob.DirebatEntity;
+import net.teamhollow.direbats.Direbats;
 
-public class DirebatEntityRenderer extends MobRenderer<DirebatEntity, DirebatModel> {
+public class DirebatEntityRenderer extends MobRenderer<DirebatEntity, DirebatEntityModel> {
     public DirebatEntityRenderer(EntityRendererManager entityRenderDispatcher) {
-        super(entityRenderDispatcher, new DirebatModel(), 0.5f);
-        this.addLayer(new DirebatHeldItemLayer(this));
+        super(entityRenderDispatcher, new DirebatEntityModel(), 0.5f);
+        this.addLayer(new DirebatEntityHeldItemLayer(this));
     }
 
     @Override
     public ResourceLocation getEntityTexture(DirebatEntity entity) {
-        return new ResourceLocation("direbats", "textures/entity/direbat.png");
+        return new ResourceLocation(Direbats.MOD_ID, "textures/entity/direbat.png");
     }
 
     @Override

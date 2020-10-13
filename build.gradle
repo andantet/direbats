@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '1.16.3-1.0.0.3'
-group = 'teamhollow.direbats' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'net.teamhollow.direbats' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'Direbats'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.

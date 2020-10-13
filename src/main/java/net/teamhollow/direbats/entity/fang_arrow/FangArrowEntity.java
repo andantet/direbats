@@ -1,4 +1,4 @@
-package teamhollow.direbats.entity.projectile;
+package net.teamhollow.direbats.entity.fang_arrow;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -11,10 +11,11 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
-import teamhollow.direbats.init.ModEntities;
-import teamhollow.direbats.init.ModItems;
+import net.teamhollow.direbats.init.DBEntities;
+import net.teamhollow.direbats.init.DBItems;
 
 public class FangArrowEntity extends AbstractArrowEntity {
+    public static final String id = "fang_arrow";
 
     public FangArrowEntity(EntityType<? extends FangArrowEntity> entityType, World world) {
         super(entityType, world);
@@ -22,15 +23,15 @@ public class FangArrowEntity extends AbstractArrowEntity {
     }
 
     public FangArrowEntity(World world, double x, double y, double z) {
-        super(ModEntities.FANGARROW, x, y, z, world);
+        super(DBEntities.FANG_ARROW, x, y, z, world);
     }
 
     public FangArrowEntity(World world, LivingEntity owner) {
-        super(ModEntities.FANGARROW, owner, world);
+        super(DBEntities.FANG_ARROW, owner, world);
     }
 
     public FangArrowEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
-        this(ModEntities.FANGARROW, world);
+        this(DBEntities.FANG_ARROW, world);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class FangArrowEntity extends AbstractArrowEntity {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ModItems.FANGARROW);
+        return new ItemStack(DBItems.FANG_ARROW);
     }
 
     @Override

@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[34,)"
-license = "https://github.com/teamhollow/direbats/blob/master/LICENSE"
+license = "https://github.com/teamhollow/direbats/blob/HEAD/LICENSE"
 [[mods]]
 
 modId = "direbats"

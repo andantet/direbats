@@ -1,7 +1,7 @@
 {
-  "itemGroup.direbats.direbatstab": "Direbats",
-  "item.direbats.batfang": "Bat Fang",
-  "item.direbats.direbategg": "Direbat Spawn Egg",
-  "item.direbats.fangarrow": "Blackout Arrow",
+  "itemGroup.direbats:item_group": "Direbats",
+  "item.direbats.bat_fang": "Bat Fang",
+  "item.direbats.direbat_spawn_egg": "Direbat Spawn Egg",
+  "item.direbats.fang_arrow": "Fang Arrow",
   "entity.direbats.direbat": "Direbat"
 }

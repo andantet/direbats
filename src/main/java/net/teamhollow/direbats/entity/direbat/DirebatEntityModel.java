@@ -1,14 +1,13 @@
-package teamhollow.direbats.client.render.entity.model;
+package net.teamhollow.direbats.entity.direbat;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
-import teamhollow.direbats.entity.mob.DirebatEntity;
 
-public class DirebatModel extends EntityModel<DirebatEntity> {
-    public final ModelRenderer werebat;
+public class DirebatEntityModel extends EntityModel<DirebatEntity> {
+    public final ModelRenderer direbat;
     public final ModelRenderer head;
     public final ModelRenderer bone;
     public final ModelRenderer earbend;
@@ -21,17 +20,18 @@ public class DirebatModel extends EntityModel<DirebatEntity> {
     public final ModelRenderer talons;
     public final ModelRenderer tailbone;
 
-    public DirebatModel() {
+    public DirebatEntityModel() {
         textureWidth = 64;
         textureHeight = 64;
-        werebat = new ModelRenderer(this);
-        werebat.setRotationPoint(0.0F, 7.0F, 0.0F);
-        setRotationAngle(werebat, 0.4363F, 0.0F, 0.0F);
+
+        direbat = new ModelRenderer(this);
+        direbat.setRotationPoint(0.0F, 7.0F, 0.0F);
+        setRotationAngle(direbat, 0.4363F, 0.0F, 0.0F);
 
 
         head = new ModelRenderer(this);
         head.setRotationPoint(0.0F, 0.0F, 0.0F);
-        werebat.addChild(head);
+        direbat.addChild(head);
         setRotationAngle(head, -0.0873F, 0.0F, 0.0F);
         head.setTextureOffset(32, 41).addBox(-2.0F, -3.0F, -9.0F, 4.0F, 3.0F, 4.0F, 0.0F, false);
         head.setTextureOffset(0, 19).addBox(-4.0F, -6.0F, -5.0F, 8.0F, 6.0F, 6.0F, 0.0F, false);
@@ -51,7 +51,7 @@ public class DirebatModel extends EntityModel<DirebatEntity> {
 
         Body = new ModelRenderer(this);
         Body.setRotationPoint(0.0F, 0.0F, 1.0F);
-        werebat.addChild(Body);
+        direbat.addChild(Body);
         setRotationAngle(Body, 0.4363F, 0.0F, 0.0F);
         Body.setTextureOffset(0, 0).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 13.0F, 6.0F, 0.0F, false);
 
@@ -126,7 +126,7 @@ public class DirebatModel extends EntityModel<DirebatEntity> {
 
     @Override
     public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        werebat.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn);
+        direbat.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn);
     }
 
     public void setRotationAngle(ModelRenderer bone, float x, float y, float z) {

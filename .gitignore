@@ -13,6 +13,9 @@ out
 *.iml
 .idea
 
+# vscode
+.vscode/
+
 # gradle
 build
 .gradle
@@ -25,3 +28,4 @@ run
 forge*changelog.txt
 
 Scripts/
+src/test/

@@ -1,6 +1,8 @@
-package teamhollow.direbats.entity.mob;
+package net.teamhollow.direbats.entity.direbat;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -44,6 +46,8 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 public class DirebatEntity extends CreatureEntity {
+    public static final String id = "direbat";
+
     private static final DataParameter<Byte> BAT_FLAGS = EntityDataManager.createKey(DirebatEntity.class, DataSerializers.BYTE);
     private static final EntityPredicate CLOSE_PLAYER_PREDICATE = (new EntityPredicate()).setDistance(4.0D).allowFriendlyFire();
 
@@ -98,7 +102,8 @@ public class DirebatEntity extends CreatureEntity {
 //                System.out.println("this.world.getBlockState(pos).isAir(worldIn, pos.down()) = " + this.world.getBlockState(pos).isAir(worldIn, pos.down()));
 //                System.out.println("this.world.getBlockState(pos.down()).isAir(worldIn, pos.down()) = " + this.world.getBlockState(pos.down()).isAir(worldIn, pos.down()));
 //                System.out.println("this.world.getBlockState(pos.down()).isAir() = " + this.world.getBlockState(pos.down()).isAir());
-                return !this.world.getBlockState(pos.down()).isAir();
+                Block block = world.getBlockState(pos).getBlock();
+                return !(block == Blocks.AIR && block == Blocks.CAVE_AIR && block == Blocks.VOID_AIR);
             }
         };
         flyingpathnavigator.setCanOpenDoors(false);
@@ -126,7 +131,8 @@ public class DirebatEntity extends CreatureEntity {
 
     @Override
     public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
-        return worldIn.getBlockState(pos).isAir() ? 10.0F * (1F / worldIn.getBrightness(pos)) : 0.0F;
+        Block block = worldIn.getBlockState(pos).getBlock();
+        return (block == Blocks.AIR || block == Blocks.CAVE_AIR || block == Blocks.VOID_AIR) ? 10.0F * (1F / worldIn.getDimensionType().getAmbientLight(worldIn.getLight(pos))) : 0.0F;
     }
 
     @Override
@@ -326,7 +332,7 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     public static boolean canSpawn(EntityType<DirebatEntity> type, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        if (pos.getY() >= world.getSeaLevel() && world.getMoonFactor() < 1.0F) {
+        if (pos.getY() >= 63 && world.getMoonFactor() < 1.0F) {
             return false;
         } else {
             int worldLight = world.getLight(pos);
@@ -421,7 +427,6 @@ public class DirebatEntity extends CreatureEntity {
 
         }
 
-        // TODO: PLEASE RENAME THESE VARIABLE NAMES TO MAKE SENSE!!!
         @Nullable
         private Vector3d getRandomLocation() {
             Vector3d vector3d;
@@ -478,11 +483,8 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     static class TargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-        private final DirebatEntity entity;
-
         public TargetGoal(DirebatEntity entity, Class<T> classTarget) {
             super(entity, classTarget, true);
-            this.entity = entity;
         }
 
         /**

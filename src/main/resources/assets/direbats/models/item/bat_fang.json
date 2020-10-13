@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "direbats:item/batfang"
+    "layer0": "direbats:item/bat_fang"
   }
 }
