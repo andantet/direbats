@@ -57,7 +57,7 @@ public class DirebatEntity extends PathAwareEntity {
     public static final String id = "direbat";
     public static final EntityType.Builder<DirebatEntity> builder = EntityType.Builder
         .create(DirebatEntity::new, SpawnGroup.CREATURE)
-        .setDimensions(0.75F, 0.75F)
+        .setDimensions(1.0F, 1.0F)
         .maxTrackingRange(5);
     public static final int[] spawnEggColors = { 5065037, 9433559 };
 
