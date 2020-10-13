@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.teamhollow.direbats.entity.direbat.DirebatEntityRenderer;
-import net.teamhollow.direbats.entity.fang_arrow.FangArrowEntityRenderer;
+import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntityRenderer;
 import net.teamhollow.direbats.init.DBEntities;
 import net.teamhollow.direbats.init.DBItems;
 
@@ -44,6 +44,6 @@ public class Direbats {
 
 	private void clientSetup(final FMLClientSetupEvent event) {
 		RenderingRegistry.registerEntityRenderingHandler(DBEntities.DIREBAT, DirebatEntityRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(DBEntities.FANG_ARROW, FangArrowEntityRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(DBEntities.DIREBAT_FANG_ARROW, DirebatFangArrowEntityRenderer::new);
 	}
 }

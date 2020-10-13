@@ -6,16 +6,16 @@ import net.minecraft.item.ArrowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.teamhollow.direbats.entity.fang_arrow.FangArrowEntity;
+import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntity;
 
-public class FangArrowItem extends ArrowItem {
-    public static final String id = FangArrowEntity.id;
+public class DirebatFangArrowItem extends ArrowItem {
+    public static final String id = DirebatFangArrowEntity.id;
 
-    public FangArrowItem(Item.Properties settings) {
+    public DirebatFangArrowItem(Item.Properties settings) {
         super(settings);
     }
 
     public AbstractArrowEntity createArrow(World worldIn, ItemStack stack, LivingEntity shooter) {
-        return new FangArrowEntity(worldIn, shooter);
+        return new DirebatFangArrowEntity(worldIn, shooter);
     }
 }
