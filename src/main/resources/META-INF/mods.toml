@@ -13,7 +13,7 @@ logoFile="pack.png"
 
 version = "${file.jarVersion}"
 # A URL to query for updates for this mod. See the JSON update specification <here>
-#updateJSONURL="http://myurl.me/"
+updateJSONURL="https://teamhollow.net/data/update/direbats.json"
 
 displayURL="https://direbats.teamhollow.net"
 issueTrackerURL = "https://github.com/teamhollow/direbats/issues"
