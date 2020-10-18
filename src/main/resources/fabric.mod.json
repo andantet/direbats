@@ -14,7 +14,8 @@
     "contributors": [],
     "contact": {
         "homepage": "https://direbats.teamhollow.net",
-        "sources": "https://github.com/teamhollow/direbats"
+        "sources": "https://github.com/teamhollow/direbats",
+        "issues": "https://github.com/teamhollow/direbats/issues"
     },
 
     "environment": "*",
