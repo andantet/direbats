@@ -56,7 +56,7 @@ import net.minecraft.world.WorldView;
 
 public class DirebatEntity extends PathAwareEntity {
     public static final String id = "direbat";
-    public static final int[] spawnEggColors = { 5065037, 9433559 };
+    public static final int[] spawnEggColors = { 7097929, 986895 };
 
     private static final TrackedData<Byte> DIREBAT_FLAGS = DataTracker.registerData(DirebatEntity.class, TrackedDataHandlerRegistry.BYTE);
     private static final TargetPredicate CLOSE_PLAYER_PREDICATE = new TargetPredicate().setBaseMaxDistance(4.0D).includeTeammates();
