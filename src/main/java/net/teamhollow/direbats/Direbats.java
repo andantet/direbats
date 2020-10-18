@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.teamhollow.direbats.init.*;
 
@@ -20,7 +19,7 @@ public class Direbats implements ModInitializer {
 
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(
         new Identifier(MOD_ID, "item_group"),
-        () -> new ItemStack(Items.BAT_SPAWN_EGG)
+        () -> new ItemStack(DBItems.DIREBAT_FANG)
     );
 
     @Override
