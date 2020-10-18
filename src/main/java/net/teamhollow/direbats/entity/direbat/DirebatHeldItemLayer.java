@@ -22,14 +22,15 @@ public class DirebatHeldItemLayer extends FeatureRenderer<DirebatEntity, Direbat
         stack.push();
 
         stack.translate(
-            (double) (((DirebatEntityModel) this.getContextModel()).direbat.pivotX / 16.0F),
-            (double) ((((DirebatEntityModel) this.getContextModel()).direbat.pivotY / 16.0F) + 1.2F),
-            (double) ((((DirebatEntityModel) this.getContextModel()).direbat.pivotZ / 16.0f) + .8F)
+            this.getContextModel().direbat.pitch / 16.0F,
+            (this.getContextModel().direbat.yaw / 16.0F) + 1.2F,
+            (this.getContextModel().direbat.roll / 16.0f) + 0.8F
         );
         stack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180.0F));
 
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.MAINHAND);
         MinecraftClient.getInstance().getHeldItemRenderer().renderItem(entity, itemStack, ModelTransformation.Mode.GROUND, false, stack, vertexConsumer, packedLight);
+
         stack.pop();
     }
 }
