@@ -14,9 +14,9 @@ if (System.env.CI == "true") {
     branch = System.env.GITHUB_REF
     branch = branch.substring(branch.lastIndexOf("/") + 1)
 
-    version = "${project.mod_version}+a${System.env.GITHUB_RUN_NUMBER}.${branch}"
+    version = "${project.mod_version}+a${System.env.GITHUB_RUN_NUMBER}.${branch}-fabric"
 } else {
-    version = "${project.mod_version}+${project.minecraft_version}"
+    version = "${project.mod_version}+${project.minecraft_version}-fabric"
 }
 
 minecraft {}
@@ -34,11 +34,11 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-    modRuntime "io.github.prospector:modmenu:${project.mod_menu_version}"
-    modRuntime "com.github.jellysquid3:lithium-fabric:mc${project.minecraft_version}-${project.lithium_version}"
-    modRuntime "com.github.jellysquid3:phosphor-fabric:mc${project.minecraft_version}-v${project.phosphor_version}"
-    modRuntime "com.github.jellysquid3:sodium-fabric:mc${project.minecraft_version}-${project.sodium_version}"
-    modRuntime "com.github.joaoh1:OkZoomer:${project.okzoomer_version}.${project.minecraft_version}"
+    // modRuntime "io.github.prospector:modmenu:${project.mod_menu_version}"
+    // modRuntime "com.github.jellysquid3:lithium-fabric:mc${project.minecraft_version}-${project.lithium_version}"
+    // modRuntime "com.github.jellysquid3:phosphor-fabric:mc${project.minecraft_version}-v${project.phosphor_version}"
+    // modRuntime "com.github.jellysquid3:sodium-fabric:mc${project.minecraft_version}-${project.sodium_version}"
+    // modRuntime "com.github.joaoh1:OkZoomer:${project.okzoomer_version}.${project.minecraft_version}"
 }
 
 processResources {

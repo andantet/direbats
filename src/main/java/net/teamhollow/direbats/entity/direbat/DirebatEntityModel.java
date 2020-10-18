@@ -11,10 +11,10 @@ public class DirebatEntityModel extends EntityModel<DirebatEntity> {
     private final ModelPart head;
     private final ModelPart bone;
     private final ModelPart earbend;
-    private final ModelPart Body;
-    private final ModelPart leftwing;
+    private final ModelPart body;
+    private final ModelPart leftWing;
     private final ModelPart bone2;
-    private final ModelPart rightwing;
+    private final ModelPart rightWing;
     private final ModelPart bone3;
     private final ModelPart legs;
     private final ModelPart talons;
@@ -48,39 +48,39 @@ public class DirebatEntityModel extends EntityModel<DirebatEntity> {
         earbend.setTextureOffset(31, 48).addCuboid(-5.0F, -5.0F, -1.0F, 4.0F, 6.0F, 1.0F, 0.0F, false);
         earbend.setTextureOffset(0, 49).addCuboid(1.0F, -5.0F, -1.0F, 4.0F, 6.0F, 1.0F, 0.0F, false);
 
-        Body = new ModelPart(this);
-        Body.setPivot(0.0F, 0.0F, 1.0F);
-        werebat.addChild(Body);
-        setRotationAngle(Body, 0.4363F, 0.0F, 0.0F);
-        Body.setTextureOffset(0, 0).addCuboid(-4.0F, 0.0F, -3.0F, 8.0F, 13.0F, 6.0F, 0.0F, false);
+        body = new ModelPart(this);
+        body.setPivot(0.0F, 0.0F, 1.0F);
+        werebat.addChild(body);
+        setRotationAngle(body, 0.4363F, 0.0F, 0.0F);
+        body.setTextureOffset(0, 0).addCuboid(-4.0F, 0.0F, -3.0F, 8.0F, 13.0F, 6.0F, 0.0F, false);
 
-        leftwing = new ModelPart(this);
-        leftwing.setPivot(4.0F, 1.0F, 2.0F);
-        Body.addChild(leftwing);
-        setRotationAngle(leftwing, 0.0F, -0.5236F, 0.3491F);
-        leftwing.setTextureOffset(28, 0).addCuboid(0.0F, 0.0F, 0.0F, 11.0F, 13.0F, 0.0F, 0.0F, false);
+        leftWing = new ModelPart(this);
+        leftWing.setPivot(4.0F, 1.0F, 2.0F);
+        body.addChild(leftWing);
+        setRotationAngle(leftWing, 0.0F, -0.5236F, 0.3491F);
+        leftWing.setTextureOffset(28, 0).addCuboid(0.0F, 0.0F, 0.0F, 11.0F, 13.0F, 0.0F, 0.0F, false);
 
         bone2 = new ModelPart(this);
         bone2.setPivot(11.0F, 1.0F, 0.0F);
-        leftwing.addChild(bone2);
+        leftWing.addChild(bone2);
         setRotationAngle(bone2, 0.0F, 1.1345F, 0.0F);
         bone2.setTextureOffset(0, 31).addCuboid(0.0F, -1.0F, 0.0F, 11.0F, 10.0F, 0.0F, 0.0F, false);
 
-        rightwing = new ModelPart(this);
-        rightwing.setPivot(-4.0F, 1.0F, 2.0F);
-        Body.addChild(rightwing);
-        setRotationAngle(rightwing, 0.0F, 0.4363F, -0.2618F);
-        rightwing.setTextureOffset(28, 28).addCuboid(-11.0F, 0.0F, 0.0F, 11.0F, 13.0F, 0.0F, 0.0F, false);
+        rightWing = new ModelPart(this);
+        rightWing.setPivot(-4.0F, 1.0F, 2.0F);
+        body.addChild(rightWing);
+        setRotationAngle(rightWing, 0.0F, 0.4363F, -0.2618F);
+        rightWing.setTextureOffset(28, 28).addCuboid(-11.0F, 0.0F, 0.0F, 11.0F, 13.0F, 0.0F, 0.0F, false);
 
         bone3 = new ModelPart(this);
         bone3.setPivot(-11.0F, 1.0F, 0.0F);
-        rightwing.addChild(bone3);
+        rightWing.addChild(bone3);
         setRotationAngle(bone3, 0.0F, -0.7854F, 0.0F);
         bone3.setTextureOffset(28, 13).addCuboid(-11.0F, -1.0F, 0.0F, 11.0F, 10.0F, 0.0F, 0.0F, false);
 
         legs = new ModelPart(this);
         legs.setPivot(0.0F, 13.0F, 1.0F);
-        Body.addChild(legs);
+        body.addChild(legs);
         setRotationAngle(legs, -0.9599F, 0.0F, 0.0F);
         legs.setTextureOffset(28, 23).addCuboid(-4.0F, 0.0F, 0.0F, 8.0F, 4.0F, 0.0F, 0.0F, false);
 
@@ -93,32 +93,33 @@ public class DirebatEntityModel extends EntityModel<DirebatEntity> {
 
         tailbone = new ModelPart(this);
         tailbone.setPivot(0.0F, 13.0F, 3.0F);
-        Body.addChild(tailbone);
+        body.addChild(tailbone);
         setRotationAngle(tailbone, 0.6109F, 0.0F, 0.0F);
         tailbone.setTextureOffset(46, 46).addCuboid(-1.0F, 0.0F, -2.0F, 2.0F, 10.0F, 2.0F, 0.0F, false);
     }
 
     @Override
     public void setAngles(DirebatEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.pivotX = headPitch * 0.017453292F; this.head.pivotY = netHeadYaw * 0.017453292F;
+        this.head.pivotX = headPitch * 0.017453292F;
+        this.head.pivotY = netHeadYaw * 0.017453292F;
         this.head.pivotZ = 0.0F;
         this.head.setPivot(0.0F, 0.0F, 0.0F);
-        this.Body.pivotX = 0.7853982F + MathHelper.cos(ageInTicks * 0.1F) * 0.15F;
-        this.Body.pivotY = 0.0F;
-        this.rightwing.pivotY = MathHelper.cos(ageInTicks * 1.3F) * (float) Math.PI * 0.25F;
-        this.leftwing.pivotY = -this.rightwing.pivotY;
-        this.bone3.pivotY = this.rightwing.pivotY * 0.5F;
-        this.bone2.pivotY = -this.rightwing.pivotY * 0.5F;
+        this.body.pivotX = 0.7853982F + MathHelper.cos(ageInTicks * 0.1F) * 0.15F;
+        this.body.pivotY = 0.0F;
+        this.rightWing.pivotY = MathHelper.cos(ageInTicks * 1.3F) * (float) Math.PI * 0.25F;
+        this.leftWing.pivotY = -this.rightWing.pivotY;
+        this.bone3.pivotY = this.rightWing.pivotY * 0.5F;
+        this.bone2.pivotY = -this.rightWing.pivotY * 0.5F;
 
         if (entity.isHanging()) {
             this.head.pivotX = headPitch * ((float) Math.PI / 180F);
-            this.Body.pivotX = 0.0F;
-            this.rightwing.pivotX = -0.15707964F;
-            this.rightwing.pivotY = -1.2566371F;
-            this.leftwing.pivotX = this.rightwing.pivotX;
-            this.leftwing.pivotY = -this.rightwing.pivotY;
-            this.bone3.pivotY = this.rightwing.pivotY;
-            this.bone2.pivotY = -this.rightwing.pivotY;
+            this.body.pivotX = 0.0F;
+            this.rightWing.pivotX = -0.15707964F;
+            this.rightWing.pivotY = -1.2566371F;
+            this.leftWing.pivotX = this.rightWing.pivotX;
+            this.leftWing.pivotY = -this.rightWing.pivotY;
+            this.bone3.pivotY = this.rightWing.pivotY;
+            this.bone2.pivotY = -this.rightWing.pivotY;
         }
     }
 

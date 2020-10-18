@@ -439,7 +439,7 @@ public class DirebatEntity extends PathAwareEntity {
             if (!DirebatEntity.this.getStackInHand(Hand.MAIN_HAND).isEmpty()) {
                 return false;
             } else if (DirebatEntity.this.getTarget() == null && DirebatEntity.this.getAttacker() == null) {
-                List<ItemEntity> list = DirebatEntity.this.world.getEntities(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);
+                List<ItemEntity> list = DirebatEntity.this.world.getEntitiesByClass(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);
                 return !list.isEmpty() && DirebatEntity.this.getStackInHand(Hand.MAIN_HAND).isEmpty();
             } else {
                 return false;
@@ -453,7 +453,7 @@ public class DirebatEntity extends PathAwareEntity {
 
         @Override
         public void tick() {
-            List<ItemEntity> list = DirebatEntity.this.world.getEntities(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);
+            List<ItemEntity> list = DirebatEntity.this.world.getEntitiesByClass(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);
             ItemStack itemInHand = DirebatEntity.this.getStackInHand(Hand.MAIN_HAND);
             if (itemInHand.isEmpty() && !list.isEmpty()) {
                 DirebatEntity.this.getNavigation().startMovingTo((Entity) list.get(0), 1.2000000476837158D);
@@ -462,7 +462,7 @@ public class DirebatEntity extends PathAwareEntity {
 
         @Override
         public void start() {
-            List<ItemEntity> list = DirebatEntity.this.world.getEntities(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);
+            List<ItemEntity> list = DirebatEntity.this.world.getEntitiesByClass(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);
             if (!list.isEmpty()) {
                 DirebatEntity.this.getNavigation().startMovingTo((Entity) list.get(0), 1.2000000476837158D);
             }
