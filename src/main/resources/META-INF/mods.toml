@@ -6,7 +6,9 @@ license = "https://github.com/teamhollow/direbats/blob/HEAD/LICENSE"
 modId = "direbats"
 displayName = "Direbats"
 description='''
-    Description
+    Direbats - adds Direbats!
+
+    You can typically find these bats living in the darkest of caves. However, during full moons, they will spawn on the surface. Be careful to shine any lights at them or else they’ll attack! They can also steal your items, so watch out!
 '''
 authors = "Team Hollow"
 logoFile="pack.png"
