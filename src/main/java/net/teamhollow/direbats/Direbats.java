@@ -1,5 +1,9 @@
 package net.teamhollow.direbats;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -21,19 +25,26 @@ import net.teamhollow.direbats.init.DBItems;
 
 @Mod(Direbats.MOD_ID)
 public class Direbats {
+    public static Logger LOGGER = LogManager.getLogger();
+
 	public static final String MOD_ID = "direbats";
-	public static final ItemGroup DIREBAT = new ItemGroup(new ResourceLocation(MOD_ID, "item_group").toString()) {
+    public static final String MOD_NAME = "Direbats";
+
+	public static final ItemGroup ITEM_GROUP = new ItemGroup(new ResourceLocation(MOD_ID, "item_group").toString()) {
 		@OnlyIn(Dist.CLIENT)
 		public ItemStack createIcon() {
-			return new ItemStack(DBItems.BAT_FANG);
+			return new ItemStack(DBItems.DIREBAT_FANG);
 		}
-	};
+    };
 
 	public Direbats() {
+        log("Initializing");
+
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.addListener(Direbats::onBiomesLoaded);
+        MinecraftForge.EVENT_BUS.register(this);
 
-		MinecraftForge.EVENT_BUS.register(this);
+        log("Initialized");
 	}
 
 	public static void onBiomesLoaded(final BiomeLoadingEvent event) {
@@ -46,4 +57,11 @@ public class Direbats {
 		RenderingRegistry.registerEntityRenderingHandler(DBEntities.DIREBAT, DirebatEntityRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(DBEntities.DIREBAT_FANG_ARROW, DirebatFangArrowEntityRenderer::new);
 	}
+
+    public static void log(Level level, String message) {
+        LOGGER.log(level, "[" + MOD_NAME + "] " + message);
+    }
+    public static void log(String message) {
+        log(Level.INFO, message);
+    }
 }

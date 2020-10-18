@@ -21,7 +21,7 @@ public class DBEntities {
 
 
     @SubscribeEvent
-    public static void registerEntity(RegistryEvent.Register<EntityType<?>> event) {
+    public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
         GlobalEntityTypeAttributes.put(DIREBAT, DirebatEntity.getAttributeMap().create());
         EntitySpawnPlacementRegistry.register(DIREBAT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DirebatEntity::canSpawn);
 
