@@ -30,7 +30,7 @@ public class DirebatEntityRenderer extends MobRenderer<DirebatEntity, DirebatEnt
     protected void applyRotations(DirebatEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         if (entityLiving.isHanging()) {
             matrixStackIn.rotate(Vector3f.XP.rotationDegrees(180F));
-            matrixStackIn.translate(0.0D, (double) -0.35F, 0.0D);
+            matrixStackIn.translate(0.0D, (double) -0.6F, 0.0D);
 
         } else {
             matrixStackIn.translate(0.0D, (double) (MathHelper.cos(ageInTicks * 0.3F) * 0.1F), 0.0D);
