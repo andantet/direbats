@@ -16,7 +16,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetFinder;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -49,16 +48,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LightType;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 public class DirebatEntity extends PathAwareEntity {
     public static final String id = "direbat";
-    public static final EntityType.Builder<DirebatEntity> builder = EntityType.Builder
-        .create(DirebatEntity::new, SpawnGroup.CREATURE)
-        .setDimensions(1.0F, 1.0F)
-        .maxTrackingRange(5);
     public static final int[] spawnEggColors = { 5065037, 9433559 };
 
     private static final TrackedData<Byte> DIREBAT_FLAGS = DataTracker.registerData(DirebatEntity.class, TrackedDataHandlerRegistry.BYTE);
@@ -202,6 +199,18 @@ public class DirebatEntity extends PathAwareEntity {
             this.dataTracker.set(DIREBAT_FLAGS, (byte) (batFlag & -2));
         }
 
+    }
+
+    public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
+        if (serverWorldAccess.getLightLevel(LightType.SKY, pos) > random.nextInt(32)) {
+            return false;
+        } else {
+            int i = serverWorldAccess.toServerWorld().isThundering() ? serverWorldAccess.getLightLevel(pos, 10) : serverWorldAccess.getLightLevel(pos);
+            return i <= random.nextInt(8);
+        }
+    }
+    public static boolean canSpawnInDark(EntityType<? extends DirebatEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return isSpawnDark(serverWorldAccess, pos, random) && canMobSpawn(type, serverWorldAccess, spawnReason, pos, random);
     }
 
     @Override

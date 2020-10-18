@@ -1,0 +1,12 @@
+{
+    "required": true,
+    "package": "net.teamhollow.direbats.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [
+        "DefaultBiomeFeaturesMixin"
+    ],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

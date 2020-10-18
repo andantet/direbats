@@ -2,7 +2,6 @@ package net.teamhollow.direbats.entity.direbat_fang_arrow;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -16,11 +15,6 @@ import net.teamhollow.direbats.item.DirebatFangArrowItem;
 
 public class DirebatFangArrowEntity extends PersistentProjectileEntity {
     public static final String id = DirebatFangArrowItem.id;
-    public static final EntityType.Builder<DirebatFangArrowEntity> builder = EntityType.Builder
-        .<DirebatFangArrowEntity>create(DirebatFangArrowEntity::new, SpawnGroup.MISC)
-        .setDimensions(0.5F,0.5F)
-        .maxTrackingRange(4)
-        .trackingTickInterval(20);
 
     private int duration = 300;
 
