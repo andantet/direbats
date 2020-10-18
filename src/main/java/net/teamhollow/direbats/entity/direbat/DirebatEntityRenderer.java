@@ -32,7 +32,7 @@ public class DirebatEntityRenderer extends MobEntityRenderer<DirebatEntity, Dire
     protected void setupTransforms(DirebatEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         if (entityLiving.isHanging()) {
             matrixStackIn.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
-            matrixStackIn.translate(0.0D, (double) -0.35F, 0.0D);
+            matrixStackIn.translate(0.0D, (double) -0.6F, 0.0D);
         } else {
             matrixStackIn.translate(0.0D, (double) (MathHelper.cos(ageInTicks * 0.3F) * 0.1F), 0.0D);
         }

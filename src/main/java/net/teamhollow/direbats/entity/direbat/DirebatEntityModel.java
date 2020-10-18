@@ -1,13 +1,13 @@
 package net.teamhollow.direbats.entity.direbat;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.util.math.MathHelper;
 
-public class DirebatEntityModel extends EntityModel<DirebatEntity> {
-    public final ModelPart werebat;
+public class DirebatEntityModel extends CompositeEntityModel<DirebatEntity> {
+    public final ModelPart direbat;
     private final ModelPart head;
     private final ModelPart bone;
     private final ModelPart earbend;
@@ -18,19 +18,19 @@ public class DirebatEntityModel extends EntityModel<DirebatEntity> {
     private final ModelPart bone3;
     private final ModelPart legs;
     private final ModelPart talons;
-    private final ModelPart tailbone;
+    private final ModelPart tail;
 
     public DirebatEntityModel() {
         textureWidth = 64;
         textureHeight = 64;
 
-        werebat = new ModelPart(this);
-        werebat.setPivot(0.0F, 7.0F, -4.0F);
-        setRotationAngle(werebat, 0.4363F, 0.0F, 0.0F);
+        direbat = new ModelPart(this);
+        direbat.setPivot(0.0F, 7.0F, -4.0F);
+        setRotationAngle(direbat, 0.4363F, 0.0F, 0.0F);
 
         head = new ModelPart(this);
         head.setPivot(0.0F, 0.0F, 0.0F);
-        werebat.addChild(head);
+        direbat.addChild(head);
         setRotationAngle(head, -0.0873F, 0.0F, 0.0F);
         head.setTextureOffset(32, 41).addCuboid(-2.0F, -3.0F, -9.0F, 4.0F, 3.0F, 4.0F, 0.0F, false);
         head.setTextureOffset(0, 19).addCuboid(-4.0F, -6.0F, -5.0F, 8.0F, 6.0F, 6.0F, 0.0F, false);
@@ -50,7 +50,7 @@ public class DirebatEntityModel extends EntityModel<DirebatEntity> {
 
         body = new ModelPart(this);
         body.setPivot(0.0F, 0.0F, 1.0F);
-        werebat.addChild(body);
+        direbat.addChild(body);
         setRotationAngle(body, 0.4363F, 0.0F, 0.0F);
         body.setTextureOffset(0, 0).addCuboid(-4.0F, 0.0F, -3.0F, 8.0F, 13.0F, 6.0F, 0.0F, false);
 
@@ -91,46 +91,46 @@ public class DirebatEntityModel extends EntityModel<DirebatEntity> {
         talons.setTextureOffset(16, 41).addCuboid(-5.0F, 0.0F, -1.0F, 4.0F, 4.0F, 4.0F, 0.0F, false);
         talons.setTextureOffset(0, 41).addCuboid(1.0F, 0.0F, -1.0F, 4.0F, 4.0F, 4.0F, 0.0F, false);
 
-        tailbone = new ModelPart(this);
-        tailbone.setPivot(0.0F, 13.0F, 3.0F);
-        body.addChild(tailbone);
-        setRotationAngle(tailbone, 0.6109F, 0.0F, 0.0F);
-        tailbone.setTextureOffset(46, 46).addCuboid(-1.0F, 0.0F, -2.0F, 2.0F, 10.0F, 2.0F, 0.0F, false);
+        tail = new ModelPart(this);
+        tail.setPivot(0.0F, 13.0F, 3.0F);
+        body.addChild(tail);
+        setRotationAngle(tail, 0.6109F, 0.0F, 0.0F);
+        tail.setTextureOffset(46, 46).addCuboid(-1.0F, 0.0F, -2.0F, 2.0F, 10.0F, 2.0F, 0.0F, false);
     }
 
     @Override
-    public void setAngles(DirebatEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.pivotX = headPitch * 0.017453292F;
-        this.head.pivotY = netHeadYaw * 0.017453292F;
-        this.head.pivotZ = 0.0F;
+    public void setAngles(DirebatEntity entity, float limbAngle, float limbAngleAmount, float animationProgress, float headYaw, float headPitch) {
+        this.head.pitch = headPitch * 0.017453292F;
+        this.head.yaw = headYaw * 0.017453292F;
+        this.head.roll = 0.0F;
         this.head.setPivot(0.0F, 0.0F, 0.0F);
-        this.body.pivotX = 0.7853982F + MathHelper.cos(ageInTicks * 0.1F) * 0.15F;
-        this.body.pivotY = 0.0F;
-        this.rightWing.pivotY = MathHelper.cos(ageInTicks * 1.3F) * (float) Math.PI * 0.25F;
-        this.leftWing.pivotY = -this.rightWing.pivotY;
-        this.bone3.pivotY = this.rightWing.pivotY * 0.5F;
-        this.bone2.pivotY = -this.rightWing.pivotY * 0.5F;
+        this.body.pitch = 0.7853982F + MathHelper.cos(animationProgress * 0.1F) * 0.15F;
+        this.body.yaw = 0.0F;
+        this.rightWing.yaw = MathHelper.cos(animationProgress * 1.3F) * (float) Math.PI * 0.25F;
+        this.leftWing.yaw = -this.rightWing.yaw;
+        this.bone3.yaw = this.rightWing.yaw * 0.5F;
+        this.bone2.yaw = -this.rightWing.yaw * 0.5F;
 
         if (entity.isHanging()) {
-            this.head.pivotX = headPitch * ((float) Math.PI / 180F);
-            this.body.pivotX = 0.0F;
-            this.rightWing.pivotX = -0.15707964F;
-            this.rightWing.pivotY = -1.2566371F;
-            this.leftWing.pivotX = this.rightWing.pivotX;
-            this.leftWing.pivotY = -this.rightWing.pivotY;
-            this.bone3.pivotY = this.rightWing.pivotY;
-            this.bone2.pivotY = -this.rightWing.pivotY;
+            this.head.pitch = headPitch * ((float) Math.PI / 180F);
+            this.body.pitch = 0.0F;
+            this.rightWing.pitch = -0.15707964F;
+            this.rightWing.yaw = -1.2566371F;
+            this.leftWing.pitch = this.rightWing.pitch;
+            this.leftWing.yaw = -this.rightWing.yaw;
+            this.bone3.yaw = this.rightWing.yaw;
+            this.bone2.yaw = -this.rightWing.yaw;
         }
-    }
-
-    @Override
-    public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        werebat.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
     public void setRotationAngle(ModelPart bone, float x, float y, float z) {
         bone.pitch = x;
         bone.yaw = y;
         bone.roll = z;
+    }
+
+    @Override
+    public Iterable<ModelPart> getParts() {
+        return ImmutableList.of(direbat);
     }
 }

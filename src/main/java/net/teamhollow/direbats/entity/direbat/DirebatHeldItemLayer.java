@@ -22,9 +22,9 @@ public class DirebatHeldItemLayer extends FeatureRenderer<DirebatEntity, Direbat
         stack.push();
 
         stack.translate(
-            (double) (((DirebatEntityModel) this.getContextModel()).werebat.pivotX / 16.0F),
-            (double) ((((DirebatEntityModel) this.getContextModel()).werebat.pivotY / 16.0F) + 1.2F),
-            (double) ((((DirebatEntityModel) this.getContextModel()).werebat.pivotZ / 16.0f) + .8F)
+            (double) (((DirebatEntityModel) this.getContextModel()).direbat.pivotX / 16.0F),
+            (double) ((((DirebatEntityModel) this.getContextModel()).direbat.pivotY / 16.0F) + 1.2F),
+            (double) ((((DirebatEntityModel) this.getContextModel()).direbat.pivotZ / 16.0f) + .8F)
         );
         stack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180.0F));
 
