@@ -48,7 +48,7 @@ import java.util.function.Predicate;
 public class DirebatEntity extends CreatureEntity {
     public static final String id = "direbat";
 
-    private static final DataParameter<Byte> BAT_FLAGS = EntityDataManager.createKey(DirebatEntity.class, DataSerializers.BYTE);
+    private static final DataParameter<Boolean> HANGING = EntityDataManager.createKey(DirebatEntity.class, DataSerializers.BOOLEAN);
     private static final EntityPredicate CLOSE_PLAYER_PREDICATE = (new EntityPredicate()).setDistance(4.0D).allowFriendlyFire();
 
     private static final Predicate<ItemEntity> PICKABLE_DROP_FILTER = new Predicate<ItemEntity>() {
@@ -84,7 +84,7 @@ public class DirebatEntity extends CreatureEntity {
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(BAT_FLAGS, (byte) 0);
+        this.dataManager.register(HANGING, false);
     }
 
     public static AttributeModifierMap.MutableAttribute getAttributeMap() {
@@ -188,17 +188,11 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     public boolean isHanging() {
-        return ((Byte) this.dataManager.get(BAT_FLAGS) & 1) != 0;
+        return this.dataManager.get(HANGING);
     }
 
-    public void setHanging(boolean roosting) {
-        byte batFlag = (Byte) this.dataManager.get(BAT_FLAGS);
-        if (roosting) {
-            this.dataManager.set(BAT_FLAGS, (byte) (batFlag | 1));
-        } else {
-            this.dataManager.set(BAT_FLAGS, (byte) (batFlag & -2));
-        }
-
+    public void setHanging(boolean hanging) {
+        this.dataManager.set(HANGING, hanging);
     }
 
     @Override
@@ -322,13 +316,13 @@ public class DirebatEntity extends CreatureEntity {
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        this.dataManager.set(BAT_FLAGS, compound.getByte("BatFlags"));
+        this.dataManager.set(HANGING, compound.getBoolean("Hanging"));
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putByte("BatFlags", (Byte) this.dataManager.get(BAT_FLAGS));
+        compound.putBoolean("Hanging", this.dataManager.get(HANGING));
     }
 
     public static boolean canSpawn(EntityType<DirebatEntity> type, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
