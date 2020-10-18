@@ -58,7 +58,7 @@ public class DirebatEntity extends PathAwareEntity {
     public static final String id = "direbat";
     public static final int[] spawnEggColors = { 7097929, 986895 };
 
-    private static final TrackedData<Byte> DIREBAT_FLAGS = DataTracker.registerData(DirebatEntity.class, TrackedDataHandlerRegistry.BYTE);
+    private static final TrackedData<Boolean> HANGING = DataTracker.registerData(DirebatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TargetPredicate CLOSE_PLAYER_PREDICATE = new TargetPredicate().setBaseMaxDistance(4.0D).includeTeammates();
 
     private static final Predicate<ItemEntity> PICKABLE_DROP_FILTER = new Predicate<ItemEntity>() {
@@ -93,7 +93,7 @@ public class DirebatEntity extends PathAwareEntity {
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(DIREBAT_FLAGS, (byte) 0);
+        this.dataTracker.startTracking(HANGING, false);
     }
 
     public static DefaultAttributeContainer.Builder createDirebatAttributes() {
@@ -188,17 +188,11 @@ public class DirebatEntity extends PathAwareEntity {
     protected void fall(double y, boolean onGroundIn, BlockState state, BlockPos pos) {}
 
     public boolean isHanging() {
-        return ((Byte) this.dataTracker.get(DIREBAT_FLAGS) & 1) != 0;
+        return this.dataTracker.get(HANGING);
     }
 
     public void setHanging(boolean hanging) {
-        byte batFlag = (Byte) this.dataTracker.get(DIREBAT_FLAGS);
-        if (hanging) {
-            this.dataTracker.set(DIREBAT_FLAGS, (byte) (batFlag | 1));
-        } else {
-            this.dataTracker.set(DIREBAT_FLAGS, (byte) (batFlag & -2));
-        }
-
+        this.dataTracker.set(HANGING, hanging);
     }
 
     public static boolean isSpawnDark(ServerWorldAccess serverWorldAccess, BlockPos pos, Random random) {
@@ -341,13 +335,13 @@ public class DirebatEntity extends PathAwareEntity {
     @Override
     public void readCustomDataFromTag(CompoundTag compound) {
         super.readCustomDataFromTag(compound);
-        this.dataTracker.set(DIREBAT_FLAGS, compound.getByte("DirebatFlags"));
+        this.dataTracker.set(HANGING, compound.getBoolean("Hanging"));
     }
 
     @Override
     public void writeCustomDataToTag(CompoundTag compound) {
         super.writeCustomDataToTag(compound);
-        compound.putByte("DirebatFlags", (Byte) this.dataTracker.get(DIREBAT_FLAGS));
+        compound.putBoolean("Hanging", this.dataTracker.get(HANGING));
     }
 
     public static boolean canSpawn(EntityType<DirebatEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
