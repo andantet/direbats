@@ -16,6 +16,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -296,6 +297,7 @@ public class DirebatEntity extends CreatureEntity {
 
             if (!currentItem.isEmpty()) {
                 this.entityDropItem(currentItem);
+                this.setHeldItem(Hand.MAIN_HAND, new ItemStack(Items.AIR));
             }
 
             this.func_233657_b_(EquipmentSlotType.MAINHAND, newItem); // insert new item into main hand
@@ -310,6 +312,7 @@ public class DirebatEntity extends CreatureEntity {
         super.dropInventory();
         if (!this.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
             this.entityDropItem(this.getHeldItemMainhand());
+            this.setHeldItem(Hand.MAIN_HAND, new ItemStack(Items.AIR));
         }
     }
 
