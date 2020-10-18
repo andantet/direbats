@@ -53,8 +53,8 @@ public class DirebatEntity extends CreatureEntity {
     private static final EntityPredicate CLOSE_PLAYER_PREDICATE = (new EntityPredicate()).setDistance(4.0D).allowFriendlyFire();
 
     private static final Predicate<ItemEntity> PICKABLE_DROP_FILTER = new Predicate<ItemEntity>() {
-        public boolean test(@Nullable ItemEntity p_test_1_) {
-            return p_test_1_ != null && !p_test_1_.cannotPickup();
+        public boolean test(@Nullable ItemEntity item) {
+            return item != null && !item.cannotPickup();
         }
     };
 
@@ -74,7 +74,6 @@ public class DirebatEntity extends CreatureEntity {
 
     @Override
     protected void registerGoals() {
-
         this.goalSelector.addGoal(1, new AttackGoal(this));
         this.goalSelector.addGoal(2, new DirebatEntity.PickupItemGoal());
         this.goalSelector.addGoal(3, new WanderGoal());
@@ -95,22 +94,18 @@ public class DirebatEntity extends CreatureEntity {
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected PathNavigator createNavigator(World worldIn) {
-        FlyingPathNavigator flyingpathnavigator = new FlyingPathNavigator(this, worldIn) {
+        FlyingPathNavigator nav = new FlyingPathNavigator(this, worldIn) {
             public boolean canEntityStandOnPos(BlockPos pos) {
-//                IDEA: Alternatives for replacing the deprecated function. Ignore if you don't know what this is.
-//                System.out.println("this.world.getBlockState(pos).isAir(worldIn, pos.down()) = " + this.world.getBlockState(pos).isAir(worldIn, pos.down()));
-//                System.out.println("this.world.getBlockState(pos.down()).isAir(worldIn, pos.down()) = " + this.world.getBlockState(pos.down()).isAir(worldIn, pos.down()));
-//                System.out.println("this.world.getBlockState(pos.down()).isAir() = " + this.world.getBlockState(pos.down()).isAir());
-                Block block = world.getBlockState(pos).getBlock();
-                return !(block == Blocks.AIR && block == Blocks.CAVE_AIR && block == Blocks.VOID_AIR);
+                return !this.world.getBlockState(pos.down()).isAir();
             }
         };
-        flyingpathnavigator.setCanOpenDoors(false);
-        flyingpathnavigator.setCanSwim(false);
-        flyingpathnavigator.setCanEnterDoors(true);
-        return flyingpathnavigator;
+        nav.setCanOpenDoors(false);
+        nav.setCanSwim(false);
+        nav.setCanEnterDoors(true);
+        return nav;
     }
 
     @Override
@@ -371,17 +366,10 @@ public class DirebatEntity extends CreatureEntity {
             super(entity, 1.0D, true);
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
         public boolean shouldExecute() {
             return super.shouldExecute();
         }
 
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
         public boolean shouldContinueExecuting() {
             float attackerBrightness = this.attacker.getBrightness();
             if (attackerBrightness <= 0.5F && this.attacker.getRNG().nextInt(100) == 0) {
@@ -398,24 +386,14 @@ public class DirebatEntity extends CreatureEntity {
             this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
         public boolean shouldExecute() {
             return DirebatEntity.this.navigator.noPath() && !DirebatEntity.this.isHanging() && DirebatEntity.this.rand.nextInt(5) == 0;
         }
 
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
         public boolean shouldContinueExecuting() {
             return DirebatEntity.this.navigator.hasPath();
         }
 
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
         public void startExecuting() {
             Vector3d randomLocation = this.getRandomLocation();
             if (randomLocation != null) {
@@ -472,6 +450,7 @@ public class DirebatEntity extends CreatureEntity {
         public void startExecuting() {
             List<ItemEntity> list = DirebatEntity.this.world.getEntitiesWithinAABB(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);
             if (!list.isEmpty()) {
+                System.out.println(list.get(0));
                 DirebatEntity.this.getNavigator().tryMoveToEntityLiving((Entity) list.get(0), 1.2000000476837158D);
             }
 
@@ -484,14 +463,9 @@ public class DirebatEntity extends CreatureEntity {
             super(entity, classTarget, true);
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
         public boolean shouldExecute() {
             float goalOwnerBrightness = this.goalOwner.getBrightness();
-            return goalOwnerBrightness <= 0.5F
-                    ? false : super.shouldExecute();
+            return goalOwnerBrightness <= 0.5F ? false : super.shouldExecute();
         }
     }
 }
