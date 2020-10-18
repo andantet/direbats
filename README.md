@@ -5,7 +5,9 @@
 </h1>
 
 <p align="center">
-    Description
+    Direbats - adds Direbats!
+    <br>
+    You can typically find these bats living in the darkest of caves. However, during full moons, they will spawn on the surface. Be careful to shine any lights at them or else they’ll attack! They can also steal your items, so watch out!
 </p>
 <p align="center">
     <a href="https://curseforge.com/minecraft/mc-mods/fabric-api"><img title="Requires Fabric API" height="50" src="https://i.imgur.com/Ol1Tcf8.png"></a>
