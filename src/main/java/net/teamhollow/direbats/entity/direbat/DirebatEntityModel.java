@@ -11,14 +11,14 @@ public class DirebatEntityModel extends EntityModel<DirebatEntity> {
     public final ModelRenderer head;
     public final ModelRenderer bone;
     public final ModelRenderer earbend;
-    public final ModelRenderer Body;
-    public final ModelRenderer leftwing;
+    public final ModelRenderer body;
+    public final ModelRenderer leftWing;
     public final ModelRenderer bone2;
-    public final ModelRenderer rightwing;
+    public final ModelRenderer rightWing;
     public final ModelRenderer bone3;
     public final ModelRenderer legs;
     public final ModelRenderer talons;
-    public final ModelRenderer tailbone;
+    public final ModelRenderer tail;
 
     public DirebatEntityModel() {
         textureWidth = 64;
@@ -49,39 +49,39 @@ public class DirebatEntityModel extends EntityModel<DirebatEntity> {
         earbend.setTextureOffset(31, 48).addBox(-5.0F, -5.0F, -1.0F, 4.0F, 6.0F, 1.0F, 0.0F, false);
         earbend.setTextureOffset(0, 49).addBox(1.0F, -5.0F, -1.0F, 4.0F, 6.0F, 1.0F, 0.0F, false);
 
-        Body = new ModelRenderer(this);
-        Body.setRotationPoint(0.0F, 0.0F, 1.0F);
-        direbat.addChild(Body);
-        setRotationAngle(Body, 0.4363F, 0.0F, 0.0F);
-        Body.setTextureOffset(0, 0).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 13.0F, 6.0F, 0.0F, false);
+        body = new ModelRenderer(this);
+        body.setRotationPoint(0.0F, 0.0F, 1.0F);
+        direbat.addChild(body);
+        setRotationAngle(body, 0.4363F, 0.0F, 0.0F);
+        body.setTextureOffset(0, 0).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 13.0F, 6.0F, 0.0F, false);
 
-        leftwing = new ModelRenderer(this);
-        leftwing.setRotationPoint(4.0F, 1.0F, 2.0F);
-        Body.addChild(leftwing);
-        setRotationAngle(leftwing, 0.0F, -0.5236F, 0.3491F);
-        leftwing.setTextureOffset(28, 0).addBox(0.0F, 0.0F, 0.0F, 11.0F, 13.0F, 0.0F, 0.0F, false);
+        leftWing = new ModelRenderer(this);
+        leftWing.setRotationPoint(4.0F, 1.0F, 2.0F);
+        body.addChild(leftWing);
+        setRotationAngle(leftWing, 0.0F, -0.5236F, 0.3491F);
+        leftWing.setTextureOffset(28, 0).addBox(0.0F, 0.0F, 0.0F, 11.0F, 13.0F, 0.0F, 0.0F, false);
 
         bone2 = new ModelRenderer(this);
         bone2.setRotationPoint(11.0F, 1.0F, 0.0F);
-        leftwing.addChild(bone2);
+        leftWing.addChild(bone2);
         setRotationAngle(bone2, 0.0F, 1.1345F, 0.0F);
         bone2.setTextureOffset(0, 31).addBox(0.0F, -1.0F, 0.0F, 11.0F, 10.0F, 0.0F, 0.0F, false);
 
-        rightwing = new ModelRenderer(this);
-        rightwing.setRotationPoint(-4.0F, 1.0F, 2.0F);
-        Body.addChild(rightwing);
-        setRotationAngle(rightwing, 0.0F, 0.4363F, -0.2618F);
-        rightwing.setTextureOffset(28, 28).addBox(-11.0F, 0.0F, 0.0F, 11.0F, 13.0F, 0.0F, 0.0F, false);
+        rightWing = new ModelRenderer(this);
+        rightWing.setRotationPoint(-4.0F, 1.0F, 2.0F);
+        body.addChild(rightWing);
+        setRotationAngle(rightWing, 0.0F, 0.4363F, -0.2618F);
+        rightWing.setTextureOffset(28, 28).addBox(-11.0F, 0.0F, 0.0F, 11.0F, 13.0F, 0.0F, 0.0F, false);
 
         bone3 = new ModelRenderer(this);
         bone3.setRotationPoint(-11.0F, 1.0F, 0.0F);
-        rightwing.addChild(bone3);
+        rightWing.addChild(bone3);
         setRotationAngle(bone3, 0.0F, -0.7854F, 0.0F);
         bone3.setTextureOffset(28, 13).addBox(-11.0F, -1.0F, 0.0F, 11.0F, 10.0F, 0.0F, 0.0F, false);
 
         legs = new ModelRenderer(this);
         legs.setRotationPoint(0.0F, 13.0F, 1.0F);
-        Body.addChild(legs);
+        body.addChild(legs);
         setRotationAngle(legs, -0.9599F, 0.0F, 0.0F);
         legs.setTextureOffset(28, 23).addBox(-4.0F, 0.0F, 0.0F, 8.0F, 4.0F, 0.0F, 0.0F, false);
 
@@ -92,11 +92,11 @@ public class DirebatEntityModel extends EntityModel<DirebatEntity> {
         talons.setTextureOffset(16, 41).addBox(-5.0F, 0.0F, -1.0F, 4.0F, 4.0F, 4.0F, 0.0F, false);
         talons.setTextureOffset(0, 41).addBox(1.0F, 0.0F, -1.0F, 4.0F, 4.0F, 4.0F, 0.0F, false);
 
-        tailbone = new ModelRenderer(this);
-        tailbone.setRotationPoint(0.0F, 13.0F, 3.0F);
-        Body.addChild(tailbone);
-        setRotationAngle(tailbone, 0.6109F, 0.0F, 0.0F);
-        tailbone.setTextureOffset(46, 46).addBox(-1.0F, 0.0F, -2.0F, 2.0F, 10.0F, 2.0F, 0.0F, false);
+        tail = new ModelRenderer(this);
+        tail.setRotationPoint(0.0F, 13.0F, 3.0F);
+        body.addChild(tail);
+        setRotationAngle(tail, 0.6109F, 0.0F, 0.0F);
+        tail.setTextureOffset(46, 46).addBox(-1.0F, 0.0F, -2.0F, 2.0F, 10.0F, 2.0F, 0.0F, false);
     }
 
     @Override
@@ -105,22 +105,22 @@ public class DirebatEntityModel extends EntityModel<DirebatEntity> {
         this.head.rotateAngleY = netHeadYaw * 0.017453292F;
         this.head.rotateAngleZ = 0.0F;
         this.head.setRotationPoint(0.0F, 0.0F, 0.0F);
-        this.Body.rotateAngleX = 0.7853982F + MathHelper.cos(ageInTicks * 0.1F) * 0.15F;
-        this.Body.rotateAngleY = 0.0F;
-        this.rightwing.rotateAngleY = MathHelper.cos(ageInTicks * 1.3F) * (float) Math.PI * 0.25F;
-        this.leftwing.rotateAngleY = -this.rightwing.rotateAngleY;
-        this.bone3.rotateAngleY = this.rightwing.rotateAngleY * 0.5F;
-        this.bone2.rotateAngleY = -this.rightwing.rotateAngleY * 0.5F;
+        this.body.rotateAngleX = 0.7853982F + MathHelper.cos(ageInTicks * 0.1F) * 0.15F;
+        this.body.rotateAngleY = 0.0F;
+        this.rightWing.rotateAngleY = MathHelper.cos(ageInTicks * 1.3F) * (float) Math.PI * 0.25F;
+        this.leftWing.rotateAngleY = -this.rightWing.rotateAngleY;
+        this.bone3.rotateAngleY = this.rightWing.rotateAngleY * 0.5F;
+        this.bone2.rotateAngleY = -this.rightWing.rotateAngleY * 0.5F;
 
         if (entityIn.isHanging()) {
             this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
-            this.Body.rotateAngleX = 0.0F;
-            this.rightwing.rotateAngleX = -0.15707964F;
-            this.rightwing.rotateAngleY = -1.2566371F;
-            this.leftwing.rotateAngleX = this.rightwing.rotateAngleX;
-            this.leftwing.rotateAngleY = -this.rightwing.rotateAngleY;
-            this.bone3.rotateAngleY = this.rightwing.rotateAngleY;
-            this.bone2.rotateAngleY = -this.rightwing.rotateAngleY;
+            this.body.rotateAngleX = 0.0F;
+            this.rightWing.rotateAngleX = -0.15707964F;
+            this.rightWing.rotateAngleY = -1.2566371F;
+            this.leftWing.rotateAngleX = this.rightWing.rotateAngleX;
+            this.leftWing.rotateAngleY = -this.rightWing.rotateAngleY;
+            this.bone3.rotateAngleY = this.rightWing.rotateAngleY;
+            this.bone2.rotateAngleY = -this.rightWing.rotateAngleY;
         }
     }
 
