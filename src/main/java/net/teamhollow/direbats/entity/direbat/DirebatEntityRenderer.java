@@ -14,7 +14,7 @@ import net.teamhollow.direbats.init.DBEntities;
 public class DirebatEntityRenderer extends MobEntityRenderer<DirebatEntity, DirebatEntityModel> {
     public DirebatEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new DirebatEntityModel(), 0.5f);
-        this.addFeature(new DirebatHeldItemLayer(this));
+        this.addFeature(new DirebatHeldItemFeatureRenderer(this));
     }
 
     @Override
@@ -23,20 +23,20 @@ public class DirebatEntityRenderer extends MobEntityRenderer<DirebatEntity, Dire
     }
 
     @Override
-    protected void scale(DirebatEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-        matrixStackIn.translate(0.0D, 0.40000000149011612D, 0.0D);
-        super.scale(entitylivingbaseIn, matrixStackIn, partialTickTime);
+    protected void scale(DirebatEntity entity, MatrixStack matrices, float amount) {
+        matrices.translate(0.0D, 1.9D, 0.0D);
+        super.scale(entity, matrices, amount);
     }
 
     @Override
-    protected void setupTransforms(DirebatEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
-        if (entityLiving.isHanging()) {
-            matrixStackIn.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
-            matrixStackIn.translate(0.0D, (double) -0.6F, 0.0D);
+    protected void setupTransforms(DirebatEntity entity, MatrixStack matrices, float animationProgress, float bodyYaw, float tickDelta) {
+        if (entity.isHanging()) {
+            matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
+            matrices.translate(0.0D, (double) -0.6F, 0.0D);
         } else {
-            matrixStackIn.translate(0.0D, (double) (MathHelper.cos(ageInTicks * 0.3F) * 0.1F), 0.0D);
+            matrices.translate(0.0D, (double) (MathHelper.cos(animationProgress * 0.3F) * 0.1F), 0.0D);
         }
 
-        super.setupTransforms(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+        super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta);
     }
 }
