@@ -20,6 +20,7 @@ public class DirebatFangArrowEntity extends PersistentProjectileEntity {
 
     public DirebatFangArrowEntity(EntityType<? extends DirebatFangArrowEntity> entityType, World world) {
         super(entityType, world);
+        this.setDamage(30.0F);
     }
 
     public DirebatFangArrowEntity(World world, LivingEntity owner) {
