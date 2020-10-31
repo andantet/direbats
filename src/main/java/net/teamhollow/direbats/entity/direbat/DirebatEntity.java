@@ -226,35 +226,23 @@ public class DirebatEntity extends PathAwareEntity {
         if (this.isHanging()) {
             boolean isSilent = this.isSilent();
 
-            if (this.getTarget() != null) {
-                this.setHanging(false);
-            }
+            if (this.getTarget() != null) this.setHanging(false);
 
             if (this.world.getBlockState(blockPosUp).isFullCube(this.world, blockPos)) {
-                if (this.random.nextInt(200) == 0) {
-                    this.headYaw = (float) this.random.nextInt(360);
-                }
+                if (this.random.nextInt(200) == 0) this.headYaw = (float) this.random.nextInt(360);
 
-                if (this.world.getClosestPlayer(CLOSE_PLAYER_PREDICATE, this) != null) {
+                if (this.world.getClosestPlayer(CLOSE_PLAYER_PREDICATE, this) != null || !this.world.getBlockState(blockPos.down()).isAir()) {
                     this.setHanging(false);
-                    if (!isSilent) {
-                        this.world.syncWorldEvent((PlayerEntity) null, 1025, blockPos, 0);
-                    }
+                    if (!isSilent) this.world.syncWorldEvent((PlayerEntity) null, 1025, blockPos, 0);
                 }
             } else {
                 this.setHanging(false);
-                if (!isSilent) {
-                    this.world.syncWorldEvent((PlayerEntity) null, 1025, blockPos, 0);
-                }
+                if (!isSilent) this.world.syncWorldEvent((PlayerEntity) null, 1025, blockPos, 0);
             }
 
             this.setVelocity(0, 0, 0);
             this.getNavigation().stop();
-        } else {
-            if (this.random.nextInt(100) == 0 && this.world.getBlockState(blockPosUp).isFullCube(this.world, blockPosUp)) {
-                this.setHanging(true);
-            }
-        }
+        } else if (this.getTarget() == null && this.world.getClosestPlayer(CLOSE_PLAYER_PREDICATE, this) == null && this.random.nextInt(20) == 0 && this.world.getBlockState(blockPos.down()).isAir() && this.world.getBlockState(blockPosUp).isFullCube(this.world, blockPosUp)) this.setHanging(true);
     }
 
     @Override
