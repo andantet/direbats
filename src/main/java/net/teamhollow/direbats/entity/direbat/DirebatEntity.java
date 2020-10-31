@@ -214,7 +214,7 @@ public class DirebatEntity extends PathAwareEntity {
             this.setVelocity(Vec3d.ZERO);
             this.updatePosition(this.getX(), (double) MathHelper.floor(this.getY()) + 1.0D - (double) this.getHeight(), this.getZ());
         } else {
-            this.setVelocity(this.getVelocity().multiply(1.0D, 0.6D, 1.0D));
+            this.setVelocity(this.getVelocity().multiply(0.99D, 0.6D - (random.nextFloat() / 4), 0.99D));
         }
     }
 
