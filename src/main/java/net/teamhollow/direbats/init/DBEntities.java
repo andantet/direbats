@@ -34,7 +34,7 @@ public class DBEntities {
             .<DirebatEntity>createMob()
             .entityFactory(DirebatEntity::new)
             .spawnGroup(SpawnGroup.CREATURE)
-            .dimensions(EntityDimensions.fixed(1.0F, 1.0F))
+            .dimensions(EntityDimensions.changing(0.95F, 0.9F))
             .spawnRestriction(SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DirebatEntity::canSpawnInDark)
             .trackRangeChunks(5)
             .defaultAttributes(() ->

@@ -19,6 +19,7 @@ public class DirebatEntityModel extends CompositeEntityModel<DirebatEntity> {
     private final ModelPart legs;
     public final ModelPart talons;
     private final ModelPart tailbone;
+    public final ModelPart fangs;
 
     public DirebatEntityModel() {
         textureWidth = 64;
@@ -31,7 +32,6 @@ public class DirebatEntityModel extends CompositeEntityModel<DirebatEntity> {
         head.setTextureOffset(16, 41).addCuboid(1.0F, -11.0F, -4.0F, 4.0F, 6.0F, 1.0F, 0.0F, true);
         head.setTextureOffset(0, 19).addCuboid(-4.0F, -6.0F, -5.0F, 8.0F, 6.0F, 6.0F, 0.0F, false);
         head.setTextureOffset(16, 34).addCuboid(-2.0F, -3.0F, -9.0F, 4.0F, 3.0F, 4.0F, 0.0F, false);
-        head.setTextureOffset(12, 35).addCuboid(-2.0F, -1.0F, -9.0F, 4.0F, 2.0F, 0.0F, 0.0F, false);
 
         body = new ModelPart(this);
         body.setPivot(0.0F, -17.4226F, -2.0937F);
@@ -80,6 +80,11 @@ public class DirebatEntityModel extends CompositeEntityModel<DirebatEntity> {
         body.addChild(tailbone);
         setRotationAngle(tailbone, 0.6109F, 0.0F, 0.0F);
         tailbone.setTextureOffset(32, 36).addCuboid(-1.0F, -0.0912F, -2.1233F, 2.0F, 10.0F, 2.0F, 0.0F, false);
+
+        fangs = new ModelPart(this);
+        fangs.setPivot(0.0F, 17.0F, 3.0F);
+        head.addChild(fangs);
+        fangs.setTextureOffset(12, 35).addCuboid(-2.0F, -18.0F, -12.0F, 4.0F, 2.0F, 0.0F, 0.0F, false);
     }
 
     @Override
@@ -97,11 +102,11 @@ public class DirebatEntityModel extends CompositeEntityModel<DirebatEntity> {
         if (entity.isHanging()) {
             this.head.pitch = headPitch * ((float) Math.PI / 180F);
             this.body.pitch = 0.0F;
-            this.rightWing.pitch = -0.15707964F;
-            this.rightWing.yaw = -1.2566371F;
+            this.rightWing.pitch = 0.0F;
+            this.rightWing.yaw = 1.5F;
             this.leftWing.pitch = this.rightWing.pitch;
             this.leftWing.yaw = -this.rightWing.yaw;
-            this.rightWingOuter.yaw = this.rightWing.yaw;
+            this.rightWingOuter.yaw = this.rightWing.yaw + 0.3F;
             this.leftWingOuter.yaw = -this.rightWing.yaw;
         }
     }

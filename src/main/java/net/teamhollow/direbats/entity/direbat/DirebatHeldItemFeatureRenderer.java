@@ -22,18 +22,20 @@ public class DirebatHeldItemFeatureRenderer extends FeatureRenderer<DirebatEntit
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, DirebatEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         matrices.push();
 
-        if (entity.isHanging()) matrices.translate(
-            this.getContextModel().talons.pitch / 16.0F,
-            (this.getContextModel().talons.yaw / 16.0F),
-            (this.getContextModel().talons.roll / 16.0f) - 0.4F
-        );
-        else matrices.translate(
-            this.getContextModel().talons.pitch / 16.0F,
-            (this.getContextModel().talons.yaw / 16.0F) - 0.2F,
-            (this.getContextModel().talons.roll / 16.0f) + 0.25F
-        );
-
-        matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(70.0F));
+        if (entity.isHanging())
+            matrices.translate(
+                this.getContextModel().fangs.pitch,
+                this.getContextModel().fangs.yaw - 1.1F,
+                this.getContextModel().fangs.roll - 0.7F
+            );
+        else {
+            matrices.translate(
+                this.getContextModel().talons.pitch / 16.0F,
+                (this.getContextModel().talons.yaw / 16.0F) - 0.2F,
+                (this.getContextModel().talons.roll / 16.0f) + 0.25F
+            );
+            matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(70.0F));
+        }
 
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.MAINHAND);
         MinecraftClient.getInstance().getHeldItemRenderer().renderItem(entity, itemStack, ModelTransformation.Mode.GROUND, false, matrices, vertexConsumers, light);
