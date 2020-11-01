@@ -246,17 +246,6 @@ public class DirebatEntity extends PathAwareEntity {
     }
 
     @Override
-    public void setTarget(LivingEntity livingEntity) {
-        super.setTarget(livingEntity);
-
-        ItemStack currentItem = this.getEquippedStack(EquipmentSlot.MAINHAND);
-        if (!currentItem.isEmpty()) {
-            this.dropStack(currentItem);
-            this.setStackInHand(Hand.MAIN_HAND, new ItemStack(Items.AIR));
-        }
-    }
-
-    @Override
     public boolean tryAttack(Entity entity) {
         if (super.tryAttack(entity)) {
             if (entity instanceof LivingEntity) {
