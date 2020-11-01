@@ -11,6 +11,8 @@ public class DBSoundEvents {
     public static final SoundEvent ENTITY_DIREBAT_ATTACK = register("entity.direbat.attack");
     public static final SoundEvent ENTITY_DIREBAT_DEATH = register("entity.direbat.death");
 
+    public DBSoundEvents() {}
+
     private static SoundEvent register(String id) {
         Identifier identifier = new Identifier(Direbats.MOD_ID, id);
         return Registry.register(Registry.SOUND_EVENT, identifier, new SoundEvent(identifier));

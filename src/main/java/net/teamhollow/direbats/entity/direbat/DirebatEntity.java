@@ -52,6 +52,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.teamhollow.direbats.init.DBGamerules;
 import net.teamhollow.direbats.init.DBSoundEvents;
 
 public class DirebatEntity extends PathAwareEntity {
@@ -263,7 +264,7 @@ public class DirebatEntity extends PathAwareEntity {
                 }
             }
         } else {
-            if (this.random.nextInt(10) == 0) {
+            if (this.world.getGameRules().getBoolean(DBGamerules.DIREBAT_ITEM_PICKUP) && this.random.nextInt(10) == 0) {
                 List<ItemEntity> list = this.world.getEntitiesByClass(ItemEntity.class, this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), PICKABLE_DROP_FILTER);
                 if (this.getStackInHand(Hand.MAIN_HAND).isEmpty() && !list.isEmpty()) this.targetPos = list.get(0).getBlockPos();
             }
@@ -295,7 +296,7 @@ public class DirebatEntity extends PathAwareEntity {
                 Vec3d vec3d = this.getVelocity();
                 vec3d = vec3d.add(
                     (Math.signum(x) * 0.5D - vec3d.x) * 0.10000000149011612D,
-                    ((Math.signum(y) * 0.699999988079071D - vec3d.y) * 0.10000000149011612D) + (targetPos.getY() > this.getY() ? 0.0D : 0.02D),
+                    ((Math.signum(y) * 0.699999988079071D - vec3d.y) * 0.10000000149011612D) + (targetPos.getY() > this.getY() ? 0.2D : 0.0D),
                     (Math.signum(z) * 0.5D - vec3d.z) * 0.10000000149011612D
                 );
 
@@ -368,15 +369,17 @@ public class DirebatEntity extends PathAwareEntity {
 
     @Override
     protected void loot(ItemEntity itemEntity) {
-        ItemStack currentItem = this.getEquippedStack(EquipmentSlot.MAINHAND);
+        if (this.world.getGameRules().getBoolean(DBGamerules.DIREBAT_ITEM_PICKUP)) {
+            ItemStack currentItem = this.getEquippedStack(EquipmentSlot.MAINHAND);
 
-        if (currentItem.isEmpty() && PICKABLE_DROP_FILTER.test(itemEntity)) {
-            ItemStack newItem = itemEntity.getStack();
+            if (currentItem.isEmpty() && PICKABLE_DROP_FILTER.test(itemEntity)) {
+                ItemStack newItem = itemEntity.getStack();
 
-            this.equipLootStack(EquipmentSlot.MAINHAND, newItem);
-            this.method_29499(itemEntity);
-            this.sendPickup(itemEntity, newItem.getCount());
-            itemEntity.remove();
+                this.equipLootStack(EquipmentSlot.MAINHAND, newItem);
+                this.method_29499(itemEntity);
+                this.sendPickup(itemEntity, newItem.getCount());
+                itemEntity.remove();
+            }
         }
     }
 

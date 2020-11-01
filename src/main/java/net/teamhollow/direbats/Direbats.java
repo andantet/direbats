@@ -26,7 +26,9 @@ public class Direbats implements ModInitializer {
     public void onInitialize() {
         log("Initializing");
 
+        new DBGamerules();
         new DBSoundEvents();
+
         new DBItems();
         new DBEntities();
 
