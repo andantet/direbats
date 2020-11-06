@@ -21,7 +21,7 @@ public class DirebatEntityRenderer extends MobRenderer<DirebatEntity, DirebatEnt
 
     @Override
     protected void preRenderCallback(DirebatEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-        matrixStackIn.translate(0.0D, 0.40000000149011612D, 0.0D);
+        matrixStackIn.translate(0.0D, 1.9D, 0.0D);
 
         super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
     }

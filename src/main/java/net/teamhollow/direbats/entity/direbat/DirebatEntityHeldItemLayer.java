@@ -21,9 +21,16 @@ public class DirebatEntityHeldItemLayer extends LayerRenderer<DirebatEntity, Dir
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, DirebatEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         matrixStackIn.push();
 
-        matrixStackIn.translate((double) (((DirebatEntityModel) this.getEntityModel()).direbat.rotateAngleX / 16.0F), (double) ((((DirebatEntityModel) this.getEntityModel()).direbat.rotateAngleY / 16.0F) + 1.2F), (double) ((((DirebatEntityModel) this.getEntityModel()).direbat.rotateAngleZ / 16.0f) + .8F));
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(180.0F));
-
+        if (entitylivingbaseIn.isHanging())
+            matrixStackIn.translate(
+                    this.getEntityModel().fangs.rotateAngleX,
+                    this.getEntityModel().fangs.rotateAngleY - 1.1F,
+                    this.getEntityModel().fangs.rotateAngleZ - 0.7F
+            );
+        else {
+            matrixStackIn.translate(this.getEntityModel().talons.rotateAngleX / 16.0F, this.getEntityModel().talons.rotateAngleY / 16.0F - 0.2F, this.getEntityModel().talons.rotateAngleZ / 16.0f + 0.25F);
+            matrixStackIn.rotate(Vector3f.XP.rotationDegrees(70.0F));
+        }
         ItemStack itemStack = entitylivingbaseIn.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
         Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn, itemStack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.pop();
