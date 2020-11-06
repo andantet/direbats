@@ -29,7 +29,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
@@ -37,6 +36,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.teamhollow.direbats.init.DBSoundEvents;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
@@ -143,17 +143,17 @@ public class DirebatEntity extends CreatureEntity {
 
     @Override
     public SoundEvent getAmbientSound() {
-        return this.isHanging() && this.rand.nextInt(4) != 0 ? null : SoundEvents.ENTITY_BAT_AMBIENT;
+        return this.isHanging() && this.rand.nextInt(4) != 0 ? null : DBSoundEvents.ENTITY_DIREBAT_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_BAT_HURT;
+        return DBSoundEvents.ENTITY_DIREBAT_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_BAT_DEATH;
+        return DBSoundEvents.ENTITY_DIREBAT_DEATH;
     }
 
     @Override
@@ -261,6 +261,7 @@ public class DirebatEntity extends CreatureEntity {
 
                 ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.BLINDNESS, seconds * 20, 0));
             }
+            this.playSound(DBSoundEvents.ENTITY_DIREBAT_ATTACK, 1.0F, 1.0F);
 
             return true;
         } else {
