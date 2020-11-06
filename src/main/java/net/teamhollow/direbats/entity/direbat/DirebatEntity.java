@@ -46,7 +46,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.LightType;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -332,14 +331,8 @@ public class DirebatEntity extends PathAwareEntity {
     public boolean tryAttack(Entity entity) {
         if (super.tryAttack(entity)) {
             if (entity instanceof LivingEntity) {
-                int seconds = 5;
-
-                if (this.world.getDifficulty() == Difficulty.HARD) {
-                    seconds = 10;
-                }
-
                 this.playSound(DBSoundEvents.ENTITY_DIREBAT_ATTACK, 10.0F, 0.95F + this.random.nextFloat() * 0.1F);
-                ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, seconds * 20, 0));
+                ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, (int)(this.world.getDifficulty().getId() * 2.5F) * 20, 0));
             }
 
             return true;
