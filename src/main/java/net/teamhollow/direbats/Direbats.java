@@ -1,9 +1,5 @@
 package net.teamhollow.direbats;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -22,6 +18,9 @@ import net.teamhollow.direbats.entity.direbat.DirebatEntityRenderer;
 import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntityRenderer;
 import net.teamhollow.direbats.init.DBEntities;
 import net.teamhollow.direbats.init.DBItems;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(Direbats.MOD_ID)
 public class Direbats {
@@ -49,7 +48,7 @@ public class Direbats {
 
 	public static void onBiomesLoaded(final BiomeLoadingEvent event) {
 			if (event.getCategory() != Biome.Category.NETHER && event.getCategory() != Biome.Category.THEEND && event.getCategory() != Biome.Category.NONE) {
-				event.getSpawns().withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(DBEntities.DIREBAT, 5, 1, 2));
+				event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(DBEntities.DIREBAT, 5, 1, 2));
 			}
 	}
 

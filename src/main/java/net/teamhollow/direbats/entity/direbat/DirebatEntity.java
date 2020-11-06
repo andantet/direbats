@@ -371,6 +371,11 @@ public class DirebatEntity extends CreatureEntity {
         }
     }
 
+    @Override
+    public boolean canDespawn(double distanceToClosestPlayer) {
+        return this.getHeldItemMainhand().isEmpty();
+    }
+
     private static boolean isTodayAroundHalloween() {
         LocalDate localDate = LocalDate.now();
         int day = localDate.get(ChronoField.DAY_OF_MONTH);

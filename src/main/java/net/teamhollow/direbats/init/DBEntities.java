@@ -16,7 +16,7 @@ import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntity;
 @Mod.EventBusSubscriber(modid = Direbats.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DBEntities {
 
-    public static final EntityType<DirebatEntity> DIREBAT = EntityType.Builder.create(DirebatEntity::new, EntityClassification.CREATURE).size(1.0F, 1.0F).build(new ResourceLocation(DirebatEntity.id).toString());
+    public static final EntityType<DirebatEntity> DIREBAT = EntityType.Builder.create(DirebatEntity::new, EntityClassification.MONSTER).size(0.95F, 0.9F).build(new ResourceLocation(DirebatEntity.id).toString());
     public static final EntityType<DirebatFangArrowEntity> DIREBAT_FANG_ARROW = EntityType.Builder.<DirebatFangArrowEntity>create(DirebatFangArrowEntity::new, EntityClassification.MISC).setTrackingRange(4).setCustomClientFactory(DirebatFangArrowEntity::new).setUpdateInterval(4).setShouldReceiveVelocityUpdates(true).size(0.5F, 0.5F).build(new ResourceLocation(DirebatFangArrowEntity.id).toString());
 
 
