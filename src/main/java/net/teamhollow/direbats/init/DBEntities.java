@@ -33,7 +33,7 @@ public class DBEntities {
         FabricEntityTypeBuilder
             .<DirebatEntity>createMob()
             .entityFactory(DirebatEntity::new)
-            .spawnGroup(SpawnGroup.CREATURE)
+            .spawnGroup(SpawnGroup.MONSTER)
             .dimensions(EntityDimensions.changing(0.95F, 0.9F))
             .spawnRestriction(SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DirebatEntity::canSpawnInDark)
             .trackRangeChunks(5)

@@ -429,6 +429,11 @@ public class DirebatEntity extends PathAwareEntity {
     }
 
     @Override
+    public boolean cannotDespawn() {
+        return this.getMainHandStack() != null;
+    }
+
+    @Override
     protected float getActiveEyeHeight(EntityPose pose, EntityDimensions entityDimensions) {
         return entityDimensions.height / 2;
     }

@@ -14,6 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class DefaultBiomeFeaturesMixin {
     @Inject(at = @At("TAIL"), method = "addMonsters")
     private static void addMonsters(SpawnSettings.Builder builder, int zombieWeight, int zombieVillagerWeight, int skeletonWeight, CallbackInfo ci) {
-        builder.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(DBEntities.DIREBAT, 10, 1, 4));
+        builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(DBEntities.DIREBAT, 3, 1, 4));
     }
 }
