@@ -265,7 +265,7 @@ public class DirebatEntity extends CreatureEntity {
             this.setMotion(0, 0, 0);
             this.getNavigator().clearPath();
         } else {
-            if (this.rand.nextInt(20) == 0 && this.world.getBlockState(blockPosUp).isNormalCube(this.world, blockPosUp) && this.world.getClosestPlayer(CLOSE_PLAYER_PREDICATE, this) == null) {
+            if (this.getAttackTarget() == null && this.rand.nextInt(20) == 0 && this.world.getBlockState(blockPosUp).isNormalCube(this.world, blockPosUp) && this.world.getClosestPlayer(CLOSE_PLAYER_PREDICATE, this) == null) {
                 this.setHanging(true);
             }
         }
