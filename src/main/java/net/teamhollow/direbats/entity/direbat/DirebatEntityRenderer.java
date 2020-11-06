@@ -16,7 +16,11 @@ public class DirebatEntityRenderer extends MobRenderer<DirebatEntity, DirebatEnt
 
     @Override
     public ResourceLocation getEntityTexture(DirebatEntity entity) {
-        return new ResourceLocation(Direbats.MOD_ID, "textures/entity/direbat.png");
+        if (entity.isAggressive()) {
+            return new ResourceLocation(Direbats.MOD_ID, "textures/entity/direbat_angry.png");
+        } else {
+            return new ResourceLocation(Direbats.MOD_ID, "textures/entity/direbat.png");
+        }
     }
 
     @Override
