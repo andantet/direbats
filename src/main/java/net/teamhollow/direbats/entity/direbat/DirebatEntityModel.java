@@ -98,11 +98,11 @@ public class DirebatEntityModel extends SegmentedModel<DirebatEntity> {
         if (entityIn.isHanging()) {
             this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
             this.body.rotateAngleX = 0.0F;
-            this.rightWing.rotateAngleX = -0.15707964F;
-            this.rightWing.rotateAngleY = -1.2566371F;
+            this.rightWing.rotateAngleX = 0.0F;
+            this.rightWing.rotateAngleY = 1.5F;
             this.leftWing.rotateAngleX = this.rightWing.rotateAngleX;
             this.leftWing.rotateAngleY = -this.rightWing.rotateAngleY;
-            this.rightWingOuter.rotateAngleY = this.rightWing.rotateAngleY;
+            this.rightWingOuter.rotateAngleY = this.rightWing.rotateAngleY + 0.3F;
             this.leftWingOuter.rotateAngleY = -this.rightWing.rotateAngleY;
         }
     }

@@ -21,6 +21,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ItemParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
@@ -30,7 +32,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorld;
@@ -50,7 +51,14 @@ public class DirebatEntity extends CreatureEntity {
     public static final String id = "direbat";
 
     private static final DataParameter<Boolean> HANGING = EntityDataManager.createKey(DirebatEntity.class, DataSerializers.BOOLEAN);
-    private static final EntityPredicate CLOSE_PLAYER_PREDICATE = (new EntityPredicate()).setDistance(4.0D).allowFriendlyFire();
+    private static final EntityPredicate CLOSE_PLAYER_PREDICATE = (new EntityPredicate()).setDistance(4.0D).allowFriendlyFire().setCustomPredicate(new Predicate<LivingEntity>() {
+        @Override
+        public boolean test(LivingEntity livingEntity) {
+            return !livingEntity.isSneaking();
+        }
+    });
+
+    private int eatingTime;
 
     private static final Predicate<ItemEntity> PICKABLE_DROP_FILTER = new Predicate<ItemEntity>() {
         public boolean test(@Nullable ItemEntity item) {
@@ -88,7 +96,7 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute getAttributeMap() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 8.0D)
+        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 16.0D)
                 .createMutableAttribute(Attributes.FLYING_SPEED, 0.22D) // previously (double) 0.22F
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.22D) // previously (double) 0.22F
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D);
@@ -122,7 +130,7 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     private float getRelevantMoveFactor(float slipperiness) {
-        return this.getAIMoveSpeed() * (0.21600002F / (slipperiness * slipperiness * slipperiness));
+        return this.getAIMoveSpeed() * (0.20600002F / (slipperiness * slipperiness * slipperiness));
     }
 
     @Override
@@ -196,11 +204,16 @@ public class DirebatEntity extends CreatureEntity {
         super.tick();
         if (this.isHanging()) {
             this.setMotion(Vector3d.ZERO);
-            this.setPosition(this.getPosX(), (double) MathHelper.floor(this.getPosY()) + 1.0D - (double) this.getHeight(), this.getPosZ());
-        } else {
-            this.setMotion(this.getMotion().mul(1.0D, 0.6D, 1.0D));
         }
+    }
 
+    @Override
+    public void travel(Vector3d travelVector) {
+        if (this.isServerWorld()) {
+            this.moveRelative(0.1F, travelVector);
+            this.move(MoverType.SELF, this.getMotion());
+            this.setMotion(this.getMotion().scale(0.9D));
+        }
     }
 
     @Override
@@ -210,6 +223,22 @@ public class DirebatEntity extends CreatureEntity {
         BlockPos blockPosUp = blockPos.up();
         if (this.isHanging()) {
             boolean isSilent = this.isSilent();
+
+            ItemStack mainhandStack = this.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
+            if (!mainhandStack.isEmpty() && mainhandStack.isFood()) {
+                this.eatingTime++;
+
+                if (this.eatingTime > 600) {
+                    ItemStack newStack = mainhandStack.onItemUseFinish(this.world, this);
+                    if (!newStack.isEmpty()) this.setItemStackToSlot(EquipmentSlotType.MAINHAND, newStack);
+
+                    this.eatingTime = 0;
+                } else if (this.eatingTime > 560 && this.rand.nextFloat() < 0.3F) {
+                    this.playSound(this.getEatSound(mainhandStack), 1.0F, 1.0F);
+                    this.spawnItemParticles(mainhandStack, 10);
+                    this.world.setEntityState(this, (byte) 45);
+                }
+            }
 
             if (this.getAttackTarget() != null) {
                 this.setHanging(false);
@@ -236,17 +265,24 @@ public class DirebatEntity extends CreatureEntity {
             this.setMotion(0, 0, 0);
             this.getNavigator().clearPath();
         } else {
-            if (this.rand.nextInt(100) == 0 && this.world.getBlockState(blockPosUp).isNormalCube(this.world, blockPosUp)) {
+            if (this.rand.nextInt(20) == 0 && this.world.getBlockState(blockPosUp).isNormalCube(this.world, blockPosUp) && this.world.getClosestPlayer(CLOSE_PLAYER_PREDICATE, this) == null) {
                 this.setHanging(true);
             }
         }
     }
 
-    @Override
-    public void setAttackTarget(LivingEntity entitylivingbaseIn) {
-        super.setAttackTarget(entitylivingbaseIn);
-
-        this.dropInventory();
+    private void spawnItemParticles(ItemStack stack, int count) {
+        for (int i = 0; i < count; ++i) {
+            Vector3d vec3d = new Vector3d(((double) this.rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+            vec3d = vec3d.rotatePitch(-this.rotationPitch * 0.017453292F);
+            vec3d = vec3d.rotateYaw(-this.rotationYaw * 0.017453292F);
+            double d = (double) (-this.rand.nextFloat()) * 0.6D - 0.3D;
+            Vector3d vec3d2 = new Vector3d(((double) this.rand.nextFloat() - 0.5D) * 0.3D, d, 0.6D);
+            vec3d2 = vec3d2.rotatePitch(-this.rotationPitch * 0.017453292F);
+            vec3d2 = vec3d2.rotateYaw(-this.rotationYaw * 0.017453292F);
+            vec3d2 = vec3d2.add(this.getPosX(), this.getPosYEye(), this.getPosZ());
+            this.world.addParticle(new ItemParticleData(ParticleTypes.ITEM, stack), vec3d2.x, vec3d2.y, vec3d2.z, vec3d.x, vec3d.y + 0.05D, vec3d.z);
+        }
     }
 
     @Override
@@ -287,15 +323,9 @@ public class DirebatEntity extends CreatureEntity {
     @Override
     protected void updateEquipmentIfNeeded(ItemEntity itemEntity) {
         ItemStack newItem = itemEntity.getItem();
+        ItemStack currentItem = this.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
 
-        if (PICKABLE_DROP_FILTER.test(itemEntity)) {
-            ItemStack currentItem = this.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
-
-            if (!currentItem.isEmpty()) {
-                this.entityDropItem(currentItem);
-                this.setHeldItem(Hand.MAIN_HAND, new ItemStack(Items.AIR));
-            }
-
+        if (currentItem.isEmpty() && PICKABLE_DROP_FILTER.test(itemEntity)) {
             this.func_233657_b_(EquipmentSlotType.MAINHAND, newItem); // insert new item into main hand
             this.triggerItemPickupTrigger(itemEntity);
             this.onItemPickup(itemEntity, newItem.getCount());
@@ -451,7 +481,6 @@ public class DirebatEntity extends CreatureEntity {
         public void startExecuting() {
             List<ItemEntity> list = DirebatEntity.this.world.getEntitiesWithinAABB(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);
             if (!list.isEmpty()) {
-                System.out.println(list.get(0));
                 DirebatEntity.this.getNavigator().tryMoveToEntityLiving((Entity) list.get(0), 1.2000000476837158D);
             }
 
@@ -466,7 +495,8 @@ public class DirebatEntity extends CreatureEntity {
 
         public boolean shouldExecute() {
             float goalOwnerBrightness = this.goalOwner.getBrightness();
-            return goalOwnerBrightness <= 0.5F ? false : super.shouldExecute();
+            // get nearby non-sneaking player and set target
+            return goalOwnerBrightness <= 0.5F ? false : super.shouldExecute() && !this.nearestTarget.isSneaking();
         }
     }
 }
