@@ -1,11 +1,12 @@
 ---
 title: Direbat
+published: true
 ---
 
-Direbats are neutral flying mobs that spawn in caves and other dark places.
+Direbats are neutral flying mobs that spawn in caves and other dark places. 
 
 ## Spawning
-Direbats can spawn in up to groups of 4 in the Overworld at a light level of 4 or less (7 or less between Oct 20th and Nov 3rd).
+Direbats can spawn in up to groups of 4 in the Overworld. They will only spawn at a light level of 4 or less. If the date on the player's computer is between October 20th and November 3rd, Direbats will instead spawn in the Overworld at a light level of 7 or less.
 
 ## Drops
 When killed by a player, Direbats drop 0–2 [Direbat Fangs](Direbat_Fang). The maximum drop is increased by 0-4 per level of Looting, for a maximum of 0-14 with Looting III.
