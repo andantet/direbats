@@ -9,15 +9,15 @@ Direbats are neutral flying mobs that spawn in caves and other dark places.
 Direbats can spawn in up to groups of 4 in the Overworld. They will only spawn at a light level of 4 or less. If the date on the player's computer is between October 20th and November 3rd, Direbats will instead spawn in the Overworld at a light level of 7 or less.
 
 ## Drops
-When killed by a player, Direbats drop 0–2 [Direbat Fangs](Direbat_Fang). The maximum drop is increased by 0-4 per level of Looting, for a maximum of 0-14 with Looting III.
+When killed by a player, Direbats drop 0 to 2 [Direbat Fangs](Direbat_Fang). The amount of possible fangs dropped by a Direbat increases by 4 per level of Looting, so the most you can get is 14 from one kill, but it is still possible to get none.
 ### Equipment
 Direbats always drop their held item(s) on death.
 ### Experience
-Direbats drop 5 experience points on death.
+Direbats drop 5 experience points on death if killed by the player.
 
 ## Behavior
 ### Attacking the player
-Direbats will only attack the player if the brightness level is higher than 4 or the player has attacked the Direbat first. A Direbat will inflict 5 seconds of {% include mcwiki.html url="Blindness" title="Blindness" %} on the hit entity, or 10 seconds if the {% include mcwiki.html url="Difficulty" title="difficulty" %} is set to hard.
+Direbats are neutral by default, however they will atack you if you attacked them first. However if the light level is higher than 4 then the Direbat becomes hostile, dropping any items it was holding and attacking the player. A Direbat will inflict 5 seconds of {% include mcwiki.html url="Blindness" title="Blindness" %} on the hit entity, or 10 seconds if the {% include mcwiki.html url="Difficulty" title="difficulty" %} is set to hard.
 ### Picking up items
 Direbats will find and go after item entities nearby and pick them up. A Direbat will drop its held item if it takes damage in any way, or targets an entity.
 
