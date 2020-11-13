@@ -351,7 +351,7 @@ public class DirebatEntity extends PathAwareEntity {
             }
 
             ItemStack currentItem = this.getEquippedStack(EquipmentSlot.MAINHAND);
-            if (!currentItem.isEmpty()) {
+            if (!currentItem.isEmpty() && this.random.nextInt(4) == 0) {
                 this.dropStack(currentItem);
                 this.setStackInHand(Hand.MAIN_HAND, new ItemStack(Items.AIR));
             }
