@@ -1,0 +1,12 @@
+{
+    "mod.direbats.name": "Лютомышь",
+    "mod.direbats.description": "Direbats - adds Direbats!\nYou can typically find these bats living in the darkest of caves. However, during full moons, they will spawn on the surface. Be careful to shine any lights at them or else they’ll attack! They can also steal your items, so watch out!",
+    "itemGroup.direbats:item_group": "Direbats",
+
+    "item.direbats.direbat_fang": "Клык лютомыши",
+    "item.direbats.direbat_fang_arrow": "Стрела из клыка лютомыши",
+    "item.direbats.direbat_spawn_egg": "Яйцо призыва лютомыши",
+
+    "entity.direbats.direbat": "Лютомышь",
+    "entity.direbats.direbat_fang_arrow": "Стрела из клыка лютомыши"
+}
