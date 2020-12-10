@@ -282,9 +282,9 @@ public class DirebatEntity extends PathAwareEntity {
                 BlockPos randomPos = targetPos;
                 if (randomPos == null) randomPos = new BlockPos(this.getX(), this.getY() + 2, this.getZ());
                 randomPos = new BlockPos(
-                    randomPos.getX() + this.random.nextInt(7) - this.random.nextInt(7),
+                    randomPos.getX() + this.random.nextInt(11) - this.random.nextInt(11),
                     randomPos.getY() + this.random.nextInt(3),
-                    randomPos.getZ() + this.random.nextInt(7) - this.random.nextInt(7)
+                    randomPos.getZ() + this.random.nextInt(11) - this.random.nextInt(11)
                 );
 
                 // get velocity from target pos
@@ -295,7 +295,7 @@ public class DirebatEntity extends PathAwareEntity {
                 Vec3d vec3d = this.getVelocity();
                 vec3d = vec3d.add(
                     (Math.signum(x) * 0.69D - vec3d.x) * 0.10000000149011612D,
-                    ((Math.signum(y) * 0.699999988079071D - vec3d.y) * 0.10000000149011612D) + (targetPos.getY() > this.getY() ? 0.2D : 0.0D),
+                    ((Math.signum(y) * 0.699999988079071D - vec3d.y) * 0.10000000149011612D) + (targetPos.getY() + 1 < this.getY() ? -0.08D : Math.random() / 7.7D),
                     (Math.signum(z) * 0.69D - vec3d.z) * 0.10000000149011612D
                 );
 
