@@ -1,4 +1,4 @@
-![Direbats Banner Image](https://teamhollow.net/assets/images/projects/direbats-full.png)
+<img align="center" src="https://direbats.teamhollow.net/assets/docs/direbat/showcase.png">
 
 <h1 align="center">
     Direbats
