@@ -33,10 +33,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import net.teamhollow.direbats.init.DBSoundEvents;
 
 import javax.annotation.Nullable;
@@ -325,7 +322,7 @@ public class DirebatEntity extends CreatureEntity {
         ItemStack newItem = itemEntity.getItem();
         ItemStack currentItem = this.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
 
-        if (currentItem.isEmpty() && PICKABLE_DROP_FILTER.test(itemEntity)) {
+        if (currentItem.isEmpty() && this.world.getGameRules().getBoolean(GameRules.MOB_GRIEFING) && PICKABLE_DROP_FILTER.test(itemEntity)) {
             this.func_233657_b_(EquipmentSlotType.MAINHAND, newItem); // insert new item into main hand
             this.triggerItemPickupTrigger(itemEntity);
             this.onItemPickup(itemEntity, newItem.getCount());
