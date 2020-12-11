@@ -6,7 +6,7 @@ name: Publish Build to Packages
 on:
   push:
     branches:
-      - fabric/1.16.3
+      - fabric/1.16.4
 
 jobs:
   build:
