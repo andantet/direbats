@@ -1,7 +1,5 @@
 {
-    "mod.direbats.name": "Direbats",
     "mod.direbats.description": "Direbats - adiciona morcegos medonhos!\nNormalmente você encontrará esses morcegos morando nas cavernas mais escuras. Porém, durante a lua cheia, eles irão aparecer na superfície. Cuidado para não mirar qualquer luz sobre eles, senão eles irão atacar! Eles também podem roubar seus itens, fique de olho!",
-    "itemGroup.direbats.item_group": "Direbats",
     
     "entity.direbats.direbat": "Morcego Medonho",
     "entity.direbats.direbat_fang_arrow": "Flecha de Dente de Morcego Medonho",
