@@ -26,6 +26,7 @@ run
 
 # Files from Forge MDK
 forge*changelog.txt
+logs/
 
 Scripts/
 src/test/
