@@ -24,10 +24,10 @@ import org.apache.logging.log4j.Logger;
 
 @Mod(Direbats.MOD_ID)
 public class Direbats {
-    public static Logger LOGGER = LogManager.getLogger();
-
     public static final String MOD_ID = "direbats";
     public static final String MOD_NAME = "Direbats";
+
+    public static Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static final ItemGroup ITEM_GROUP = new ItemGroup(new ResourceLocation(MOD_ID, "item_group").toString()) {
         @OnlyIn(Dist.CLIENT)
@@ -39,25 +39,31 @@ public class Direbats {
     public Direbats() {
         log("Initializing");
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        MinecraftForge.EVENT_BUS.addListener(Direbats::onBiomesLoaded);
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.addListener(Direbats::onBiomesLoaded);
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
 
         log("Initialized");
     }
 
     public static void onBiomesLoaded(final BiomeLoadingEvent event) {
         Biome.Category cat = event.getCategory();
-        if (cat == Biome.Category.FOREST || cat == Biome.Category.TAIGA)
+        if (cat == Biome.Category.FOREST || cat == Biome.Category.TAIGA) {
             event.getSpawns().withSpawner(
-                EntityClassification.MONSTER,
-                new MobSpawnInfo.Spawners(DBEntities.DIREBAT, 3, 1, 4)
+                    EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(DBEntities.DIREBAT, 200, 1, 4)
             );
+        }
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
+        log("Initializing client");
+
         RenderingRegistry.registerEntityRenderingHandler(DBEntities.DIREBAT, DirebatEntityRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DBEntities.DIREBAT_FANG_ARROW, DirebatFangArrowEntityRenderer::new);
+
+        log("Initialized client");
     }
 
     public static void log(Level level, String message) {

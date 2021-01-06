@@ -22,10 +22,6 @@ public class DirebatFangArrowEntity extends AbstractArrowEntity {
         this.setDamage(30f);
     }
 
-    public DirebatFangArrowEntity(World world, double x, double y, double z) {
-        super(DBEntities.DIREBAT_FANG_ARROW, x, y, z, world);
-    }
-
     public DirebatFangArrowEntity(World world, LivingEntity owner) {
         super(DBEntities.DIREBAT_FANG_ARROW, owner, world);
     }
@@ -36,7 +32,7 @@ public class DirebatFangArrowEntity extends AbstractArrowEntity {
 
     @Override
     protected void onEntityHit(EntityRayTraceResult result) {
-        if (result.getEntity() != null && result.getEntity() instanceof LivingEntity) {
+        if (result.getEntity() instanceof LivingEntity) {
             ((LivingEntity) result.getEntity()).addPotionEffect(new EffectInstance(Effects.BLINDNESS, 300));
         }
 

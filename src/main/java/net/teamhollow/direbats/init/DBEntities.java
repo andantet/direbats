@@ -15,15 +15,21 @@ import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntity;
 
 @Mod.EventBusSubscriber(modid = Direbats.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DBEntities {
-
-    public static final EntityType<DirebatEntity> DIREBAT = EntityType.Builder.create(DirebatEntity::new, EntityClassification.MONSTER).size(0.95F, 0.9F).build(new ResourceLocation(DirebatEntity.id).toString());
-    public static final EntityType<DirebatFangArrowEntity> DIREBAT_FANG_ARROW = EntityType.Builder.<DirebatFangArrowEntity>create(DirebatFangArrowEntity::new, EntityClassification.MISC).setTrackingRange(4).setCustomClientFactory(DirebatFangArrowEntity::new).setUpdateInterval(4).setShouldReceiveVelocityUpdates(true).size(0.5F, 0.5F).build(new ResourceLocation(DirebatFangArrowEntity.id).toString());
-
+    public static final EntityType<DirebatEntity> DIREBAT = EntityType.Builder.create(DirebatEntity::new, EntityClassification.MONSTER)
+        .size(0.95F, 0.9F)
+        .build(new ResourceLocation(DirebatEntity.id).toString());
+    public static final EntityType<DirebatFangArrowEntity> DIREBAT_FANG_ARROW = EntityType.Builder.<DirebatFangArrowEntity>create(DirebatFangArrowEntity::new, EntityClassification.MISC)
+        .setTrackingRange(4)
+        .setCustomClientFactory(DirebatFangArrowEntity::new)
+        .setUpdateInterval(4)
+        .setShouldReceiveVelocityUpdates(true)
+        .size(0.5F, 0.5F)
+        .build(new ResourceLocation(DirebatFangArrowEntity.id).toString());
 
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
         GlobalEntityTypeAttributes.put(DIREBAT, DirebatEntity.getAttributeMap().create());
-        EntitySpawnPlacementRegistry.register(DIREBAT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DirebatEntity::canSpawn);
+        EntitySpawnPlacementRegistry.register(DIREBAT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DirebatEntity::canSpawnInDark);
 
         event.getRegistry().register(DIREBAT.setRegistryName(DirebatEntity.id));
         event.getRegistry().register(DIREBAT_FANG_ARROW.setRegistryName(DirebatFangArrowEntity.id));

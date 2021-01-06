@@ -1,34 +1,33 @@
-modLoader = "javafml"
-loaderVersion = "[35,)"
-license = "https://github.com/teamhollow/direbats/blob/HEAD/LICENSE"
+modLoader           = "javafml"
+loaderVersion       = "[35,)"
+license             = "https://github.com/teamhollow/direbats/blob/HEAD/LICENSE"
+
 [[mods]]
+    modId           = "direbats"
+    displayName     = "Direbats"
+    description     = '''
+        Direbats - adds Direbats!
 
-modId = "direbats"
-displayName = "Direbats"
-description='''
-    Direbats - adds Direbats!
+        You can typically find these bats living in the darkest of caves. However, during full moons, they will spawn on the surface. Be careful to shine any lights at them or else they’ll attack! They can also steal your items, so watch out!
+    '''
+    authors         = "Team Hollow"
+    logoFile        = "pack.png"
 
-    You can typically find these bats living in the darkest of caves. However, during full moons, they will spawn on the surface. Be careful to shine any lights at them or else they’ll attack! They can also steal your items, so watch out!
-'''
-authors = "Team Hollow"
-logoFile="pack.png"
+    version         = "${file.jarVersion}"
+    updateJSONURL   = "https://teamhollow.net/data/update/direbats.json"
 
-version = "${file.jarVersion}"
-# A URL to query for updates for this mod. See the JSON update specification <here>
-updateJSONURL="https://teamhollow.net/data/update/direbats.json"
-
-displayURL="https://direbats.teamhollow.net"
-issueTrackerURL = "https://github.com/teamhollow/direbats/issues"
+    displayURL      = "https://direbats.teamhollow.net"
+    issueTrackerURL = "https://github.com/teamhollow/direbats/issues"
 
 [[dependencies.direbat]]
-    modId="forge"
-    mandatory=true
-    versionRange="[35.0,)"
-    ordering="NONE"
-    side="BOTH"
+    modId           = "forge"
+    mandatory       = true
+    versionRange    = "[35.0,)"
+    ordering        = "NONE"
+    side            = "BOTH"
 [[dependencies.direbat]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.16.4]"
-    ordering="NONE"
-    side="BOTH"
+    modId           = "minecraft"
+    mandatory       = true
+    versionRange    = "[1.16.4]"
+    ordering        = "NONE"
+    side            = "BOTH"

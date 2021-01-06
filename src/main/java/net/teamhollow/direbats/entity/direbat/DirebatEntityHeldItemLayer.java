@@ -18,6 +18,7 @@ public class DirebatEntityHeldItemLayer extends LayerRenderer<DirebatEntity, Dir
         super(entityRenderDispatcher);
     }
 
+    @Override
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, DirebatEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         matrixStackIn.push();
 

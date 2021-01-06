@@ -48,20 +48,11 @@ public class DirebatEntity extends CreatureEntity {
     public static final String id = "direbat";
 
     private static final DataParameter<Boolean> HANGING = EntityDataManager.createKey(DirebatEntity.class, DataSerializers.BOOLEAN);
-    private static final EntityPredicate CLOSE_PLAYER_PREDICATE = (new EntityPredicate()).setDistance(4.0D).allowFriendlyFire().setCustomPredicate(new Predicate<LivingEntity>() {
-        @Override
-        public boolean test(LivingEntity livingEntity) {
-            return !livingEntity.isSneaking();
-        }
-    });
+    private static final EntityPredicate CLOSE_PLAYER_PREDICATE = (new EntityPredicate()).setDistance(4.0D).allowFriendlyFire().setCustomPredicate(livingEntity -> !livingEntity.isSneaking());
 
     private int eatingTime;
 
-    private static final Predicate<ItemEntity> PICKABLE_DROP_FILTER = new Predicate<ItemEntity>() {
-        public boolean test(@Nullable ItemEntity item) {
-            return item != null && !item.cannotPickup();
-        }
-    };
+    private static final Predicate<ItemEntity> PICKABLE_DROP_FILTER = item -> item != null && !item.cannotPickup();
 
     public DirebatEntity(EntityType<? extends DirebatEntity> entityType, World world) {
         super(entityType, world);
@@ -172,12 +163,10 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     @Override
-    protected void collideWithEntity(Entity entityIn) {
-    }
+    protected void collideWithEntity(Entity entityIn) {}
 
     @Override
-    protected void collideWithNearbyEntities() {
-    }
+    protected void collideWithNearbyEntities() {}
 
     @Override
     public boolean onLivingFall(float distance, float damageMultiplier) {
@@ -185,8 +174,7 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     @Override
-    protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
-    }
+    protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {}
 
     public boolean isHanging() {
         return this.dataManager.get(HANGING);
@@ -249,13 +237,13 @@ public class DirebatEntity extends CreatureEntity {
                 if (this.world.getClosestPlayer(CLOSE_PLAYER_PREDICATE, this) != null) {
                     this.setHanging(false);
                     if (!isSilent) {
-                        this.world.playEvent((PlayerEntity) null, 1025, blockPos, 0);
+                        this.world.playEvent(null, 1025, blockPos, 0);
                     }
                 }
             } else {
                 this.setHanging(false);
                 if (!isSilent) {
-                    this.world.playEvent((PlayerEntity) null, 1025, blockPos, 0);
+                    this.world.playEvent(null, 1025, blockPos, 0);
                 }
             }
 
@@ -351,21 +339,16 @@ public class DirebatEntity extends CreatureEntity {
         compound.putBoolean("Hanging", this.dataManager.get(HANGING));
     }
 
-    public static boolean canSpawn(EntityType<DirebatEntity> type, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        if (pos.getY() >= 63 && world.getMoonFactor() < 1.0F) {
+    public static boolean isSpawnDark(IServerWorld serverWorldAccess, BlockPos pos, Random random) {
+        if (serverWorldAccess.getLightFor(LightType.SKY, pos) > random.nextInt(32)) {
             return false;
         } else {
-            int worldLight = world.getLight(pos);
-            int maximumLight = 4;
-            if (isTodayAroundHalloween()) {
-                maximumLight = 7;
-            } else if (random.nextBoolean()) {
-                return false;
-            }
-
-            return worldLight > random.nextInt(maximumLight)
-                    ? false : canSpawnOn(type, world, spawnReason, pos, random);
+            int i = serverWorldAccess.getWorld().isThundering() ? serverWorldAccess.getNeighborAwareLightSubtracted(pos, 10) : serverWorldAccess.getLight(pos);
+            return i <= random.nextInt(8);
         }
+    }
+    public static boolean canSpawnInDark(EntityType<? extends DirebatEntity> type, IServerWorld serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return isSpawnDark(serverWorldAccess, pos, random) && canSpawnOn(type, serverWorldAccess, spawnReason, pos, random);
     }
 
     @Override
@@ -386,7 +369,7 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     private boolean isWithinDistance(BlockPos pos, int distance) {
-        return pos.withinDistance(this.getPosition(), (double) distance);
+        return pos.withinDistance(this.getPosition(), distance);
     }
 
     @Override
@@ -406,7 +389,7 @@ public class DirebatEntity extends CreatureEntity {
         public boolean shouldContinueExecuting() {
             float attackerBrightness = this.attacker.getBrightness();
             if (attackerBrightness <= 0.5F && this.attacker.getRNG().nextInt(100) == 0) {
-                this.attacker.setAttackTarget((LivingEntity) null);
+                this.attacker.setAttackTarget(null);
                 return false;
             } else {
                 return super.shouldContinueExecuting();
@@ -446,7 +429,7 @@ public class DirebatEntity extends CreatureEntity {
             }
 
             Vector3d vector3d2 = RandomPositionGenerator.findAirTarget(DirebatEntity.this, 8, 7, vector3d, ((float) Math.PI / 2F), 2, 1);
-            return vector3d2 != null ? vector3d2 : RandomPositionGenerator.findGroundTarget(DirebatEntity.this, 8, 4, -2, vector3d, (double) ((float) Math.PI / 2F));
+            return vector3d2 != null ? vector3d2 : RandomPositionGenerator.findGroundTarget(DirebatEntity.this, 8, 4, -2, vector3d, (float) Math.PI / 2F);
         }
     }
 
@@ -475,7 +458,7 @@ public class DirebatEntity extends CreatureEntity {
             List<ItemEntity> list = DirebatEntity.this.world.getEntitiesWithinAABB(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);
             ItemStack itemInHand = DirebatEntity.this.getHeldItem(Hand.MAIN_HAND);
             if (itemInHand.isEmpty() && !list.isEmpty()) {
-                DirebatEntity.this.getNavigator().tryMoveToEntityLiving((Entity) list.get(0), 1.2000000476837158D);
+                DirebatEntity.this.getNavigator().tryMoveToEntityLiving(list.get(0), 1.2000000476837158D);
             }
         }
 
@@ -483,7 +466,7 @@ public class DirebatEntity extends CreatureEntity {
         public void startExecuting() {
             List<ItemEntity> list = DirebatEntity.this.world.getEntitiesWithinAABB(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);
             if (!list.isEmpty()) {
-                DirebatEntity.this.getNavigator().tryMoveToEntityLiving((Entity) list.get(0), 1.2000000476837158D);
+                DirebatEntity.this.getNavigator().tryMoveToEntityLiving(list.get(0), 1.2000000476837158D);
             }
 
             DirebatEntity.this.setHanging(false);
@@ -498,7 +481,7 @@ public class DirebatEntity extends CreatureEntity {
         public boolean shouldExecute() {
             float goalOwnerBrightness = this.goalOwner.getBrightness();
             // get nearby non-sneaking player and set target
-            return goalOwnerBrightness <= 0.5F ? false : super.shouldExecute() && !this.nearestTarget.isSneaking();
+            return !(goalOwnerBrightness <= 0.5F) && super.shouldExecute() && !this.nearestTarget.isSneaking();
         }
     }
 }

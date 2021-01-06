@@ -15,6 +15,7 @@ public class DirebatFangArrowItem extends ArrowItem {
         super(settings);
     }
 
+    @Override
     public AbstractArrowEntity createArrow(World worldIn, ItemStack stack, LivingEntity shooter) {
         return new DirebatFangArrowEntity(worldIn, shooter);
     }
