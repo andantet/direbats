@@ -1,37 +1,37 @@
 {
-    "schemaVersion": 1,
-    "license": "MIT",
-    "id": "direbats",
-    "version": "${version}",
+  "schemaVersion": 1,
+  "license": "MIT",
+  "id": "direbats",
+  "version": "${version}",
 
-    "name": "Direbats",
-    "description": "Direbats - adds Direbats!\nYou can typically find these bats living in the darkest of caves. However, during full moons, they will spawn on the surface. Be careful to shine any lights at them or else they’ll attack! They can also steal your items, so watch out!",
-    "icon": "pack.png",
+  "name": "Direbats",
+  "description": "Direbats - adds Direbats!\nYou can typically find these bats living in the darkest of caves. However, during full moons, they will spawn on the surface. Be careful to shine any lights at them or else they’ll attack! They can also steal your items, so watch out!",
+  "icon": "pack.png",
 
-    "authors": [
-        "Team Hollow"
+  "authors": [
+    "Team Hollow"
+  ],
+  "contributors": [],
+  "contact": {
+    "homepage": "https://direbats.teamhollow.net",
+    "sources": "https://github.com/teamhollow/direbats",
+    "issues": "https://github.com/teamhollow/direbats/issues"
+  },
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.teamhollow.direbats.Direbats"
     ],
-    "contributors": [],
-    "contact": {
-        "homepage": "https://direbats.teamhollow.net",
-        "sources": "https://github.com/teamhollow/direbats",
-        "issues": "https://github.com/teamhollow/direbats/issues"
-    },
-
-    "environment": "*",
-    "entrypoints": {
-        "main": [
-            "net.teamhollow.direbats.Direbats"
-        ],
-        "client": [
-            "net.teamhollow.direbats.DirebatsClient"
-        ],
-        "server": []
-    },
-    "mixins": [],
-    "depends": {
-        "fabricloader": ">=0.10.0",
-        "fabric": "*",
-        "minecraft": "1.16.4"
-    }
+    "client": [
+      "net.teamhollow.direbats.DirebatsClient"
+    ],
+    "server": []
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.11.0",
+    "fabric": ">=0.30.0",
+    "minecraft": ">=1.16.2"
+  }
 }
