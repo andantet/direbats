@@ -7,7 +7,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.world.World;
 import net.teamhollow.direbats.init.DBEntities;
 import net.teamhollow.direbats.init.DBItems;
@@ -20,7 +19,6 @@ public class DirebatFangArrowEntity extends PersistentProjectileEntity {
 
     public DirebatFangArrowEntity(EntityType<? extends DirebatFangArrowEntity> entityType, World world) {
         super(entityType, world);
-        this.setDamage(30.0F);
     }
 
     public DirebatFangArrowEntity(World world, LivingEntity owner) {
@@ -32,14 +30,6 @@ public class DirebatFangArrowEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        if (this.world.isClient && !this.inGround) {
-            this.world.addParticle(ParticleTypes.INSTANT_EFFECT, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
-        }
-    }
-
-    @Override
     protected ItemStack asItemStack() {
         return new ItemStack(DBItems.DIREBAT_FANG_ARROW);
     }
@@ -47,6 +37,7 @@ public class DirebatFangArrowEntity extends PersistentProjectileEntity {
     @Override
     protected void onHit(LivingEntity target) {
         super.onHit(target);
+
         StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.BLINDNESS, this.duration, 0);
         target.addStatusEffect(statusEffectInstance);
     }
@@ -54,14 +45,14 @@ public class DirebatFangArrowEntity extends PersistentProjectileEntity {
     @Override
     public void readCustomDataFromTag(CompoundTag tag) {
         super.readCustomDataFromTag(tag);
-        if (tag.contains("Duration")) {
-            this.duration = tag.getInt("Duration");
-        }
+
+        if (tag.contains("Duration")) this.duration = tag.getInt("Duration");
     }
 
     @Override
     public void writeCustomDataToTag(CompoundTag tag) {
         super.writeCustomDataToTag(tag);
+
         tag.putInt("Duration", this.duration);
     }
 }

@@ -28,7 +28,9 @@
     ],
     "server": []
   },
-  "mixins": [],
+  "mixins": [
+    "direbats.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.11.0",
     "fabric": ">=0.30.0",
