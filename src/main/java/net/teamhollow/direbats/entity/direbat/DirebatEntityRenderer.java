@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
-import net.teamhollow.direbats.Direbats;
+import net.teamhollow.direbats.init.DBEntities;
 
 public class DirebatEntityRenderer extends MobRenderer<DirebatEntity, DirebatEntityModel> {
     public DirebatEntityRenderer(EntityRendererManager entityRenderDispatcher) {
@@ -16,11 +16,7 @@ public class DirebatEntityRenderer extends MobRenderer<DirebatEntity, DirebatEnt
 
     @Override
     public ResourceLocation getEntityTexture(DirebatEntity entity) {
-        if (entity.isAggressive()) {
-            return new ResourceLocation(Direbats.MOD_ID, "textures/entity/direbat_angry.png");
-        } else {
-            return new ResourceLocation(Direbats.MOD_ID, "textures/entity/direbat.png");
-        }
+        return DBEntities.texture(DirebatEntity.id + "/" + DirebatEntity.id + (entity.isAggressive() ? "_angry" : ""));
     }
 
     @Override

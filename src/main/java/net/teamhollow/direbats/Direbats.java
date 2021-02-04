@@ -72,4 +72,8 @@ public class Direbats {
     public static void log(String message) {
         log(Level.INFO, message);
     }
+
+    public static ResourceLocation texture(String path) {
+        return new ResourceLocation(MOD_ID, "textures/" + path + ".png");
+    }
 }

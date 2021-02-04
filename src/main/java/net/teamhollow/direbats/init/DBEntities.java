@@ -29,9 +29,14 @@ public class DBEntities {
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
         GlobalEntityTypeAttributes.put(DIREBAT, DirebatEntity.getAttributeMap().create());
-        EntitySpawnPlacementRegistry.register(DIREBAT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DirebatEntity::canSpawnInDark);
+        EntitySpawnPlacementRegistry.register(DIREBAT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DirebatEntity::canSpawn);
 
-        event.getRegistry().register(DIREBAT.setRegistryName(DirebatEntity.id));
-        event.getRegistry().register(DIREBAT_FANG_ARROW.setRegistryName(DirebatFangArrowEntity.id));
+        for (EntityType<?> type : new EntityType[] { DIREBAT.setRegistryName(DirebatEntity.id), DIREBAT_FANG_ARROW.setRegistryName(DirebatFangArrowEntity.id) }) {
+            event.getRegistry().register(type);
+        }
+    }
+
+    public static ResourceLocation texture(String path) {
+        return Direbats.texture("entity/" + path);
     }
 }
