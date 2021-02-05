@@ -34,6 +34,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.*;
+import net.teamhollow.direbats.init.DBConfig;
 import net.teamhollow.direbats.init.DBSoundEvents;
 
 import javax.annotation.Nullable;
@@ -344,7 +345,7 @@ public class DirebatEntity extends CreatureEntity {
         ItemStack newItem = itemEntity.getItem();
         ItemStack currentItem = this.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
 
-        if (currentItem.isEmpty() && this.world.getGameRules().getBoolean(GameRules.MOB_GRIEFING) && PICKABLE_DROP_FILTER.test(itemEntity)) {
+        if (currentItem.isEmpty() && DBConfig.DIREBAT_ITEM_PICKUP.get() && PICKABLE_DROP_FILTER.test(itemEntity)) {
             this.func_233657_b_(EquipmentSlotType.MAINHAND, newItem); // insert new item into main hand
             this.triggerItemPickupTrigger(itemEntity);
             this.onItemPickup(itemEntity, newItem.getCount());
@@ -476,7 +477,7 @@ public class DirebatEntity extends CreatureEntity {
 
         @Override
         public boolean shouldExecute() {
-            if (!DirebatEntity.this.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
+            if (!DirebatEntity.this.getHeldItem(Hand.MAIN_HAND).isEmpty() || !DBConfig.DIREBAT_ITEM_PICKUP.get()) {
                 return false;
             } else if (DirebatEntity.this.getAttackTarget() == null && DirebatEntity.this.getAttackingEntity() == null) {
                 List<ItemEntity> list = DirebatEntity.this.world.getEntitiesWithinAABB(ItemEntity.class, DirebatEntity.this.getBoundingBox().expand(8.0D, 8.0D, 8.0D), DirebatEntity.PICKABLE_DROP_FILTER);

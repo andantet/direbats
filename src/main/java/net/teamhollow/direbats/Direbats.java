@@ -10,12 +10,15 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.teamhollow.direbats.entity.direbat.DirebatEntityRenderer;
 import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntityRenderer;
+import net.teamhollow.direbats.init.DBConfig;
 import net.teamhollow.direbats.init.DBEntities;
 import net.teamhollow.direbats.init.DBItems;
 import org.apache.logging.log4j.Level;
@@ -39,10 +42,14 @@ public class Direbats {
     public Direbats() {
         log("Initializing");
 
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, DBConfig.INSTANCE);
+
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(Direbats::onBiomesLoaded);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+
+        DBConfig.loadConfig();
 
         log("Initialized");
     }
