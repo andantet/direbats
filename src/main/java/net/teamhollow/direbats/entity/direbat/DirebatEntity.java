@@ -376,7 +376,7 @@ public class DirebatEntity extends CreatureEntity {
     @SuppressWarnings({"deprecation"})
     public static boolean canSpawn(EntityType<DirebatEntity> type, IServerWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
         if (pos.getY() >= world.getSeaLevel()) {
-            return world.getMoonFactor() == 1.0F;
+            return world.getWorld().isNightTime() && world.getMoonFactor() == 1.0F;
         } else {
             int worldLight = world.getLight(pos);
             int maximumLight = 4;
