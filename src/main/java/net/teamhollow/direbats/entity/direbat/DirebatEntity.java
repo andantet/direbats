@@ -343,28 +343,30 @@ public class DirebatEntity extends CreatureEntity {
         compound.putBoolean("Hanging", this.dataManager.get(HANGING));
     }
 
-    public static boolean isSpawnDark(IServerWorld serverWorldAccess, BlockPos pos, Random random) {
-        if (serverWorldAccess.getLightFor(LightType.SKY, pos) > random.nextInt(32)) {
-            return false;
+    @SuppressWarnings({"deprecation"})
+    public static boolean canSpawn(EntityType<DirebatEntity> type, IServerWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        if (pos.getY() >= world.getSeaLevel()) {
+            return  world.getMoonFactor() == 1.0F;
         } else {
-            int i = serverWorldAccess.getWorld().isThundering() ? serverWorldAccess.getNeighborAwareLightSubtracted(pos, 10) : serverWorldAccess.getLight(pos);
-            return i <= random.nextInt(8);
+            int worldLight = world.getLight(pos);
+            int maximumLight = 4;
+            if (isTodayAroundHalloween()) {
+                maximumLight = 7;
+            }
+
+            return worldLight <= random.nextInt(maximumLight) && canSpawnOn(type, world, spawnReason, pos, random);
         }
     }
-    public static boolean canSpawnInDark(EntityType<? extends DirebatEntity> type, IServerWorld serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return isSpawnDark(serverWorldAccess, pos, random) && canSpawnOn(type, serverWorldAccess, spawnReason, pos, random);
-    }
-
-    @Override
-    public boolean canDespawn(double distanceToClosestPlayer) {
-        return this.getHeldItemMainhand().isEmpty();
-    }
-
     private static boolean isTodayAroundHalloween() {
         LocalDate localDate = LocalDate.now();
         int day = localDate.get(ChronoField.DAY_OF_MONTH);
         int month = localDate.get(ChronoField.MONTH_OF_YEAR);
         return month == 10 && day >= 20 || month == 11 && day <= 3;
+    }
+
+    @Override
+    public boolean canDespawn(double distanceToClosestPlayer) {
+        return this.getHeldItemMainhand().isEmpty();
     }
 
     @Override
