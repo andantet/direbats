@@ -48,7 +48,10 @@ public class DirebatEntity extends CreatureEntity {
     public static final String id = "direbat";
 
     private static final DataParameter<Boolean> HANGING = EntityDataManager.createKey(DirebatEntity.class, DataSerializers.BOOLEAN);
-    private static final EntityPredicate CLOSE_PLAYER_PREDICATE = (new EntityPredicate()).setDistance(4.0D).allowFriendlyFire().setCustomPredicate(livingEntity -> !livingEntity.isSneaking());
+    private static final EntityPredicate CLOSE_PLAYER_PREDICATE = new EntityPredicate()
+        .setDistance(4.0D)
+        .allowFriendlyFire()
+        .setCustomPredicate(livingEntity -> !livingEntity.isSneaking());
 
     private int eatingTime;
 
@@ -76,11 +79,11 @@ public class DirebatEntity extends CreatureEntity {
 
     @Override
     protected void registerGoals() {
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.goalSelector.addGoal(1, new AttackGoal(this));
+        this.targetSelector.addGoal(1, new TargetGoal<>(this, PlayerEntity.class));
         this.goalSelector.addGoal(2, new DirebatEntity.PickupItemGoal());
         this.goalSelector.addGoal(3, new WanderGoal());
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new TargetGoal<>(this, PlayerEntity.class));
     }
 
     @Override
@@ -90,23 +93,25 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute getAttributeMap() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 16.0D)
-                .createMutableAttribute(Attributes.FLYING_SPEED, 0.22D) // previously (double) 0.22F
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.22D) // previously (double) 0.22F
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D);
+        return MobEntity.func_233666_p_()
+            .createMutableAttribute(Attributes.MAX_HEALTH, 16.0D)
+            .createMutableAttribute(Attributes.FLYING_SPEED, 0.22D)
+            .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.22D)
+            .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     protected PathNavigator createNavigator(World worldIn) {
         FlyingPathNavigator nav = new FlyingPathNavigator(this, worldIn) {
+            @Override
             public boolean canEntityStandOnPos(BlockPos pos) {
-                return !this.world.getBlockState(pos.down()).isAir();
+                return !world.getBlockState(pos.down()).isAir(worldIn, pos.down());
             }
         };
         nav.setCanOpenDoors(false);
         nav.setCanSwim(false);
         nav.setCanEnterDoors(true);
+
         return nav;
     }
 
@@ -194,6 +199,31 @@ public class DirebatEntity extends CreatureEntity {
     public void tick() {
         super.tick();
         if (this.isHanging()) this.setMotion(Vector3d.ZERO);
+    }
+
+    @Override
+    public void livingTick() {
+        boolean isInDaylight = this.isInDaylight();
+        if (isInDaylight) {
+            ItemStack itemstack = this.getItemStackFromSlot(EquipmentSlotType.HEAD);
+            if (!itemstack.isEmpty()) {
+                if (itemstack.isDamageable()) {
+                    itemstack.setDamage(itemstack.getDamage() + this.rand.nextInt(2));
+                    if (itemstack.getDamage() >= itemstack.getMaxDamage()) {
+                        this.sendBreakAnimation(EquipmentSlotType.HEAD);
+                        this.setItemStackToSlot(EquipmentSlotType.HEAD, ItemStack.EMPTY);
+                    }
+                }
+
+                isInDaylight = false;
+            }
+
+            if (isInDaylight) {
+                this.setFire(8);
+            }
+        }
+
+        super.livingTick();
     }
 
     @Override
@@ -346,7 +376,7 @@ public class DirebatEntity extends CreatureEntity {
     @SuppressWarnings({"deprecation"})
     public static boolean canSpawn(EntityType<DirebatEntity> type, IServerWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
         if (pos.getY() >= world.getSeaLevel()) {
-            return  world.getMoonFactor() == 1.0F;
+            return world.getMoonFactor() == 1.0F;
         } else {
             int worldLight = world.getLight(pos);
             int maximumLight = 4;
