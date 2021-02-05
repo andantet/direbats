@@ -1,0 +1,11 @@
+{
+    "mod.direbats.name": "Лютомышь",
+    "itemGroup.direbats.item_group": "Лютомышь",
+
+    "item.direbats.direbat_fang": "Клык лютомыши",
+    "item.direbats.direbat_fang_arrow": "Стрела из клыка лютомыши",
+    "item.direbats.direbat_spawn_egg": "Яйцо призыва лютомыши",
+
+    "entity.direbats.direbat": "Лютомышь",
+    "entity.direbats.direbat_fang_arrow": "Стрела из клыка лютомыши"
+}
