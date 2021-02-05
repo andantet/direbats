@@ -1,0 +1,15 @@
+{
+    "mod.direbats.description": "Direbats - adiciona morcegos medonhos!\nNormalmente você encontrará esses morcegos morando nas cavernas mais escuras. Porém, durante a lua cheia, eles irão aparecer na superfície. Cuidado para não mirar qualquer luz sobre eles, senão eles irão atacar! Eles também podem roubar seus itens, fique de olho!",
+
+    "entity.direbats.direbat": "Morcego Medonho",
+    "entity.direbats.direbat_fang_arrow": "Flecha de Dente de Morcego Medonho",
+
+    "item.direbats.direbat_fang": "Dente de Morcego Medonho",
+    "item.direbats.direbat_fang_arrow": "Flecha de Dente de Morcego Medonho",
+    "item.direbats.direbat_spawn_egg": "Ovo Gerador de Morcego Medonho",
+
+    "subtitles.direbats.entity.direbat.ambient": "Morcego Medonho guincha ameaçadoramentey",
+    "subtitles.direbats.entity.direbat.hurt": "Morcego Medonho sente dor",
+    "subtitles.direbats.entity.direbat.attack": "Morcego Medonho afunda seus dentes",
+    "subtitles.direbats.entity.direbat.death": "Morcego Medonho morre"
+}
