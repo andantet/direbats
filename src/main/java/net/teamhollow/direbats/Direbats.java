@@ -9,8 +9,10 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
-import net.teamhollow.direbats.init.*;
-
+import net.teamhollow.direbats.init.DBEntities;
+import net.teamhollow.direbats.init.DBGamerules;
+import net.teamhollow.direbats.init.DBItems;
+import net.teamhollow.direbats.init.DBSoundEvents;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +39,7 @@ public class Direbats implements ModInitializer {
         new DBItems();
         new DBEntities();
 
-        BiomeModifications.addSpawn(BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA), SpawnGroup.MONSTER, DBEntities.DIREBAT, 3, 1, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA), SpawnGroup.MONSTER, DBEntities.DIREBAT, 200, 1, 4);
 
         log("Initialized");
     }

@@ -20,7 +20,7 @@ public class DirebatEntityRenderer extends MobEntityRenderer<DirebatEntity, Dire
     @Override
     public Identifier getTexture(DirebatEntity entity) {
         String path = DirebatEntity.id + "/" + DirebatEntity.id;
-        if (entity.isAngry()) path += "_angry";
+        if (entity.isAttacking()) path += "_angry";
 
         return DBEntities.texture(path);
     }
@@ -35,9 +35,9 @@ public class DirebatEntityRenderer extends MobEntityRenderer<DirebatEntity, Dire
     protected void setupTransforms(DirebatEntity entity, MatrixStack matrices, float animationProgress, float bodyYaw, float tickDelta) {
         if (entity.isHanging()) {
             matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
-            matrices.translate(0.0D, (double) -0.6F, 0.0D);
+            matrices.translate(0.0D, -0.6F, 0.0D);
         } else {
-            matrices.translate(0.0D, (double) (MathHelper.cos(animationProgress * 0.3F) * 0.1F), 0.0D);
+            matrices.translate(0.0D, MathHelper.cos(animationProgress * 0.3F) * 0.1F, 0.0D);
         }
 
         super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta);

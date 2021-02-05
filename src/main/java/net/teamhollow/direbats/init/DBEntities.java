@@ -1,16 +1,9 @@
 package net.teamhollow.direbats.init;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ProjectileDispenserBehavior;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -35,7 +28,7 @@ public class DBEntities {
             .entityFactory(DirebatEntity::new)
             .spawnGroup(SpawnGroup.MONSTER)
             .dimensions(EntityDimensions.changing(0.95F, 0.9F))
-            .spawnRestriction(SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DirebatEntity::canSpawnInDark)
+            .spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DirebatEntity::canSpawn)
             .trackRangeChunks(5)
             .defaultAttributes(() ->
                 MobEntity.createMobAttributes()
@@ -44,7 +37,7 @@ public class DBEntities {
                     .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.22D)
                     .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0D)
             ),
-        DirebatEntity.spawnEggColors
+        new int[]{ 7097929, 986895 }
     );
     public static final EntityType<DirebatFangArrowEntity> DIREBAT_FANG_ARROW = register(
         DirebatFangArrowEntity.id,
@@ -59,6 +52,7 @@ public class DBEntities {
 
     public DBEntities() {
         DispenserBlock.registerBehavior(DBItems.DIREBAT_FANG_ARROW, new ProjectileDispenserBehavior() {
+            @Override
             protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
                 PersistentProjectileEntity persistentProjectileEntity = new DirebatFangArrowEntity(world, position.getX(), position.getY(), position.getZ());
                 persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
@@ -74,10 +68,6 @@ public class DBEntities {
             DBItems.register(id + "_spawn_egg", new SpawnEggItem(builtEntityType, spawnEggColors[0], spawnEggColors[1], new Item.Settings().maxCount(64).group(Direbats.ITEM_GROUP)));
 
         return Registry.register(Registry.ENTITY_TYPE, new Identifier(Direbats.MOD_ID, id), builtEntityType);
-    }
-
-    public static void registerDefaultAttributes(EntityType<? extends LivingEntity> type, DefaultAttributeContainer.Builder builder) {
-        FabricDefaultAttributeRegistry.register(type, builder);
     }
 
     public static Identifier texture(String path) {

@@ -13,5 +13,8 @@
     "subtitles.direbats.entity.direbat.ambient": "Direbat squeaks menacingly",
     "subtitles.direbats.entity.direbat.hurt": "Direbat hurts",
     "subtitles.direbats.entity.direbat.attack": "Direbat sinks its teeth",
-    "subtitles.direbats.entity.direbat.death": "Direbat dies"
+    "subtitles.direbats.entity.direbat.death": "Direbat dies",
+
+    "gamerule.direbats.category": "Direbats",
+    "gamerule.direbats.direbatItemPickup": "Direbats pick up items"
 }
