@@ -69,6 +69,12 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     @Override
+    public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, ILivingEntityData entityData, CompoundNBT nbt) {
+        this.setPosition(this.getPosX(), this.getPosY() + 0.0000000000001D, this.getPosZ()); // cringe code that prevents direbats freezing on-spawn
+        return super.onInitialSpawn(world, difficulty, reason, entityData, nbt);
+    }
+
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new AttackGoal(this));
         this.goalSelector.addGoal(2, new DirebatEntity.PickupItemGoal());
@@ -187,9 +193,7 @@ public class DirebatEntity extends CreatureEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.isHanging()) {
-            this.setMotion(Vector3d.ZERO);
-        }
+        if (this.isHanging()) this.setMotion(Vector3d.ZERO);
     }
 
     @Override
