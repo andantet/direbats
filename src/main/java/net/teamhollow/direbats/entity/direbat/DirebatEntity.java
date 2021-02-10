@@ -365,7 +365,6 @@ public class DirebatEntity extends PathAwareEntity {
     @SuppressWarnings({"deprecation"})
     public static boolean canSpawn(EntityType<DirebatEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
         if (pos.getY() >= world.getSeaLevel()) {
-            System.out.println(world.getMoonSize());
             return world.toServerWorld().isNight() && world.getMoonSize() == 1.0F;
         } else {
             int worldLight = world.getLightLevel(pos);
