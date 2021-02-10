@@ -19,10 +19,7 @@ public class DirebatEntityRenderer extends MobEntityRenderer<DirebatEntity, Dire
 
     @Override
     public Identifier getTexture(DirebatEntity entity) {
-        String path = DirebatEntity.id + "/" + DirebatEntity.id;
-        if (entity.isAttacking()) path += "_angry";
-
-        return DBEntities.texture(path);
+        return DBEntities.texture(DirebatEntity.id + "/" + DirebatEntity.id + (entity.isAttacking() ? "_angry" : ""));
     }
 
     @Override
