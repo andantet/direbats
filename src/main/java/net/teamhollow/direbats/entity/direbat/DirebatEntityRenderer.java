@@ -20,22 +20,22 @@ public class DirebatEntityRenderer extends MobRenderer<DirebatEntity, DirebatEnt
     }
 
     @Override
-    protected void preRenderCallback(DirebatEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void preRenderCallback(DirebatEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
         matrixStackIn.translate(0.0D, 1.9D, 0.0D);
 
-        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
     }
 
     @Override
-    protected void applyRotations(DirebatEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
-        if (entityLiving.isHanging()) {
-            matrixStackIn.rotate(Vector3f.XP.rotationDegrees(180F));
-            matrixStackIn.translate(0.0D, -0.6F, 0.0D);
+    protected void applyRotations(DirebatEntity entity, MatrixStack matrices, float ageInTicks, float rotationYaw, float partialTicks) {
+        if (entity.isHanging()) {
+            matrices.rotate(Vector3f.XP.rotationDegrees(180F));
+            matrices.translate(0.0D, -0.6F, 0.0D);
 
         } else {
-            matrixStackIn.translate(0.0D, MathHelper.cos(ageInTicks * 0.3F) * 0.1F, 0.0D);
+            matrices.translate(0.0D, MathHelper.cos(ageInTicks * 0.3F) * 0.1F, 0.0D);
         }
 
-        super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+        super.applyRotations(entity, matrices, ageInTicks, rotationYaw, partialTicks);
     }
 }

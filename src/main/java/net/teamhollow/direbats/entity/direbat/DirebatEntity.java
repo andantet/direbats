@@ -341,15 +341,15 @@ public class DirebatEntity extends CreatureEntity {
     }
 
     @Override
-    protected void updateEquipmentIfNeeded(ItemEntity itemEntity) {
-        ItemStack newItem = itemEntity.getItem();
+    protected void updateEquipmentIfNeeded(ItemEntity entity) {
+        ItemStack newItem = entity.getItem();
         ItemStack currentItem = this.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
 
-        if (currentItem.isEmpty() && DBConfig.DIREBAT_ITEM_PICKUP.get() && PICKABLE_DROP_FILTER.test(itemEntity)) {
+        if (currentItem.isEmpty() && DBConfig.DIREBAT_ITEM_PICKUP.get() && PICKABLE_DROP_FILTER.test(entity)) {
             this.func_233657_b_(EquipmentSlotType.MAINHAND, newItem); // insert new item into main hand
-            this.triggerItemPickupTrigger(itemEntity);
-            this.onItemPickup(itemEntity, newItem.getCount());
-            itemEntity.remove();
+            this.triggerItemPickupTrigger(entity);
+            this.onItemPickup(entity, newItem.getCount());
+            entity.remove();
         }
     }
 
