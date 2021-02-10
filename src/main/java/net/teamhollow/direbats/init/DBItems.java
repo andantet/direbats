@@ -17,7 +17,7 @@ public class DBItems {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(DIREBAT_FANG.setRegistryName(DirebatEntity.id + "_fang"));
-        event.getRegistry().register(DIREBAT_SPAWN_EGG.setRegistryName(DirebatEntity.id + "_spawn_egg"));
         event.getRegistry().register(DIREBAT_FANG_ARROW.setRegistryName(DirebatFangArrowItem.id));
+        event.getRegistry().register(DIREBAT_SPAWN_EGG.setRegistryName(DirebatEntity.id + "_spawn_egg"));
     }
 }
