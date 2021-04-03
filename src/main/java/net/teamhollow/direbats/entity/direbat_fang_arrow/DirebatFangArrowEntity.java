@@ -12,12 +12,12 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.teamhollow.direbats.entity.direbat.DirebatEntity;
 import net.teamhollow.direbats.init.DBEntities;
 import net.teamhollow.direbats.init.DBItems;
-import net.teamhollow.direbats.item.DirebatFangArrowItem;
 
 public class DirebatFangArrowEntity extends AbstractArrowEntity {
-    public static final String id = DirebatFangArrowItem.id;
+    public static final String id = DirebatEntity.id + "_fang_arrow";
 
     private int duration = 300;
 
@@ -29,6 +29,7 @@ public class DirebatFangArrowEntity extends AbstractArrowEntity {
         super(DBEntities.DIREBAT_FANG_ARROW, owner, world);
     }
 
+    @SuppressWarnings("unused")
     public DirebatFangArrowEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
         this(DBEntities.DIREBAT_FANG_ARROW, world);
     }

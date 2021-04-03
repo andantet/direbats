@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class DirebatEntityModel extends SegmentedModel<DirebatEntity> {
     private final ModelRenderer head;
     private final ModelRenderer body;

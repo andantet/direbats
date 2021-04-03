@@ -106,7 +106,9 @@ public class DirebatEntity extends CreatureEntity {
         FlyingPathNavigator nav = new FlyingPathNavigator(this, worldIn) {
             @Override
             public boolean canEntityStandOnPos(BlockPos pos) {
-                return !world.getBlockState(pos.down()).isAir(worldIn, pos.down());
+                BlockState state = world.getBlockState(pos.down());
+                BlockPos posDown = pos.down();
+                return !state.getBlock().isAir(state, worldIn, posDown);
             }
         };
         nav.setCanOpenDoors(false);
@@ -417,10 +419,6 @@ public class DirebatEntity extends CreatureEntity {
     static class AttackGoal extends MeleeAttackGoal {
         public AttackGoal(DirebatEntity entity) {
             super(entity, 1.0D, true);
-        }
-
-        public boolean shouldExecute() {
-            return super.shouldExecute();
         }
 
         public boolean shouldContinueExecuting() {

@@ -26,6 +26,7 @@ public class DBEntities {
         .size(0.5F, 0.5F)
         .build(new ResourceLocation(DirebatFangArrowEntity.id).toString());
 
+    @SuppressWarnings("deprecation")
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
         GlobalEntityTypeAttributes.put(DIREBAT, DirebatEntity.getAttributeMap().create());

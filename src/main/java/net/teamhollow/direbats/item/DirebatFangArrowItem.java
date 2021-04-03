@@ -6,11 +6,10 @@ import net.minecraft.item.ArrowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.teamhollow.direbats.entity.direbat.DirebatEntity;
 import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntity;
 
 public class DirebatFangArrowItem extends ArrowItem {
-    public static final String id = DirebatEntity.id + "_fang_arrow";
+    public static final String id = DirebatFangArrowEntity.id;
 
     public DirebatFangArrowItem(Item.Properties settings) {
         super(settings);

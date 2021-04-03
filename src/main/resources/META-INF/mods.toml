@@ -1,5 +1,5 @@
 modLoader           = "javafml"
-loaderVersion       = "[34,)"
+loaderVersion       = "[36,)"
 license             = "https://github.com/teamhollow/direbats/blob/HEAD/LICENSE"
 
 [[mods]]
@@ -19,13 +19,13 @@ license             = "https://github.com/teamhollow/direbats/blob/HEAD/LICENSE"
     displayURL      = "https://direbats.teamhollow.net"
     issueTrackerURL = "https://github.com/teamhollow/direbats/issues"
 
-[[dependencies.direbat]]
+[[dependencies.direbats]]
     modId           = "forge"
     mandatory       = true
-    versionRange    = "[34.0,)"
+    versionRange    = "[36.0,)"
     ordering        = "NONE"
     side            = "BOTH"
-[[dependencies.direbat]]
+[[dependencies.direbats]]
     modId           = "minecraft"
     mandatory       = true
     versionRange    = "[1.16.3,)"

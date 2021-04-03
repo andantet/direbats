@@ -14,7 +14,7 @@ public class DBConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec INSTANCE;
 
-    public static ForgeConfigSpec.BooleanValue DIREBAT_ITEM_PICKUP;
+    public static final ForgeConfigSpec.BooleanValue DIREBAT_ITEM_PICKUP;
 
     static {
         DIREBAT_ITEM_PICKUP = BUILDER

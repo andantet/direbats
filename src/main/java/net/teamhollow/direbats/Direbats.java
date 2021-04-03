@@ -30,7 +30,7 @@ public class Direbats {
     public static final String MOD_ID = "direbats";
     public static final String MOD_NAME = "Direbats";
 
-    public static Logger LOGGER = LogManager.getLogger(MOD_ID);
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static final ItemGroup ITEM_GROUP = new ItemGroup(new ResourceLocation(MOD_ID, "item_group").toString()) {
         @OnlyIn(Dist.CLIENT)
