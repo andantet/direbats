@@ -243,7 +243,9 @@ public class DirebatEntity extends PathAwareEntity {
                     this.eatingTime = 0;
                 } else if (this.eatingTime > 560 && this.random.nextFloat() < 0.3F) {
                     this.playSound(this.getEatSound(mainhandStack), 1.0F, 1.0F);
-                    this.spawnItemParticles(mainhandStack, 10);
+                    if (this.world.isClient) {
+                        this.spawnItemParticles(mainhandStack, 10);
+                    }
                     this.world.sendEntityStatus(this, (byte) 45);
                 }
             }
