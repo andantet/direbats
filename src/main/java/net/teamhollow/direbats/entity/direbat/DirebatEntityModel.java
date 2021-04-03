@@ -1,13 +1,13 @@
 package net.teamhollow.direbats.entity.direbat;
 
 import com.google.common.collect.ImmutableList;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.util.math.MathHelper;
 
+@SuppressWarnings("FieldCanBeLocal")
 @Environment(EnvType.CLIENT)
 public class DirebatEntityModel extends CompositeEntityModel<DirebatEntity> {
     private final ModelPart head;

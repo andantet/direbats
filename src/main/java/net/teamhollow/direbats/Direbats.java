@@ -17,9 +17,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@SuppressWarnings("deprecation")
 public class Direbats implements ModInitializer {
-    public static Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public static final String MOD_ID = "direbats";
     public static final String MOD_NAME = "Direbats";
@@ -29,6 +28,7 @@ public class Direbats implements ModInitializer {
         () -> new ItemStack(DBItems.DIREBAT_FANG)
     );
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onInitialize() {
         log("Initializing");

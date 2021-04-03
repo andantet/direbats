@@ -10,12 +10,13 @@ import net.teamhollow.direbats.Direbats;
 import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntity;
 
 public class DirebatFangArrowItem extends ArrowItem {
-    public static final String id = "direbat_fang_arrow";
+    public static final String id = DirebatFangArrowEntity.id;
 
 	public DirebatFangArrowItem() {
         super(new Item.Settings().group(Direbats.ITEM_GROUP));
     }
 
+    @Override
     public PersistentProjectileEntity createArrow(World world, ItemStack stack, LivingEntity shooter) {
         return new DirebatFangArrowEntity(world, shooter);
     }

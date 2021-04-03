@@ -17,14 +17,7 @@ public class DirebatsClient implements ClientModInitializer {
     @Environment(EnvType.CLIENT)
     public void registerRenderers() {
         EntityRendererRegistry INSTANCE = EntityRendererRegistry.INSTANCE;
-
-        INSTANCE.register(
-            DBEntities.DIREBAT,
-            (entityRenderDispatcher, context) -> new DirebatEntityRenderer(entityRenderDispatcher)
-        );
-        INSTANCE.register(
-            DBEntities.DIREBAT_FANG_ARROW,
-            (entityRenderDispatcher, context) -> new DirebatFangArrowEntityRenderer(entityRenderDispatcher)
-        );
+        INSTANCE.register(DBEntities.DIREBAT, DirebatEntityRenderer::new);
+        INSTANCE.register(DBEntities.DIREBAT_FANG_ARROW, DirebatFangArrowEntityRenderer::new);
     }
 }

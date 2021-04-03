@@ -8,12 +8,12 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.World;
+import net.teamhollow.direbats.entity.direbat.DirebatEntity;
 import net.teamhollow.direbats.init.DBEntities;
 import net.teamhollow.direbats.init.DBItems;
-import net.teamhollow.direbats.item.DirebatFangArrowItem;
 
 public class DirebatFangArrowEntity extends PersistentProjectileEntity {
-    public static final String id = DirebatFangArrowItem.id;
+    public static final String id = DirebatEntity.id + "_fang_arrow";
 
     private int duration = 300;
 

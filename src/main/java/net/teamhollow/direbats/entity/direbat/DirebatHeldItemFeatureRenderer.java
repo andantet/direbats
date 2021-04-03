@@ -19,7 +19,7 @@ public class DirebatHeldItemFeatureRenderer extends FeatureRenderer<DirebatEntit
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, DirebatEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+    public void render(MatrixStack matrices, VertexConsumerProvider vertices, int light, DirebatEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         matrices.push();
 
         if (entity.isHanging())
@@ -38,7 +38,7 @@ public class DirebatHeldItemFeatureRenderer extends FeatureRenderer<DirebatEntit
         }
 
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.MAINHAND);
-        MinecraftClient.getInstance().getHeldItemRenderer().renderItem(entity, itemStack, ModelTransformation.Mode.GROUND, false, matrices, vertexConsumers, light);
+        MinecraftClient.getInstance().getHeldItemRenderer().renderItem(entity, itemStack, ModelTransformation.Mode.GROUND, false, matrices, vertices, light);
 
         matrices.pop();
     }

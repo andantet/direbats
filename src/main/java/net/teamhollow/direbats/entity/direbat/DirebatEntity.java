@@ -410,11 +410,6 @@ public class DirebatEntity extends PathAwareEntity {
         }
 
         @Override
-        public boolean canStart() {
-            return super.canStart();
-        }
-
-        @Override
         public boolean shouldContinue() {
             float mobBrightness = this.mob.getBrightnessAtEyes();
             if (mobBrightness <= 0.5F && this.mob.getRandom().nextInt(100) == 0) {

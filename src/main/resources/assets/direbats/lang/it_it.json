@@ -1,17 +1,20 @@
 {
-    "mod.direbats.name": "Pipistrelli terribili",
-    "mod.direbats.description": "Pipistrelli terribili - aggiunge Pipistrelli terribili!\nDi solito puoi trovare questi pipistrelli che vivono nelle grotte più buie. Tuttavia, durante le lune piene, si genereranno in superficie. Fai attenzione a puntare le luci su di loro, altrimenti attaccheranno! Possono anche rubare i tuoi oggetti, quindi fai attenzione!",
-    "itemGroup.direbats.item_group": "Pipistrelli terribili",
+  "mod.direbats.name": "Pipistrelli terribili",
+  "mod.direbats.description": "Pipistrelli terribili - aggiunge Pipistrelli terribili!\nDi solito puoi trovare questi pipistrelli che vivono nelle grotte più buie. Tuttavia, durante le lune piene, si genereranno in superficie. Fai attenzione a puntare le luci su di loro, altrimenti attaccheranno! Possono anche rubare i tuoi oggetti, quindi fai attenzione!",
+  "itemGroup.direbats.item_group": "Pipistrelli terribili",
 
-    "entity.direbats.direbat": "Pipistrello terribile",
-    "entity.direbats.direbat_fang_arrow": "Freccia di Zanna di Pipistrello terribile",
+  "entity.direbats.direbat": "Pipistrello terribile",
+  "entity.direbats.direbat_fang_arrow": "Freccia di Zanna di Pipistrello terribile",
 
-    "item.direbats.direbat_fang": "Zanna di Pipistrello terribile",
-    "item.direbats.direbat_fang_arrow": "Freccia di Zanna di Pipistrello terribile",
-    "item.direbats.direbat_spawn_egg": "Uovo Generatore di Pipistrello terribile",
+  "item.direbats.direbat_fang": "Zanna di Pipistrello terribile",
+  "item.direbats.direbat_fang_arrow": "Freccia di Zanna di Pipistrello terribile",
+  "item.direbats.direbat_spawn_egg": "Uovo Generatore di Pipistrello terribile",
 
-    "subtitles.direbats.entity.direbat.ambient": "Pipistrello terribile squittisce minacciosamente",
-    "subtitles.direbats.entity.direbat.hurt": "Pipistrello terribile fa male",
-    "subtitles.direbats.entity.direbat.attack": "Pipistrello terribile affonda i denti",
-    "subtitles.direbats.entity.direbat.death": "Pipistrello terribile muore"
+  "subtitles.direbats.entity.direbat.ambient": "Pipistrello terribile squittisce minacciosamente",
+  "subtitles.direbats.entity.direbat.hurt": "Pipistrello terribile fa male",
+  "subtitles.direbats.entity.direbat.attack": "Pipistrello terribile affonda i denti",
+  "subtitles.direbats.entity.direbat.death": "Pipistrello terribile muore",
+
+  "gamerule.direbats.category": "Pipistrelli terribili",
+  "gamerule.direbats.direbatItemPickup": "Direbats pick up items"
 }

@@ -53,10 +53,10 @@ public class DBEntities {
     public DBEntities() {
         DispenserBlock.registerBehavior(DBItems.DIREBAT_FANG_ARROW, new ProjectileDispenserBehavior() {
             @Override
-            protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
-                PersistentProjectileEntity persistentProjectileEntity = new DirebatFangArrowEntity(world, position.getX(), position.getY(), position.getZ());
-                persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
-                return persistentProjectileEntity;
+            protected ProjectileEntity createProjectile(World world, Position pos, ItemStack stack) {
+                PersistentProjectileEntity entity = new DirebatFangArrowEntity(world, pos.getX(), pos.getY(), pos.getZ());
+                entity.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
+                return entity;
             }
         });
     }
