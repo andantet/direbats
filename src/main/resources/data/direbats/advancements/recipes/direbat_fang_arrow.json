@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "direbats:direbat_fang_arrow"
+    ]
+  },
+  "criteria": {
+    "has_arrow": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:arrow"
+          }
+        ]
+      }
+    },
+    "has_direbat_fang": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "direbats:direbat_fang"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "direbats:direbat_fang_arrow"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_arrow",
+      "has_direbat_fang",
+      "has_the_recipe"
+    ]
+  ]
+}
