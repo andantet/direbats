@@ -360,7 +360,7 @@ public class DirebatEntity extends PathAwareEntity {
 
     @Override
     protected float getSoundVolume() {
-        return 0.15F;
+        return 0.4F;
     }
 
     @Override
