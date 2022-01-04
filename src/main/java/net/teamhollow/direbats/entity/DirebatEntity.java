@@ -137,7 +137,13 @@ public class DirebatEntity extends PathAwareEntity {
     @Override
     public void tick() {
         super.tick();
-        this.setVelocity(this.isHanging() ? Vec3d.ZERO : this.getVelocity().multiply(1.05D));
+
+        if (this.getY() <= this.world.getBottomY()) {
+            Vec3d vel = this.getVelocity();
+            this.setVelocity(vel.x, 0.2D, vel.z);
+        } else {
+            this.setVelocity(this.isHanging() ? Vec3d.ZERO : this.getVelocity().multiply(1.05D));
+        }
     }
 
     @Override
