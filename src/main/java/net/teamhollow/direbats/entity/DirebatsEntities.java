@@ -1,5 +1,7 @@
 package net.teamhollow.direbats.entity;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.DispenserBlock;
@@ -49,6 +51,11 @@ public class DirebatsEntities {
                 return entity;
             }
         });
+
+        BiomeModifications.addSpawn(
+            ctx -> BiomeSelectors.foundInOverworld().test(ctx) && BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE).test(ctx),
+            SpawnGroup.MONSTER, DirebatsEntities.DIREBAT, 47, 2, 4
+        );
     }
 
     @SuppressWarnings("unchecked")
