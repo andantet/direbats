@@ -1,4 +1,4 @@
-<img align="center" src="https://direbats.teamhollow.net/assets/docs/direbat/showcase.png">
+<img align="center" src="https://i.imgur.com/tE0uvFm.png">
 
 <h1 align="center">
     Direbats
