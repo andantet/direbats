@@ -16,5 +16,8 @@
   "subtitles.direbats.entity.direbat.death": "Direbat dies",
 
   "gamerule.direbats.category": "Direbats",
-  "gamerule.direbats.direbatItemPickup": "Direbats pick up items"
+  "gamerule.direbats.direbatItemPickup": "Direbats pick up items",
+
+  "advancements.adventure.direbats:direbat_picks_up_egg.title": "Angry Bats",
+  "advancements.adventure.direbats:direbat_picks_up_egg.description": "Throw an Egg and have a Direbat steal it"
 }
