@@ -59,14 +59,14 @@ public class DirebatFangArrowEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound tag) {
-        super.writeCustomDataToNbt(tag);
-        tag.putInt("Duration", this.duration);
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putInt("Duration", this.duration);
     }
     @Override
-    public void readCustomDataFromNbt(NbtCompound tag) {
-        super.readCustomDataFromNbt(tag);
-        this.duration = tag.getInt("Duration");
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.duration = nbt.getInt("Duration");
     }
 
     @Override

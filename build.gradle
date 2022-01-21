@@ -1,12 +1,11 @@
 //file:noinspection all
 
 plugins {
-    id "fabric-loom" version "0.10-SNAPSHOT"
-    id "maven-publish"
+    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 group = project.maven_group
@@ -19,6 +18,11 @@ repositories {
     maven {
         name = "Terraformers Maven"
         url  = "https://maven.terraformersmc.com/releases/"
+    }
+
+    maven {
+        name = "Modding Playground Maven"
+        url  = "https://raw.githubusercontent.com/moddingplayground/maven/main/"
     }
 }
 
@@ -33,28 +37,18 @@ dependencies {
 
 processResources {
     inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
+    filesMatching("fabric.mod.json") { expand "version": project.version }
 }
 
-tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
-}
+tasks.withType(JavaCompile).configureEach { it.options.release = 17 }
 
 jar {
-    from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}"}
-    }
+    from("LICENSE") { rename { "${it}_${archivesBaseName}" } }
+    from("LICENSE_ASSETS") { rename { "${it}_${archivesBaseName}" } }
 }
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
+        mavenJava(MavenPublication) { from components.java }
     }
-
-    repositories {}
 }
