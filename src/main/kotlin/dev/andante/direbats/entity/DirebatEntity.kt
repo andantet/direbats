@@ -1,9 +1,13 @@
 package dev.andante.direbats.entity
 
+import com.mojang.logging.LogUtils
+import com.mojang.serialization.Dynamic
 import dev.andante.direbats.item.DirebatsItems
 import dev.andante.direbats.sound.DirebatsSoundEvents
+import dev.andante.direbats.tag.DirebatsGameEventTags
 import dev.andante.direbats.world.DirebatsGameRules
 import java.util.EnumSet
+import java.util.function.BiConsumer
 import java.util.function.Predicate
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
@@ -46,9 +50,13 @@ import net.minecraft.entity.passive.BatEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
+import net.minecraft.nbt.NbtElement
+import net.minecraft.nbt.NbtOps
 import net.minecraft.particle.ItemStackParticleEffect
 import net.minecraft.particle.ParticleTypes
+import net.minecraft.predicate.entity.EntityPredicates
 import net.minecraft.registry.tag.ItemTags
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.sound.SoundEvent
 import net.minecraft.util.Hand
@@ -62,6 +70,11 @@ import net.minecraft.world.ServerWorldAccess
 import net.minecraft.world.World
 import net.minecraft.world.WorldEvents
 import net.minecraft.world.WorldView
+import net.minecraft.world.event.EntityPositionSource
+import net.minecraft.world.event.GameEvent
+import net.minecraft.world.event.listener.EntityGameEventHandler
+import net.minecraft.world.event.listener.GameEventListener
+import net.minecraft.world.event.listener.VibrationListener
 
 /**
  * Represents a Direbat entity.
@@ -84,6 +97,18 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
     var avoidsFallingBlocks: Boolean = false
 
     /**
+     * Vibration listener callback.
+     */
+    val vibrationListenerCallback = DirebatVibrationListenerCallback(this)
+
+    /**
+     * Vibration listener.
+     */
+    val gameEventHandler = EntityGameEventHandler(VibrationListener(
+        EntityPositionSource(this, standingEyeHeight), 16, vibrationListenerCallback
+    ))
+
+    /**
      * Whether a Direbat can hang in its current context.
      */
     val canHang: Boolean
@@ -94,7 +119,7 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
             }
 
             // if targetting anything or annoyable, can't hang
-            if (target != null || findClosestAnnoyingPlayer(world, pos) != null) {
+            if (target != null) {
                 return false
             }
 
@@ -221,6 +246,10 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
             return
         }
 
+        if (target != null) {
+            return
+        }
+
         if (mainHandStack.isEmpty && !hanging && PICKABLE_DROP_FILTER.test(entity)) {
             val stack: ItemStack = entity.stack
             equipLootStack(EquipmentSlot.MAINHAND, stack)
@@ -257,7 +286,7 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
                 target.addStatusEffect(statusEffect)
             }
 
-            playSound(DirebatsSoundEvents.ENTITY_DIREBAT_ATTACK, 1.0f, 1.0f)
+            playSound(attackSound, 1.0f, 1.0f)
             true
         } else false
     }
@@ -352,9 +381,16 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
         return DirebatsSoundEvents.ENTITY_DIREBAT_DEATH
     }
 
+    val attackSound: SoundEvent = DirebatsSoundEvents.ENTITY_DIREBAT_ATTACK
+
     /* Ticks */
 
     override fun tick() {
+        val world = world
+        if (world is ServerWorld) {
+            gameEventHandler.listener.tick(world)
+        }
+
         super.tick()
 
         // prevent getting stuck below the world
@@ -367,6 +403,11 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
     }
 
     override fun mobTick() {
+        val targetCache = target
+        if (targetCache is PlayerEntity && !isValidTarget(targetCache)) {
+            target = null
+        }
+
         super.mobTick()
 
         // tick pickup cooldown
@@ -379,9 +420,6 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
                 // if cannot hang, stop hanging
                 if (!canHang) {
                     hanging = false
-
-                    // attack closest annoying player
-                    findClosestAnnoyingPlayer(world, pos)?.let(::setTarget)
 
                     if (!isSilent) {
                         world.syncWorldEvent(null, WorldEvents.BAT_TAKES_OFF, blockPos, 0)
@@ -473,21 +511,13 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
     }
 
     /**
-     * @return the closest player that can wake up a Direbat
+     * Accepts vibration events.
      */
-    fun findClosestAnnoyingPlayer(world: World, pos: Vec3d): PlayerEntity? {
-        return world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 8.0) { it is PlayerEntity && shouldWakeUpDirebat(it) }
-    }
-
-    /**
-     * @return whether a player should wake up a Direbat
-     */
-    fun shouldWakeUpDirebat(player: PlayerEntity): Boolean {
-        if (player.isCreative || player.isSpectator) {
-            return false
+    override fun updateEventHandler(callback: BiConsumer<EntityGameEventHandler<*>, ServerWorld>) {
+        val world = world
+        if (world is ServerWorld) {
+            callback.accept(gameEventHandler, world)
         }
-
-        return player.collidesWith(this) || !player.isSneaking
     }
 
     /**
@@ -498,10 +528,27 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
         return if (list.isNotEmpty()) list[random.nextInt(list.size)] else null
     }
 
+    /**
+     * @return whether a player should wake up a Direbat
+     */
+    fun isValidTarget(player: PlayerEntity): Boolean {
+        if (world !== player.world) return false
+        if (!EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(player)) return false
+        if (isTeammate(player)) return false
+        if (player.isInvulnerable) return false
+        if (player.isDead) return false
+        return world.worldBorder.contains(player.boundingBox)
+    }
+
     /* NBT */
 
     override fun writeCustomDataToNbt(nbt: NbtCompound) {
         super.writeCustomDataToNbt(nbt)
+
+        VibrationListener.createCodec(vibrationListenerCallback)
+            .encodeStart(NbtOps.INSTANCE, this.gameEventHandler.listener)
+            .resultOrPartial(LOGGER::error)
+            .ifPresent { nbtElement -> nbt.put(LISTENER_KEY, nbtElement) }
 
         nbt.putBoolean(HANGING_KEY, hanging)
         nbt.putBoolean(AVOIDS_FALLING_BLOCKS_KEY, avoidsFallingBlocks)
@@ -513,6 +560,13 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
     override fun readCustomDataFromNbt(nbt: NbtCompound) {
         super.readCustomDataFromNbt(nbt)
 
+        if (nbt.contains(LISTENER_KEY, NbtElement.COMPOUND_TYPE.toInt())) {
+            VibrationListener.createCodec(vibrationListenerCallback)
+                .parse(Dynamic(NbtOps.INSTANCE, nbt.getCompound(LISTENER_KEY)))
+                .resultOrPartial(LOGGER::error)
+                .ifPresent { listener -> gameEventHandler.setListener(listener, world) }
+        }
+
         hanging = nbt.getBoolean(HANGING_KEY)
         avoidsFallingBlocks = nbt.getBoolean(AVOIDS_FALLING_BLOCKS_KEY)
         eatingTime = nbt.getInt(EATING_TIME_KEY)
@@ -521,6 +575,8 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
     }
 
     companion object {
+        private val LOGGER = LogUtils.getLogger()
+
         val PICKABLE_DROP_FILTER = Predicate<ItemEntity> { entity -> entity != null && !entity.cannotPickup() }
 
         val HANGING: TrackedData<Boolean> = DataTracker.registerData(DirebatEntity::class.java, TrackedDataHandlerRegistry.BOOLEAN)
@@ -531,6 +587,7 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
         const val EATING_TIME_KEY = "EatingTime"
         const val HANGING_COOLDOWN_KEY = "HangingCooldown"
         const val PICKUP_COOLDOWN_KEY = "PickupCooldown"
+        const val LISTENER_KEY = "listener"
 
         /**
          * How long it takes for a Direbat to eat an item.
@@ -610,20 +667,66 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
         }
     }
 
-    /**
-     * A customised [ActiveTargetGoal], for Direbats. This is based on
-     * light level and whether the entity is sneaking.
-     */
-    class DirebatTargetGoal<T : LivingEntity>(mob: DirebatEntity, classTarget: Class<T>) : ActiveTargetGoal<T>(mob, classTarget, true) {
-        override fun canStart(): Boolean {
-            val canStart = super.canStart() // has to run before to calculcate targetEntity
-
-            if (targetEntity == null) {
+    class DirebatVibrationListenerCallback(val direbat: DirebatEntity) : VibrationListener.Callback {
+        /**
+         * Whether the Direbat accepts vibrations.
+         */
+        override fun accepts(
+            world: ServerWorld,
+            listener: GameEventListener,
+            pos: BlockPos,
+            event: GameEvent,
+            emitter: GameEvent.Emitter
+        ): Boolean {
+            if (direbat.isAiDisabled || direbat.dead || !world.worldBorder.contains(pos)) {
                 return false
             }
 
+            if (direbat.target != null || !direbat.hanging) {
+                return false
+            }
+
+            val entity = emitter.sourceEntity
+            return entity is PlayerEntity && direbat.isValidTarget(entity)
+        }
+
+        /**
+         * Accept vibration and set target.
+         */
+        override fun accept(
+            world: ServerWorld,
+            listener: GameEventListener,
+            pos: BlockPos,
+            event: GameEvent,
+            entity: Entity?,
+            sourceEntity: Entity?,
+            distance: Float
+        ) {
+            if (direbat.dead) {
+                return
+            }
+
+            if (entity is PlayerEntity) {
+                direbat.target = entity
+
+                val pitch = direbat.soundPitch * 1.4f
+                direbat.ambientSound?.let { direbat.playSound(it, 1.0f, pitch) }
+                direbat.playSound(direbat.attackSound, 1.0f, pitch)
+            }
+        }
+
+        override fun getTag(): TagKey<GameEvent> {
+            return DirebatsGameEventTags.DIREBAT_CAN_LISTEN
+        }
+    }
+
+    /**
+     * A customised [ActiveTargetGoal], for Direbats, based on light level.
+     */
+    class DirebatTargetGoal<T : LivingEntity>(mob: DirebatEntity, classTarget: Class<T>) : ActiveTargetGoal<T>(mob, classTarget, true) {
+        override fun canStart(): Boolean {
             @Suppress("DEPRECATION")
-            return canStart && !targetEntity!!.isSneaking && mob.brightnessAtEyes >= 0.5f
+            return mob.brightnessAtEyes >= 0.5 && !super.canStart()
         }
     }
 

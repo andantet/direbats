@@ -4,6 +4,7 @@ import dev.andante.direbats.entity.DirebatsEntityTypes
 import dev.andante.direbats.item.DirebatsItemGroups
 import dev.andante.direbats.item.DirebatsItems
 import dev.andante.direbats.sound.DirebatsSoundEvents
+import dev.andante.direbats.tag.DirebatsGameEventTags
 import dev.andante.direbats.tag.DirebatsItemTags
 import dev.andante.direbats.world.DirebatsGameRules
 import net.fabricmc.api.ModInitializer
@@ -19,8 +20,7 @@ object Direbats : ModInitializer {
         LOGGER.info("Initializing $MOD_NAME")
 
         DirebatsGameRules
-        DirebatsEntityTypes
-        DirebatsItemTags
+        DirebatsItemTags; DirebatsEntityTypes; DirebatsGameEventTags
         DirebatsItemGroups
         DirebatsItems
         DirebatsSoundEvents

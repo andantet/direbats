@@ -6,6 +6,7 @@ import dev.andante.direbats.data.server.DirebatsAdvancementProvider
 import dev.andante.direbats.data.server.DirebatsEntityLootTableProvider
 import dev.andante.direbats.data.server.DirebatsRecipeProvider
 import dev.andante.direbats.data.server.tag.DirebatsEntityTypeTagProvider
+import dev.andante.direbats.data.server.tag.DirebatsGameEventTagProvider
 import dev.andante.direbats.data.server.tag.DirebatsItemTagProvider
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
@@ -24,7 +25,8 @@ object DirebatsDataGeneration : DataGeneratorEntrypoint {
         pack.addProvider(::DirebatsEntityLootTableProvider)
         pack.addProvider(::DirebatsRecipeProvider)
 
-        pack.addProvider(::DirebatsItemTagProvider)
         pack.addProvider(::DirebatsEntityTypeTagProvider)
+        pack.addProvider(::DirebatsGameEventTagProvider)
+        pack.addProvider(::DirebatsItemTagProvider)
     }
 }
