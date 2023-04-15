@@ -1,0 +1,15 @@
+{
+  "itemGroup.direbats.all": "Dämonfledermaus",
+
+  "item.direbats.direbat_fang": "Dämonfledermaus-Eckzahn",
+  "item.direbats.direbat_fang_arrow": "Dämonfledermaus-Eckzahnpfeil",
+  "item.direbats.direbat_spawn_egg": "Dämonfledermaus-Spawn-Ei",
+
+  "entity.direbats.direbat": "Dämonfledermaus",
+  "entity.direbats.direbat_fang_arrow": "Dämonfledermaus-Eckzahnpfeil",
+
+  "subtitles.direbats.entity.direbat.ambient": "Dämonfledermaus fliepst drohend",
+  "subtitles.direbats.entity.direbat.hurt": "Dämonfledermaus schmerzt",
+  "subtitles.direbats.entity.direbat.attack": "Dämonfledermaus beißt",
+  "subtitles.direbats.entity.direbat.death": "Dämonfledermaus sterbt"
+}

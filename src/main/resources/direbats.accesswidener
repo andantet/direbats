@@ -1,0 +1,13 @@
+accessWidener v2 named
+
+accessible  method  net/minecraft/entity/passive/BatEntity                      isTodayAroundHalloween  ()Z
+
+accessible  field   net/minecraft/entity/mob/MobEntity                          goalSelector            Lnet/minecraft/entity/ai/goal/GoalSelector;
+accessible  field   net/minecraft/entity/mob/MobEntity                          targetSelector          Lnet/minecraft/entity/ai/goal/GoalSelector;
+
+accessible  method  net/minecraft/entity/LivingEntity                           applyClimbingSpeed      (Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/util/math/Vec3d;
+
+accessible  method  net/minecraft/loot/condition/EntityPropertiesLootCondition  <init>                  (Lnet/minecraft/predicate/entity/EntityPredicate;Lnet/minecraft/loot/context/LootContext$EntityTarget;)V
+
+accessible  field   net/minecraft/item/ItemStack                                 item                   Lnet/minecraft/item/Item;
+mutable     field   net/minecraft/item/ItemStack                                 item                   Lnet/minecraft/item/Item;

@@ -1,0 +1,26 @@
+{
+  "entity.direbat.ambient": {
+    "sounds": [
+      "direbats:entity/direbat/ambient"
+    ],
+    "subtitle": "subtitles.direbats.entity.direbat.ambient"
+  },
+  "entity.direbat.death": {
+    "sounds": [
+      "direbats:entity/direbat/death"
+    ],
+    "subtitle": "subtitles.direbats.entity.direbat.death"
+  },
+  "entity.direbat.hurt": {
+    "sounds": [
+      "direbats:entity/direbat/hurt"
+    ],
+    "subtitle": "subtitles.direbats.entity.direbat.hurt"
+  },
+  "entity.direbat.attack": {
+    "sounds": [
+      "direbats:entity/direbat/attack"
+    ],
+    "subtitle": "subtitles.direbats.entity.direbat.attack"
+  }
+}
