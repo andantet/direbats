@@ -155,6 +155,7 @@ env["CURSEFORGE_API_KEY"]?.run {
                 displayName = versionNameText
                 relations(closureOf<CurseRelation> {
                     requiredDependency("fabric-api")
+                    embeddedLibrary("fabric-language-kotlin")
                 })
             })
         })
