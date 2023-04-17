@@ -15,10 +15,9 @@ import net.minecraft.entity.SpawnRestriction
 import net.minecraft.entity.projectile.PersistentProjectileEntity
 import net.minecraft.entity.projectile.ProjectileEntity
 import net.minecraft.item.ItemStack
-import net.minecraft.registry.Registries
-import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.Position
+import net.minecraft.util.registry.Registry
 import net.minecraft.world.Heightmap
 import net.minecraft.world.World
 
@@ -69,6 +68,6 @@ object DirebatsEntityTypes {
     }
 
     private fun <T : Entity> register(id: String, build: EntityType<T>): EntityType<T> {
-        return Registry.register(Registries.ENTITY_TYPE, Identifier(Direbats.MOD_ID, id), build)
+        return Registry.register(Registry.ENTITY_TYPE, Identifier(Direbats.MOD_ID, id), build)
     }
 }

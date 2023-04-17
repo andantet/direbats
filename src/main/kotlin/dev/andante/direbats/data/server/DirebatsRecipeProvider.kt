@@ -2,19 +2,18 @@ package dev.andante.direbats.data.server
 
 import dev.andante.direbats.item.DirebatsItems
 import java.util.function.Consumer
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder
 import net.minecraft.item.Items
-import net.minecraft.recipe.book.RecipeCategory
 
 /**
  * Generates Direbats recipes.
  */
-class DirebatsRecipeProvider(out: FabricDataOutput) : FabricRecipeProvider(out) {
-    override fun generate(exporter: Consumer<RecipeJsonProvider>) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, DirebatsItems.DIREBAT_FANG_ARROW, 4)
+class DirebatsRecipeProvider(generator: FabricDataGenerator) : FabricRecipeProvider(generator) {
+    override fun generateRecipes(exporter: Consumer<RecipeJsonProvider>) {
+        ShapedRecipeJsonBuilder.create(DirebatsItems.DIREBAT_FANG_ARROW, 4)
             .input('#', Items.ARROW)
             .input('X', DirebatsItems.DIREBAT_FANG)
             .pattern(" # ")

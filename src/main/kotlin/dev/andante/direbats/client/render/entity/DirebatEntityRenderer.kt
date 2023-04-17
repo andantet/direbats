@@ -12,7 +12,7 @@ import net.minecraft.client.render.entity.MobEntityRenderer
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.RotationAxis
+import net.minecraft.util.math.Vec3f
 
 /**
  * Represents the renderer for a [DirebatEntity].
@@ -40,8 +40,8 @@ class DirebatEntityRenderer(context: EntityRendererFactory.Context) : MobEntityR
     ) {
         super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta)
         if (entity.hanging) {
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180f))
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180f))
+            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180f))
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180f))
             matrices.translate(0.0, -1.0, 0.0)
         } else {
             val bob = MathHelper.cos(animationProgress * 0.25f) * 0.1

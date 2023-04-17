@@ -56,10 +56,10 @@ import net.minecraft.nbt.NbtOps
 import net.minecraft.particle.ItemStackParticleEffect
 import net.minecraft.particle.ParticleTypes
 import net.minecraft.predicate.entity.EntityPredicates
-import net.minecraft.registry.tag.ItemTags
-import net.minecraft.registry.tag.TagKey
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.sound.SoundEvent
+import net.minecraft.tag.ItemTags
+import net.minecraft.tag.TagKey
 import net.minecraft.util.Hand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
@@ -107,6 +107,7 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
      */
     val gameEventHandler = EntityGameEventHandler(VibrationListener(
         EntityPositionSource(this, standingEyeHeight), 8, vibrationListenerCallback
+        , null, 0.0f, 0
     ))
 
     /**

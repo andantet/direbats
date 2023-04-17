@@ -5,7 +5,7 @@ import dev.andante.direbats.data.DirebatsAdvancementLanguageStrings
 import dev.andante.direbats.entity.DirebatsEntityTypes
 import dev.andante.direbats.tag.DirebatsItemTags
 import java.util.function.Consumer
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider
 import net.minecraft.advancement.Advancement
 import net.minecraft.advancement.AdvancementCriterion
@@ -25,7 +25,7 @@ import net.minecraft.util.Identifier
 /**
  * Generates Direbats advancements.
  */
-class DirebatsAdvancementProvider(out: FabricDataOutput?) : FabricAdvancementProvider(out) {
+class DirebatsAdvancementProvider(generator: FabricDataGenerator?) : FabricAdvancementProvider(generator) {
     override fun generateAdvancement(exporter: Consumer<Advancement>) {
         exporter.accept(Advancement(
             Identifier(Direbats.MOD_ID, "direbat_picks_up_egg"),

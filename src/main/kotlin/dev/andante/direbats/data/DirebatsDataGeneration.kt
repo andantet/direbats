@@ -16,17 +16,15 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
  */
 object DirebatsDataGeneration : DataGeneratorEntrypoint {
     override fun onInitializeDataGenerator(generator: FabricDataGenerator) {
-        val pack: FabricDataGenerator.Pack = generator.createPack()
+        generator.addProvider(::DirebatsModelProvider)
+        generator.addProvider(::DirebatsLanguageProvider)
 
-        pack.addProvider(::DirebatsModelProvider)
-        pack.addProvider(::DirebatsLanguageProvider)
+        generator.addProvider(::DirebatsAdvancementProvider)
+        generator.addProvider(::DirebatsEntityLootTableProvider)
+        generator.addProvider(::DirebatsRecipeProvider)
 
-        pack.addProvider(::DirebatsAdvancementProvider)
-        pack.addProvider(::DirebatsEntityLootTableProvider)
-        pack.addProvider(::DirebatsRecipeProvider)
-
-        pack.addProvider(::DirebatsEntityTypeTagProvider)
-        pack.addProvider(::DirebatsGameEventTagProvider)
-        pack.addProvider(::DirebatsItemTagProvider)
+        generator.addProvider(::DirebatsEntityTypeTagProvider)
+        generator.addProvider(::DirebatsGameEventTagProvider)
+        generator.addProvider(::DirebatsItemTagProvider)
     }
 }

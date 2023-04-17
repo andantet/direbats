@@ -7,16 +7,16 @@ import dev.andante.direbats.entity.DirebatsEntityTypes
 import dev.andante.direbats.item.DirebatsItemGroups
 import dev.andante.direbats.item.DirebatsItems
 import dev.andante.direbats.world.DirebatsGameRules
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.minecraft.entity.EntityType
-import net.minecraft.registry.Registries
+import net.minecraft.util.registry.Registry
 import net.minecraft.world.GameRules
 
 /**
  * Generates Direbats language files.
  */
-class DirebatsLanguageProvider(out: FabricDataOutput) : FabricLanguageProvider(out) {
+class DirebatsLanguageProvider(generator: FabricDataGenerator) : FabricLanguageProvider(generator) {
     override fun generateTranslations(builder: TranslationBuilder) {
         builder.add(DirebatsItemGroups.ALL, Direbats.MOD_NAME)
 
@@ -50,7 +50,7 @@ class DirebatsLanguageProvider(out: FabricDataOutput) : FabricLanguageProvider(o
         }
 
         fun EntityType<*>.getSubtitle(id: String): String {
-            val identifier = Registries.ENTITY_TYPE.getId(this)
+            val identifier = Registry.ENTITY_TYPE.getId(this)
             return "subtitles.${identifier.namespace}.entity.${identifier.path}.$id"
         }
     }
