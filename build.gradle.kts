@@ -115,7 +115,7 @@ env["GITHUB_TOKEN"]?.run {
             builder.body(changelogText)
             builder.commitish(githubBranch)
             builder.prerelease(rawReleaseType == "beta")
-            builder.create().uploadAsset(file("${project.buildDir}/libs/${base.archivesName}-${version}.jar"), "application/java-archive")
+            builder.create().uploadAsset(file("${project.buildDir}/libs/${base.archivesName.get()}-${version}.jar"), "application/java-archive")
         }
     }
 }
