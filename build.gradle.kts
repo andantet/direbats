@@ -1,8 +1,23 @@
+import com.matthewprenger.cursegradle.CurseArtifact
+import com.matthewprenger.cursegradle.CurseProject
+import com.matthewprenger.cursegradle.CurseRelation
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.kohsuke.github.GitHub
+import org.kohsuke.github.GHReleaseBuilder
+
+buildscript {
+    dependencies {
+        classpath("org.kohsuke", "github-api", "1.+")
+    }
+}
 
 plugins {
-    id("fabric-loom")
     kotlin("jvm").version(System.getProperty("kotlin_version"))
+
+    id("fabric-loom")
+
+    id("com.matthewprenger.cursegradle").version("1.+")
+    id("com.modrinth.minotaur").version("2.+")
 }
 
 base { archivesName.set(extra["archives_base_name"] as String) }
@@ -75,4 +90,73 @@ sourceSets.main {
     resources {
         srcDir(generatedResourcesDir)
     }
+}
+
+/* Releasing */
+
+val env: Map<String, String> = System.getenv()!!
+val versionNameText = "[${extra["major_version"]}] ${extra["mod_name"]} ${extra["mod_version"]}"
+val changelogText = File("./gradle", "CHANGELOG.md").readText()
+val supportedVersions = (extra["supported_versions"] as String).split(',')
+val rawReleaseType = extra["release_type"] as String
+
+env["GITHUB_TOKEN"]?.run {
+    tasks.register("github") {
+        doLast {
+            val github = GitHub.connectUsingOAuth(this@run)
+            val repository = github.getRepository(extra["github_repository"] as String)
+
+            val builder = GHReleaseBuilder(repository, version as String)
+            builder.name(versionNameText)
+            builder.body(changelogText)
+            builder.commitish(extra["github_branch"] as String)
+            builder.prerelease(rawReleaseType == "beta")
+            builder.create().uploadAsset(file("${project.buildDir}/libs/${base.archivesName}-${version}.jar"), "application/java-archive")
+        }
+    }
+}
+
+env["MODRINTH_TOKEN"]?.run {
+    modrinth {
+        token.set(this@run)
+        projectId.set(extra["modrinth_id"] as String)
+        versionNumber.set(version as String)
+        versionName.set(versionNameText)
+        versionType.set(rawReleaseType)
+        changelog.set(changelogText)
+        uploadFile.set(tasks.getByPath("remapJar"))
+        gameVersions.set(supportedVersions)
+        dependencies {
+            required.project("fabric-api")
+            embedded.project("fabric-language-kotlin")
+        }
+    }
+}
+
+env["CURSEFORGE_API_KEY"]?.run {
+    curseforge {
+        apiKey = this@run
+
+        project(closureOf<CurseProject> {
+            id = extra["curseforge_id"] as String
+
+            addGameVersion("Fabric")
+            supportedVersions.forEach(::addGameVersion)
+
+            changelog = changelogText
+            changelogType = "markdown"
+            releaseType = rawReleaseType
+
+            mainArtifact(tasks.getByPath("remapJar"), closureOf<CurseArtifact> {
+                displayName = versionNameText
+                relations(closureOf<CurseRelation> {
+                    requiredDependency("fabric-api")
+                })
+            })
+        })
+    }
+}
+
+tasks.register("releaseVersion").configure {
+    dependsOn("build", "modrinth", "github", "curseforge")
 }
