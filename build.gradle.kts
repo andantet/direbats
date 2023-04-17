@@ -7,11 +7,12 @@ plugins {
 
 base { archivesName.set(extra["archives_base_name"] as String) }
 
-version = extra["mod_version"] as String
+val versionMinecraft = extra["minecraft_version"] as String
+
+version = "${extra["mod_version"]}+$versionMinecraft"
 group = extra["maven_group"] as String
 
 val modId = extra["mod_id"] as String
-val versionMinecraft = extra["minecraft_version"] as String
 val versionYarn = extra["yarn_build"] as String
 val versionJava = extra["java_version"] as String
 val versionLoader = extra["loader_version"] as String
