@@ -99,17 +99,21 @@ val versionNameText = "[${extra["major_version"]}] ${extra["mod_name"]} ${extra[
 val changelogText = File("./gradle", "CHANGELOG.md").readText()
 val supportedVersions = (extra["supported_versions"] as String).split(',')
 val rawReleaseType = extra["release_type"] as String
+val githubRepository = extra["github_repository"] as String
+val githubBranch = extra["github_branch"] as String
+val modrinthId = extra["modrinth_id"] as String
+val curseforgeId = extra["curseforge_id"] as String
 
 env["GITHUB_TOKEN"]?.run {
     tasks.register("github") {
         doLast {
             val github = GitHub.connectUsingOAuth(this@run)
-            val repository = github.getRepository(extra["github_repository"] as String)
+            val repository = github.getRepository(githubRepository)
 
             val builder = GHReleaseBuilder(repository, version as String)
             builder.name(versionNameText)
             builder.body(changelogText)
-            builder.commitish(extra["github_branch"] as String)
+            builder.commitish(githubBranch)
             builder.prerelease(rawReleaseType == "beta")
             builder.create().uploadAsset(file("${project.buildDir}/libs/${base.archivesName}-${version}.jar"), "application/java-archive")
         }
@@ -119,7 +123,7 @@ env["GITHUB_TOKEN"]?.run {
 env["MODRINTH_TOKEN"]?.run {
     modrinth {
         token.set(this@run)
-        projectId.set(extra["modrinth_id"] as String)
+        projectId.set(modrinthId)
         versionNumber.set(version as String)
         versionName.set(versionNameText)
         versionType.set(rawReleaseType)
@@ -138,7 +142,7 @@ env["CURSEFORGE_API_KEY"]?.run {
         apiKey = this@run
 
         project(closureOf<CurseProject> {
-            id = extra["curseforge_id"] as String
+            id = curseforgeId
 
             addGameVersion("Fabric")
             supportedVersions.forEach(::addGameVersion)
