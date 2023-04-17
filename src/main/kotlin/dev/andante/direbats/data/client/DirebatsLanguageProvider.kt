@@ -34,10 +34,10 @@ class DirebatsLanguageProvider(out: FabricDataOutput) : FabricLanguageProvider(o
             builder.subtitle(this, DirebatsSubtitleNames.DEATH, "Direbat dies")
         }
 
-        builder.add(DirebatsGameRules.DO_DIREBAT_ITEM_PICKUP, "Direbats pick up items")
+        builder.add(DirebatsGameRules.DO_DIREBAT_ITEM_PICKUP, "Direbats pick up dropped items")
 
         builder.add(DirebatsAdvancementLanguageStrings.DIREBAT_PICKS_UP_EGG_TITLE, "Angry Bats")
-        builder.add(DirebatsAdvancementLanguageStrings.DIREBAT_PICKS_UP_EGG_DESCRIPTION, "Drop an Egg on the ground, and have a Direbat steal it")
+        builder.add(DirebatsAdvancementLanguageStrings.DIREBAT_PICKS_UP_EGG_DESCRIPTION, "Drop an Egg on the ground and watch as a Direbat steals it")
     }
 
     companion object {
