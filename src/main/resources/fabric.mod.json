@@ -5,14 +5,14 @@
   "name": "Direbats",
   "description": "Direbats - adds Direbats!\nYou can typically find these bats living in the darkest of caves. However, during full moons, they will spawn on the surface. Be careful to shine any lights at them or else they’ll attack! They can also steal your items, so watch out!",
   "authors": [
-    "Daniel Orr (andante)",
+    "Daniel Orr (Andante)",
     "Gaetano Russo (Ninni)"
   ],
   "contributors": [
-    "Axoladdy"
+    "Axoladdy (Concept)"
   ],
   "contact": {
-    "homepage": "https://curseforge.com/minecraft/mc-mods/direbats",
+    "homepage": "https://modrinth.com/mod/direbats",
     "sources": "https://github.com/andantet/direbats",
     "issues": "https://github.com/andantet/direbats/issues"
   },
@@ -43,6 +43,6 @@
   "depends": {
     "fabric-api": "*",
     "fabric-language-kotlin": "*",
-    "minecraft": ">=1.19.3"
+    "minecraft": ">=1.19.4"
   }
 }
