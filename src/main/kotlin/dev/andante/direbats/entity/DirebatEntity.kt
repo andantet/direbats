@@ -106,7 +106,7 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
      * Vibration listener.
      */
     val gameEventHandler = EntityGameEventHandler(VibrationListener(
-        EntityPositionSource(this, standingEyeHeight), 16, vibrationListenerCallback
+        EntityPositionSource(this, standingEyeHeight), 8, vibrationListenerCallback
     ))
 
     /**
