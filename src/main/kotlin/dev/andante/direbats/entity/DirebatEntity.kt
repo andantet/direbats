@@ -5,6 +5,7 @@ import com.mojang.serialization.Dynamic
 import dev.andante.direbats.item.DirebatsItems
 import dev.andante.direbats.sound.DirebatsSoundEvents
 import dev.andante.direbats.tag.DirebatsGameEventTags
+import dev.andante.direbats.tag.DirebatsItemTags
 import dev.andante.direbats.world.DirebatsGameRules
 import java.util.EnumSet
 import java.util.function.BiConsumer
@@ -577,7 +578,9 @@ class DirebatEntity(entityType: EntityType<out PathAwareEntity>, world: World) :
     companion object {
         private val LOGGER = LogUtils.getLogger()
 
-        val PICKABLE_DROP_FILTER = Predicate<ItemEntity> { entity -> entity != null && !entity.cannotPickup() }
+        val PICKABLE_DROP_FILTER = Predicate<ItemEntity> { entity -> entity != null &&
+                !entity.cannotPickup() && entity.stack.isIn(DirebatsItemTags.PICKED_UP_BY_DIREBAT)
+        }
 
         val HANGING: TrackedData<Boolean> = DataTracker.registerData(DirebatEntity::class.java, TrackedDataHandlerRegistry.BOOLEAN)
         val EATING_TIME: TrackedData<Int> = DataTracker.registerData(DirebatEntity::class.java, TrackedDataHandlerRegistry.INTEGER)
