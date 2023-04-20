@@ -1,3 +1,6 @@
-CHANGELOG FOR 3.0.0+1.19.2:
+CHANGELOG FOR 3.1.0:
 
-- Downdated to 1.19.2
+- Tweaked Direbat spawning
+  - Reduced spawn weight
+  - Reduced spawn group sizes
+  - Added spawning biome tag
