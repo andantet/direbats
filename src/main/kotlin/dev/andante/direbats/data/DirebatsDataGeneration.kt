@@ -5,6 +5,7 @@ import dev.andante.direbats.data.client.DirebatsModelProvider
 import dev.andante.direbats.data.server.DirebatsAdvancementProvider
 import dev.andante.direbats.data.server.DirebatsEntityLootTableProvider
 import dev.andante.direbats.data.server.DirebatsRecipeProvider
+import dev.andante.direbats.data.server.tag.DirebatsBiomeTagProvider
 import dev.andante.direbats.data.server.tag.DirebatsEntityTypeTagProvider
 import dev.andante.direbats.data.server.tag.DirebatsGameEventTagProvider
 import dev.andante.direbats.data.server.tag.DirebatsItemTagProvider
@@ -23,6 +24,7 @@ object DirebatsDataGeneration : DataGeneratorEntrypoint {
         generator.addProvider(::DirebatsEntityLootTableProvider)
         generator.addProvider(::DirebatsRecipeProvider)
 
+        generator.addProvider(::DirebatsBiomeTagProvider)
         generator.addProvider(::DirebatsEntityTypeTagProvider)
         generator.addProvider(::DirebatsGameEventTagProvider)
         generator.addProvider(::DirebatsItemTagProvider)
