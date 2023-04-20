@@ -12,8 +12,7 @@ import net.minecraft.registry.tag.GameEventTags
  */
 class DirebatsGameEventTagProvider(out: FabricDataOutput, registriesFuture: CompletableFuture<RegistryWrapper.WrapperLookup>) : FabricTagProvider.GameEventTagProvider(out, registriesFuture)  {
     override fun configure(arg: RegistryWrapper.WrapperLookup) {
-        getOrCreateTagBuilder(DirebatsGameEventTags.DIREBAT_CAN_LISTEN).forceAddTag(
-            GameEventTags.VIBRATIONS
-        )
+        getOrCreateTagBuilder(DirebatsGameEventTags.DIREBAT_CAN_LISTEN)
+            .forceAddTag(GameEventTags.VIBRATIONS)
     }
 }

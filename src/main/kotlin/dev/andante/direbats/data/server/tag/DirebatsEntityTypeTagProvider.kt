@@ -14,12 +14,11 @@ import net.minecraft.registry.tag.EntityTypeTags
  */
 class DirebatsEntityTypeTagProvider(out: FabricDataOutput, registriesFuture: CompletableFuture<RegistryWrapper.WrapperLookup>) : FabricTagProvider.EntityTypeTagProvider(out, registriesFuture) {
     override fun configure(arg: RegistryWrapper.WrapperLookup) {
-        getOrCreateTagBuilder(DirebatsEntityTypeTags.DIREBAT_FANG_ARROW_EFFECTS_IMMUNE).add(
-            DirebatsEntityTypes.DIREBAT
-        ).forceAddTag(ConventionalEntityTypeTags.BOSSES)
+        getOrCreateTagBuilder(DirebatsEntityTypeTags.DIREBAT_FANG_ARROW_EFFECTS_IMMUNE)
+            .add(DirebatsEntityTypes.DIREBAT)
+            .forceAddTag(ConventionalEntityTypeTags.BOSSES)
 
-        getOrCreateTagBuilder(EntityTypeTags.ARROWS).add(
-            DirebatsEntityTypes.DIREBAT
-        )
+        getOrCreateTagBuilder(EntityTypeTags.ARROWS)
+            .add(DirebatsEntityTypes.DIREBAT)
     }
 }

@@ -2,6 +2,7 @@ package dev.andante.direbats.entity
 
 import dev.andante.direbats.Direbats
 import dev.andante.direbats.item.DirebatsItems
+import dev.andante.direbats.tag.DirebatsBiomeTags
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors
 import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricEntityTypeBuilder
@@ -56,16 +57,14 @@ object DirebatsEntityTypes {
 
     init {
         DispenserBlock.registerBehavior(DirebatsItems.DIREBAT_FANG_ARROW, object : ProjectileDispenserBehavior() {
-            override fun createProjectile(world: World, pos: Position, stack: ItemStack?): ProjectileEntity {
+            override fun createProjectile(world: World, pos: Position, stack: ItemStack): ProjectileEntity {
                 val entity = DirebatFangArrowEntity(world, pos.x, pos.y, pos.z)
                 entity.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED
                 return entity
             }
         })
 
-        BiomeModifications.addSpawn({ context ->
-            BiomeSelectors.foundInOverworld().test(context) && BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE).test(context)
-        }, SpawnGroup.MONSTER, DIREBAT, 47, 2, 4)
+        BiomeModifications.addSpawn(BiomeSelectors.tag(DirebatsBiomeTags.DIREBAT_CAN_SPAWN), SpawnGroup.MONSTER, DIREBAT, 36, 1, 3)
     }
 
     private fun <T : Entity> register(id: String, build: EntityType<T>): EntityType<T> {
