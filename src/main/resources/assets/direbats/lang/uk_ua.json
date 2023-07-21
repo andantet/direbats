@@ -1,0 +1,15 @@
+{
+  "advancements.adventure.direbats:direbat_picks_up_egg.description": "Киньте яйце на землю та спостерігайте як страхокрил вкраде його",
+  "advancements.adventure.direbats:direbat_picks_up_egg.title": "Злі кажани",
+  "entity.direbats.direbat": "Страхокрил",
+  "entity.direbats.direbat_fang_arrow": "Стріла з ікла страхокрила",
+  "gamerule.direbats:doDirebatItemPickup": "Страхокрил підіймає кинуті предмети",
+  "item.direbats.direbat_fang": "Ікло страхокрила",
+  "item.direbats.direbat_fang_arrow": "Стріла з ікла страхокрила",
+  "item.direbats.direbat_spawn_egg": "Яйце виклику страхокрила",
+  "itemGroup.direbats.all": "Direbats",
+  "subtitles.direbats.entity.direbat.ambient": "Страхокрил грізно пищить",
+  "subtitles.direbats.entity.direbat.attack": "Страхокрил впивається зубами",
+  "subtitles.direbats.entity.direbat.death": "Страхокрил гине",
+  "subtitles.direbats.entity.direbat.hurt": "Страхокрила поранено"
+}
